@@ -1,0 +1,29 @@
+What's in a LFM?
+
+Needed:
+
+- What fight
+    UWU, UCOB, TEA, DSU
+- Times
+    Select from intervals of 15 min - no way groups start at anything else
+- Prog point
+    Would need to manually add options for each fight
+- Roles needed
+    Allow for flex/multiple role searching?
+- Current comp
+
+Optional/Possible:
+
+- ilvl/gear
+- Current member logs
+    Just a link to the log, nothing fancy
+- Past experience
+    Not sure here, maybe single/double/triple legend options, should they be able to select certain fights? ex) need TEA/UCOB
+    clear.
+- Free space for info
+    Here they can put whatever crap about "we've been raiding for 25 years" etc.
+
+Features when we have a 10 man team:
+
+- Verify logs/clears???? Might not be as popular and would be a bit tough, but would be really cool
+- Connect avg parsing numbers to account? Same problems as above
