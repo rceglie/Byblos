@@ -20,8 +20,7 @@ Optional/Possible:
 - Past experience
     Not sure here, maybe single/double/triple legend options, should they be able to select certain fights? ex) need TEA/UCOB
     clear.
-- Free space for info
-    Here they can put whatever crap about "we've been raiding for 25 years" etc.
+- Free space for custom text info
 
 Features when we have a 10 man team:
 
