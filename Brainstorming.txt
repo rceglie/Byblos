@@ -26,3 +26,16 @@ Features when we have a 10 man team:
 
 - Verify logs/clears???? Might not be as popular and would be a bit tough, but would be really cool
 - Connect avg parsing numbers to account? Same problems as above
+
+
+
+LFM Post:
+- fight
+- Times
+- prog point
+- roles needed
+- current comp
+- ilvl
+- current member logs
+- past experience
+- description

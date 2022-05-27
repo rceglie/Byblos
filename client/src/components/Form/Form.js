@@ -7,7 +7,7 @@ import { createPost, updatePost } from '../../actions/posts';
 const Form = ( {currentId, setCurrentId}) => {
 
     const [postData, setPostData] = useState({
-        creator: '', title: '', message: '', tags: '', selectedFile: ''
+        creator: '', title: '', message: '', tags: '', selectedFile: '', times: "time"
     });
     const dispatch = useDispatch();
     const post = useSelector((state) => currentId ? state.posts.find((p) => p._id == currentId) : null);
@@ -28,7 +28,7 @@ const Form = ( {currentId, setCurrentId}) => {
 
     const clear = () => {
         setCurrentId(null);
-        setPostData({creator: '', title: '', message: '', tags: '', selectedFile: ''})
+        setPostData({creator: '', title: '', message: '', tags: '', selectedFile: '', times: "time"})
     }
 
     return (
