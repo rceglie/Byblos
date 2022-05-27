@@ -36,10 +36,10 @@ const Form = ( {currentId, setCurrentId}) => {
             <form autoComplete="off" onSubmit={handleSumbit}>
                 <Typography variant="h6">{currentId ? "Editing a Memory" : "Create a Looking for Member (LFM) Post"}</Typography>
                 <RadioGroup row name="fight">
-                    <FormControlLabel value="UWU" control={<Radio required={true}/>} label="UWU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                    <FormControlLabel value="UCOB" control={<Radio required={true}/>} label="UCOB" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                    <FormControlLabel value="TEA" control={<Radio required={true}/>} label="TEA" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                    <FormControlLabel value="DSU" control={<Radio required={true}/>} label="DSU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <FormControlLabel id="uwusel" value="UWU" control={<Radio required={true}/>} label="UWU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <FormControlLabel id="uwusel" value="UCOB" control={<Radio required={true}/>} label="UCOB" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <FormControlLabel id="uwusel" value="TEA" control={<Radio required={true}/>} label="TEA" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <FormControlLabel id="uwusel" value="DSU" control={<Radio required={true}/>} label="DSU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
                 </RadioGroup>
                 <TextField
                     name="times"
