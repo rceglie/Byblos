@@ -7,6 +7,8 @@ import thunk from 'redux-thunk';
 import "./index.css";
 import reducers from './reducers';
 
+document.title = 'Byblos'
+
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
