@@ -11,7 +11,6 @@ const Post = ({post, setCurrentId}) => {
 
     return (
         <Card>
-            <CardMedia title={post.title}/>
             <div>
                 <Typography variant="h6">LFM Post</Typography>
                 <Typography variant="body2">Fight: {post.fight}</Typography>
@@ -23,6 +22,7 @@ const Post = ({post, setCurrentId}) => {
                 <Typography variant="body2">Logs:  {post.logs}</Typography>
                 <Typography variant="body2">Exp:   {post.exp}</Typography>
                 <Typography variant="body2">Desc:  {post.desc}</Typography>
+                <Typography variant="body2">Posted by: {post.name}</Typography>
                 <Typography variant="body2">Created {moment(post.createdAt).fromNow()}</Typography>
             </div>
             <CardActions>

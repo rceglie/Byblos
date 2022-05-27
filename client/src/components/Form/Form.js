@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import { TextField, Button, Typography, RadioGroup, Radio, FormControlLabel, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import "./style.css";
@@ -11,6 +11,8 @@ const Form = ( {currentId, setCurrentId}) => {
     });
     const dispatch = useDispatch();
     const post = useSelector((state) => currentId ? state.posts.find((p) => p._id == currentId) : null);
+    const user = JSON.parse(localStorage.getItem('profile'))
+
     useEffect(()=>{
         if (post) setPostData(post)
     },[post]);
@@ -18,21 +20,32 @@ const Form = ( {currentId, setCurrentId}) => {
     const handleSumbit = (e) => {
         e.preventDefault();
 
-        if(currentId) {
-            dispatch(updatePost(currentId, postData));
+        if(currentId == 0) {
+            console.log(user?.result?.name)
+            dispatch(createPost({...postData, name: user?.result?.name}));
         } else {
-            dispatch(createPost(postData));
+            dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
         }
         clear();   
     }
 
+    if(!user?.result?.name) {
+        return (
+            <Paper>
+                <Typography variant="h6" align="center">
+                    Sign in to modify stuff
+                </Typography>
+            </Paper>
+        )
+    }
+
     const clear = () => {
-        setCurrentId(null);
+        setCurrentId(0);
         setPostData({fight: postData.fight, times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""})
     }
 
     return (
-        <div class="create-LFM">
+        <div className="create-LFM">
             <form autoComplete="off" onSubmit={handleSumbit}>
                 <Typography variant="h6">{currentId ? "Editing a Memory" : "Create a Looking for Member (LFM) Post"}</Typography>
                 <RadioGroup row name="fight">
