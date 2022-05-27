@@ -28,7 +28,7 @@ const Form = ( {currentId, setCurrentId}) => {
 
     const clear = () => {
         setCurrentId(null);
-        setPostData({fight: '', times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""})
+        setPostData({fight: postData.fight, times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""})
     }
 
     return (
