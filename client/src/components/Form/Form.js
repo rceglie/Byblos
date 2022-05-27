@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper } from '@mui/material';
-import FileBase from 'react-file-base64';
+import { TextField, Button, Typography, RadioGroup, Radio, FormControlLabel } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
+import "./style.css";
 
 const Form = ( {currentId, setCurrentId}) => {
 
     const [postData, setPostData] = useState({
-        creator: '', title: '', message: '', tags: '', selectedFile: '', times: "time"
+        fight: '', times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""
     });
     const dispatch = useDispatch();
     const post = useSelector((state) => currentId ? state.posts.find((p) => p._id == currentId) : null);
     useEffect(()=>{
         if (post) setPostData(post)
     },[post]);
+
     const handleSumbit = (e) => {
         e.preventDefault();
 
@@ -22,54 +23,87 @@ const Form = ( {currentId, setCurrentId}) => {
         } else {
             dispatch(createPost(postData));
         }
-        clear();
-        
+        clear();   
     }
 
     const clear = () => {
         setCurrentId(null);
-        setPostData({creator: '', title: '', message: '', tags: '', selectedFile: '', times: "time"})
+        setPostData({fight: '', times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""})
     }
 
     return (
-        <Paper>
-            <form autoComplete="off" noValidate onSubmit={handleSumbit}>
-                <Typography variant="h6">{currentId ? "Editing a Memory" : "Creating a Memory"}</Typography>
+        <div class="create-LFM">
+            <form autoComplete="off" onSubmit={handleSumbit}>
+                <Typography variant="h6">{currentId ? "Editing a Memory" : "Create a Looking for Member (LFM) Post"}</Typography>
+                <RadioGroup row name="fight">
+                    <FormControlLabel value="UWU" control={<Radio required={true}/>} label="UWU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <FormControlLabel value="UCOB" control={<Radio required={true}/>} label="UCOB" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <FormControlLabel value="TEA" control={<Radio required={true}/>} label="TEA" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <FormControlLabel value="DSU" control={<Radio required={true}/>} label="DSU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                </RadioGroup>
                 <TextField
-                    name="creator"
+                    name="times"
+                    required
                     variant="outlined"
-                    label="Creator"
+                    label="Times"
                     fullWidth
-                    value={postData.creator}
-                    onChange={(e) => setPostData({ ... postData, creator: e.target.value })}/>
+                    value={postData.times}
+                    onChange={(e) => setPostData({ ... postData, times: e.target.value })}/>
                 <TextField
-                    name="title"
+                    name="prog"
+                    required
                     variant="outlined"
-                    label="Title"
+                    label="Prog"
                     fullWidth
-                    value={postData.title}
-                    onChange={(e) => setPostData({ ... postData, title: e.target.value })}/>
+                    value={postData.prog}
+                    onChange={(e) => setPostData({ ... postData, prog: e.target.value })}/>
                 <TextField
-                    name="message"
+                    name="roles"
+                    required
                     variant="outlined"
-                    label="Message"
+                    label="Roles"
                     fullWidth
-                    value={postData.message}
-                    onChange={(e) => setPostData({ ... postData, message: e.target.value })}/>
+                    value={postData.roles}
+                    onChange={(e) => setPostData({ ... postData, roles: e.target.value })}/>
                 <TextField
-                    name="tag6s"
+                    name="comp"
                     variant="outlined"
-                    label="Tags"
+                    label="Comp"
                     fullWidth
-                    value={postData.tags}
-                    onChange={(e) => setPostData({ ... postData, tags: e.target.value.split(",") })}/>
-                <div>
-                    <FileBase type="file" multiple={false} onDone={({base64}) => setPostData({ ... postData, selectedFile: base64})}/>
-                </div>
+                    value={postData.comp}
+                    onChange={(e) => setPostData({ ... postData, comp: e.target.value })}/>
+                <TextField
+                    name="ilvl"
+                    variant="outlined"
+                    label="ilvl"
+                    fullWidth
+                    value={postData.ilvl}
+                    onChange={(e) => setPostData({ ... postData, ilvl: e.target.value })}/>
+                <TextField
+                    name="logs"
+                    variant="outlined"
+                    label="Logs"
+                    fullWidth
+                    value={postData.logs}
+                    onChange={(e) => setPostData({ ... postData, logs: e.target.value })}/>
+                <TextField
+                    name="exp"
+                    variant="outlined"
+                    label="Exp"
+                    fullWidth
+                    value={postData.exp}
+                    onChange={(e) => setPostData({ ... postData, exp: e.target.value })}/>
+                <TextField
+                    name="desc"
+                    variant="outlined"
+                    label="Desc"
+                    fullWidth
+                    value={postData.desc}
+                    onChange={(e) => setPostData({ ... postData, desc: e.target.value })}/>
                 <Button variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>
-        </Paper>
+        </div>
     );
 }
 
