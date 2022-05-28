@@ -10,7 +10,7 @@ const Form = ( {currentId, setCurrentId}) => {
         fight: '', times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""
     });
     const dispatch = useDispatch();
-    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id == currentId) : null);
+    const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
     const user = JSON.parse(localStorage.getItem('profile'))
 
     useEffect(()=>{
@@ -22,7 +22,7 @@ const Form = ( {currentId, setCurrentId}) => {
 
         if(currentId == 0) {
             console.log(user?.result?.name)
-            dispatch(createPost({...postData, name: user?.result?.name}));
+            dispatch(createPost({...postData, name: user?.result?.name, creator: user?.result?._id}));
         } else {
             dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
         }

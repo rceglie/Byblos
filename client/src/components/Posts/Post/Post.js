@@ -7,7 +7,11 @@ import {deletePost, likePost} from '../../../actions/posts';
 
 const Post = ({post, setCurrentId}) => {
     const dispatch = useDispatch();
-    //console.log(post)
+    const user = JSON.parse(localStorage.getItem('profile'))
+    console.log("USER: " + user?.result?._id)
+    console.log("POST: " + post?._id)
+    console.log(user)
+    console.log(post)
 
     return (
         <Card>
@@ -30,12 +34,17 @@ const Post = ({post, setCurrentId}) => {
                     &nbsp; Likes &nbsp;
                     {post.likeCount}
                 </Button>
-                <Button size="small" color="primary" onClick={()=>dispatch(deletePost(post._id))}>
-                    Delete
-                </Button>
-                <Button style={{color:'black'}} size="small" onClick={() => setCurrentId(post._id)}>
-                    <MoreHorizIcon fontSize="large"/>
-                </Button>
+                {(user?.result?._id == post?.creator) && (
+                    <div>
+                        <Button size="small" color="primary" onClick={()=>dispatch(deletePost(post._id))}>
+                            Delete
+                        </Button>
+                        <Button style={{color:'black'}} size="small" onClick={() => setCurrentId(post._id)}>
+                            <MoreHorizIcon fontSize="large"/>
+                        </Button>
+                    </div>
+                    
+                )}
             </CardActions>
         </Card>
     );
