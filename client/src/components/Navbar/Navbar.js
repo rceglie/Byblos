@@ -31,7 +31,8 @@ const Navbar = () => {
     return(
         <AppBar position="static" color="inherit">
       <div>
-        <Typography component={Link} to="/" variant="h2" align="center">Memories</Typography>
+        <Typography component={Link} to="/" variant="h2" align="center">Byblos</Typography>
+        <h2>The Final Fantasy XIV Static Finder</h2>
         <img src={soxpicture} alt="icon" height="60" />
       </div>
       <Toolbar>

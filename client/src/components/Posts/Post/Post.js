@@ -15,6 +15,9 @@ const Post = ({post, setCurrentId}) => {
         navigate(`/posts/${post._id}`);
     }
 
+    console.log("In post component: ")
+    console.log(post)
+
     return (
         <Card>
             <ButtonBase

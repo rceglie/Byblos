@@ -34,7 +34,7 @@ const Form = ( {currentId, setCurrentId}) => {
         return (
             <Paper>
                 <Typography variant="h6" align="center">
-                    Sign in to modify stuff
+                    Sign in to create a LFM post
                 </Typography>
             </Paper>
         )
