@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, RadioGroup, Radio, FormControlLabel, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
+import { useNavigate } from 'react-router-dom';
 import "./style.css";
 
 const Form = ( {currentId, setCurrentId}) => {
@@ -10,8 +11,9 @@ const Form = ( {currentId, setCurrentId}) => {
         fight: '', times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""
     });
     const dispatch = useDispatch();
-    const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
+    const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
     const user = JSON.parse(localStorage.getItem('profile'))
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if (post) setPostData(post)
@@ -21,8 +23,7 @@ const Form = ( {currentId, setCurrentId}) => {
         e.preventDefault();
 
         if(currentId == 0) {
-            console.log(user?.result?.name)
-            dispatch(createPost({...postData, name: user?.result?.name, creator: user?.result?._id}));
+            dispatch(createPost({...postData, name: user?.result?.name, creator: user?.result?._id}, navigate))
         } else {
             dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
         }
