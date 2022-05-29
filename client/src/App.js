@@ -2,7 +2,6 @@ import React from 'react';
 import { Container } from '@mui/material';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
-import "./style/app.css"
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';

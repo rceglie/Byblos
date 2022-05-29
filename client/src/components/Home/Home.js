@@ -7,8 +7,7 @@ import { getPosts, getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Pagination from '../Pagination';
-
-import "../../style/app.css"
+import "../../style/home.css"
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -52,8 +51,8 @@ const Home = () => {
                     <Posts setCurrentId={setCurrentId}/>
                 </Grid>
                 <Grid item xs={12} sm={4} md={3}>
-                    <AppBar position="static" color="inherit">
-                        <TextField name="search" variant="outlined" label="Search Fight" onKeyPress={handleKeyPress} fullWidth value={search} onChange={(e) => setSearch(e.target.value)}/>
+                    <AppBar position="static" color="inherit" className="search-form">
+                        <TextField name="search" label="Search Fight" onKeyPress={handleKeyPress} fullWidth value={search} onChange={(e) => setSearch(e.target.value)}/>
                         <ChipInput value={tags} onAdd={handleAdd} onDelete={handleDelete} label="Search Tags"/>
                         <Button variant="contained" onClick={searchPost} color="primary">Search</Button>
                     </AppBar>

@@ -6,12 +6,13 @@ const postSchema = mongoose.Schema({
     fight: String,
     times: String,
     prog: String,
-    roles: String,
+    roles: [[String]],
     comp: String,
     ilvl: String,
     logs: String,
     exp: String, 
-    desc: String
+    desc: String,
+    createdAt: String
 });
 
 const PostMessage = mongoose.model('PostMessage', postSchema);

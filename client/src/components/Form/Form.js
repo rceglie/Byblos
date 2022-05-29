@@ -3,12 +3,13 @@ import { TextField, Button, Typography, RadioGroup, Radio, FormControlLabel, Pap
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import { useNavigate } from 'react-router-dom';
-import "./style.css";
+import RoleSelect from './RoleSelect';
+import "../../style/form.css";
 
 const Form = ( {currentId, setCurrentId}) => {
 
     const [postData, setPostData] = useState({
-        fight: '', times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""
+        fight: '', times: '', prog: '', roles: [], comp: '', ilvl: "", logs: "", exp: "", desc: ""
     });
     const dispatch = useDispatch();
     const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
@@ -19,7 +20,13 @@ const Form = ( {currentId, setCurrentId}) => {
         if (post) setPostData(post)
     },[post]);
 
+    useEffect(()=>{
+        console.log("Post data: ")
+        console.log(postData)
+    });
+
     const handleSumbit = (e) => {
+        console.log("scrap")
         e.preventDefault();
 
         if(currentId == 0) {
@@ -28,6 +35,14 @@ const Form = ( {currentId, setCurrentId}) => {
             dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
         }
         clear();   
+    }
+
+    const handleCallback = (childData) => {
+        console.log("hi")
+        let newArr = postData.roles
+        newArr.push(childData);
+        console.log(newArr)
+        setPostData(prevState => ({...prevState, roles: newArr}))
     }
 
     if(!user?.result?.name) {
@@ -42,7 +57,7 @@ const Form = ( {currentId, setCurrentId}) => {
 
     const clear = () => {
         setCurrentId(0);
-        setPostData({fight: postData.fight, times: '', prog: '', roles: '', comp: '', ilvl: "", logs: "", exp: "", desc: ""})
+        setPostData({fight: postData.fight, times: '', prog: '', roles: [], comp: '', ilvl: "", logs: "", exp: "", desc: ""})
     }
 
     return (
@@ -71,14 +86,11 @@ const Form = ( {currentId, setCurrentId}) => {
                     fullWidth
                     value={postData.prog}
                     onChange={(e) => setPostData({ ... postData, prog: e.target.value })}/>
-                <TextField
-                    name="roles"
-                    required
-                    variant="outlined"
-                    label="Roles"
-                    fullWidth
-                    value={postData.roles}
-                    onChange={(e) => setPostData({ ... postData, roles: e.target.value })}/>
+                <div>
+                    <h3>Roles Needed:</h3>
+                    {postData.roles.map((mem) => (<p>Slot {postData.roles.indexOf(mem)+1} : {mem}</p>))}
+                    <RoleSelect parentCallback={handleCallback}/>
+                </div>
                 <TextField
                     name="comp"
                     variant="outlined"

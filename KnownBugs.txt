@@ -1,0 +1,3 @@
+When selecting roles needed for the static, if a job is selected, then the ANY for that role is selected and unselected, the job initially selected
+will still appear to be selected, but will not actually be selected in the code.
+EX) PLD selected, Tank (ANY) select, Tank (ANY) deselected : PLD will still appear to be selected but will not show up after "Confirm Roles" is pressed
