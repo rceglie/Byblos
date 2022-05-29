@@ -4,6 +4,7 @@ import soxpicture from '../../images/sox.jpg';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
+import "../../style/navbar.css"
 
 const Navbar = () => {
 
@@ -28,14 +29,24 @@ const Navbar = () => {
       setUser(null)
     }
 
-    return(
-        <AppBar position="static" color="inherit">
-      <div>
-        <Typography component={Link} to="/" variant="h2" align="center">Byblos</Typography>
-        <h2>The Final Fantasy XIV Static Finder</h2>
-        <img src={soxpicture} alt="icon" height="60" />
+    const clickHome = () => {
+      navigate("/")
+    }
+
+  return(
+    <div className="container">
+      <div className="left-side">
+        <div className="site-info">
+          <img className="logo" onClick={clickHome} src={soxpicture} alt="icon" height="60" />
+          <h1 className="title" onClick={clickHome}>Byblos</h1>
+          <h2>The Final Fantasy XIV Static Finder</h2>
+        </div>
+        <div className="navigation-btns">
+          <button>Create Post (you must be logged in to create a post)</button>
+          <button>Search Posts neither of these do anything yet</button>
+        </div>
       </div>
-      <Toolbar>
+      <Toolbar className="toolbar">
         {user ? (
           <div>
             <Avatar>{user?.result.name.charAt(0)}</Avatar>
@@ -46,8 +57,8 @@ const Navbar = () => {
           <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
         )}
       </Toolbar>
-    </AppBar>
-    )
-    }
+    </div>
+  )
+}
 
 export default Navbar;

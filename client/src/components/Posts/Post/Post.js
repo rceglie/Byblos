@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import {deletePost, likePost} from '../../../actions/posts';
 import {useNavigate} from 'react-router-dom'
+import "../../../style/post.css"
 
 const Post = ({post, setCurrentId}) => {
     const dispatch = useDispatch();
