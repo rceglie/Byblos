@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, RadioGroup, Radio, FormControlLabel, Paper } from '@mui/material';
+import { TextField, Button, Typography, Radio, FormControlLabel, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import { useNavigate } from 'react-router-dom';
 import RoleSelect from './RoleSelect';
 import "../../style/form.css";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
+import {getImage} from "./getImage.js";
 
 const Form = ( {currentId, setCurrentId}) => {
 
@@ -60,16 +65,36 @@ const Form = ( {currentId, setCurrentId}) => {
         setPostData({fight: postData.fight, times: '', prog: '', roles: [], comp: '', ilvl: "", logs: "", exp: "", desc: ""})
     }
 
+    const editSlot = () => {
+        console.log("edit clicked")
+    }
+
+    const deleteSlot = () => {
+
+    }
+
     return (
-        <div className="create-LFM">
+        <div className="create-LFM border">
             <form autoComplete="off" onSubmit={handleSumbit}>
-                <Typography variant="h6">{currentId ? "Editing a Memory" : "Create a Looking for Member (LFM) Post"}</Typography>
-                <RadioGroup row name="fight">
-                    <FormControlLabel id="uwusel" value="UWU" control={<Radio required={true}/>} label="UWU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                    <FormControlLabel id="uwusel" value="UCOB" control={<Radio required={true}/>} label="UCOB" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                    <FormControlLabel id="uwusel" value="TEA" control={<Radio required={true}/>} label="TEA" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                    <FormControlLabel id="uwusel" value="DSU" control={<Radio required={true}/>} label="DSU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                </RadioGroup>
+                <h3 className="lfm-title"> {currentId ? "Editing a Post" : "Create a Post"}</h3>
+                <div className="fights">
+                    <div className="radio">
+                        <input type="radio" value="UWU" id="uwusel" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                        <label className="radiobtn" for="uwusel">UWU</label>
+                    </div>
+                    <div className="radio">
+                        <input type="radio" value="UCOB" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                        <label className="radiobtn" for="ucobsel">UCOB</label>
+                    </div>
+                    <div className="radio">
+                        <input type="radio" value="UWU" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                        <label className="radiobtn" for="teasel">TEA</label>
+                    </div>
+                    <div className="radio">
+                        <input type="radio" value="DSU" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                        <label className="radiobtn" for="dsusel">DSU</label>
+                    </div>
+                </div>
                 <TextField
                     name="times"
                     required
@@ -88,7 +113,36 @@ const Form = ( {currentId, setCurrentId}) => {
                     onChange={(e) => setPostData({ ... postData, prog: e.target.value })}/>
                 <div>
                     <h3>Roles Needed:</h3>
-                    {postData.roles.map((mem) => (<p>Slot {postData.roles.indexOf(mem)+1} : {mem}</p>))}
+                    {postData.roles.map((mem) => (
+                        <div className="slot">
+                            <div className="slot-header">
+                                <p>Slot {postData.roles.indexOf(mem)+1}</p>
+                                <div className="slot-buttons">
+                                    <Button onClick={editSlot}>
+                                        <EditIcon />
+                                    </Button>
+                                    <Button onClick={deleteSlot}>
+                                        <DeleteIcon />
+                                    </Button>
+                                </div>
+                            </div>
+                            <div className="slot-content">
+                                {
+                                    mem.map((job) => {
+                                        return (
+                                            <div className="singleRole">
+                                                <img className="roleImage" src={getImage(job)}/>
+                                                {
+                                                    (mem.indexOf(job) != mem.length-1) ? <h1>/</h1> : <p></p>
+                                                }
+                                            </div>
+                                        )
+                                                
+                                    })
+                                }
+                            </div>
+                        </div>
+                    ))}
                     <RoleSelect parentCallback={handleCallback}/>
                 </div>
                 <TextField

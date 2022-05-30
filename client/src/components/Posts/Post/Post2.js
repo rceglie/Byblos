@@ -20,7 +20,8 @@ const Post = ({post, setCurrentId}) => {
     console.log(post)
 
     return (
-        <div className="card-container border">
+        <div className="card-container">
+            <Card>
                 <ButtonBase
                     component="span"
                     name="test"
@@ -57,6 +58,7 @@ const Post = ({post, setCurrentId}) => {
                         </div>   
                     )}
                 </CardActions>
+            </Card>
         </div>
     );
 }

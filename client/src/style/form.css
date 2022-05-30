@@ -1,0 +1,64 @@
+.roleImage {
+    width: 40px;
+    height: 40px;
+    margin: 0px 5px 0px 5px;
+}
+
+.slot {
+    background-color:grey;
+    border-style: solid;
+    border-color: black;
+}
+
+.slot-content {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.singleRole {
+    height:45px;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+}
+
+.slot-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.slot-buttons {
+    display: flex;
+}
+
+.create-LFM {
+    background-color:rgb(37, 37, 37);
+    color: white;
+}
+
+.lfm-title {
+    text-align: center;
+    border-bottom-color: rgb(139, 139, 139);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-bottom: 10px;
+    margin: 10px 0 10px 0;
+}
+
+.fights {
+    display:flex;
+    justify-content: space-evenly;
+    color: rgb(255, 255, 255);
+}
+
+.radio {
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(139, 139, 139);
+    padding:10px;
+}
+
+.radiobtn {
+    padding-left:10px;
+}

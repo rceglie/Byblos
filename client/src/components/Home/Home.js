@@ -45,13 +45,13 @@ const Home = () => {
 
   return (
     <Grow in>
-        <Container maxWidth="xl">
+        <div>
             <Grid container justify="space-between" alignItems="stretch" spacing={3}>
                 <Grid item xs={12} sm={7} md={9}>
                     <Posts setCurrentId={setCurrentId}/>
                 </Grid>
                 <Grid item xs={12} sm={4} md={3}>
-                    <AppBar position="static" color="inherit" className="search-form">
+                    <AppBar position="static" color="inherit" className="search-container border">
                         <TextField name="search" label="Search Fight" onKeyPress={handleKeyPress} fullWidth value={search} onChange={(e) => setSearch(e.target.value)}/>
                         <ChipInput value={tags} onAdd={handleAdd} onDelete={handleDelete} label="Search Tags"/>
                         <Button variant="contained" onClick={searchPost} color="primary">Search</Button>
@@ -62,7 +62,7 @@ const Home = () => {
                     </Paper>
                 </Grid>
             </Grid>
-        </Container>
+        </div>
     </Grow>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import { AppBar, Typography, Toolbar, Button, Avatar, Divider } from "@mui/material";
-import soxpicture from '../../images/sox.jpg';
+import logo from '../../images/logo2.jpg';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
@@ -37,7 +37,7 @@ const Navbar = () => {
     <div className="container">
       <div className="left-side">
         <div className="site-info">
-          <img className="logo" onClick={clickHome} src={soxpicture} alt="icon" height="60" />
+          <img className="logo" onClick={clickHome} src={logo} alt="icon" height="60" />
           <h1 className="title" onClick={clickHome}>Byblos</h1>
           <h2>The Final Fantasy XIV Static Finder</h2>
         </div>
