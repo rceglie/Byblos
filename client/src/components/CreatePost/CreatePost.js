@@ -3,13 +3,13 @@ import { TextField, Button, Typography, Radio, FormControlLabel, Paper } from '@
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import { useNavigate } from 'react-router-dom';
-import RoleSelect from '../CreatePost/RoleSelect';
-import "../../style/form.css";
+import RoleSelect from './RoleSelect';
+import "../../style/createpost.css";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {getImage} from "../CreatePost/getImage.js";
+import {getImage} from "./getImage.js";
 
-const Form = ( {currentId, setCurrentId}) => {
+const CreatePost = ({currentId, setCurrentId}) => {
 
     const [postData, setPostData] = useState({
         fight: '', times: '', prog: '', roles: [], comp: '', ilvl: "", logs: "", exp: "", desc: ""
@@ -71,27 +71,28 @@ const Form = ( {currentId, setCurrentId}) => {
 
     }
 
-    return (
-        <div className="create-LFM border">
+  return (
+    <div className="create-LFM border">
             <form autoComplete="off" onSubmit={handleSumbit}>
                 <h3 className="lfm-title"> {currentId ? "Editing a Post" : "Create a Post"}</h3>
-                <div className="fights">
-                    <div className="radio">
-                        <input type="radio" value="UWU" id="uwusel" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="uwusel">UWU</label>
-                    </div>
-                    <div className="radio">
-                        <input type="radio" value="UCOB" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="ucobsel">UCOB</label>
-                    </div>
-                    <div className="radio">
-                        <input type="radio" value="UWU" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="teasel">TEA</label>
-                    </div>
-                    <div className="radio">
-                        <input type="radio" value="DSU" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="dsusel">DSU</label>
-                    </div>
+
+                <div className="wrapper">
+                    <input type="radio" name="fightsel" id="option-1" value="UWU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <input type="radio" name="fightsel" id="option-2" value="UCOB" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <input type="radio" name="fightsel" id="option-3" value="TEA" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <input type="radio" name="fightsel" id="option-4" value="DSU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
+                    <label for="option-1" class="option option-1">
+                        <span>UWU</span>
+                    </label>
+                    <label for="option-2" class="option option-2">
+                        <span>UCOB</span>
+                    </label>
+                    <label for="option-3" class="option option-3">
+                        <span>TEA</span>
+                    </label>
+                    <label for="option-4" class="option option-4">
+                        <span>DSU</span>
+                    </label>
                 </div>
                 <TextField
                     name="times"
@@ -182,7 +183,7 @@ const Form = ( {currentId, setCurrentId}) => {
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>
         </div>
-    );
+  )
 }
 
-export default Form;
+export default CreatePost

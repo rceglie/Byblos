@@ -5,6 +5,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import "../../style/navbar.css"
+import Menu from "./Menu.js"
 
 const Navbar = () => {
 
@@ -35,16 +36,13 @@ const Navbar = () => {
 
   return(
     <div className="container">
-      <div className="left-side">
-        <div className="site-info">
+      <Menu />
+      <div className="middle-item">
+        <div className="title-pic">
           <img className="logo" onClick={clickHome} src={logo} alt="icon" height="60" />
           <h1 className="title" onClick={clickHome}>Byblos</h1>
-          <h2>The Final Fantasy XIV Static Finder</h2>
         </div>
-        <div className="navigation-btns">
-          <button>Create Post (you must be logged in to create a post)</button>
-          <button>Search Posts neither of these do anything yet</button>
-        </div>
+        <h2>The Final Fantasy XIV Static Finder</h2>
       </div>
       <Toolbar className="toolbar">
         {user ? (

@@ -1,33 +1,35 @@
 .container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: nowrap;
     position:relative;
     border-left: 0px;
-    width:97vw;
+    height:10vh;
     border-style: solid;
     border-width: .5px;
     border-color: rgb(255, 255, 255);
     background-color: rgb(11, 11, 11);
     color:white;
     margin-bottom: 10px;
+    align-items: center;
 }
 
 .title:hover, .logo:hover {
     cursor: pointer;
 }
 
-.left-side{
+.menu-btn {
+    width:100px;
+}
+
+.middle-item {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 50px;
 }
 
-.toolbar {
-
-}
-
-.navigation-btns {
-    width:100%;
-    display:flex;
-    justify-content: space-evenly;
-    margin:20px;
+.title-pic {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
