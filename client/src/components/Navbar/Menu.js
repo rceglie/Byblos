@@ -6,20 +6,34 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 const Menu = (props) => {
 
-    const [modal2, setModal2] = useState(false);
+    const [modal, setModal] = useState(false);
 
-    const toggleModal2 = () => {
-        if (!modal2){
+    const toggleModal = () => {
+        if (!modal){
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        setModal2(!modal2)
+        if (document.getElementById("box-content") != null) {
+          if (!modal){
+            setModal(true)
+            document.getElementById("box-content").className = "box slide-in";
+          } else {
+            document.getElementById("box-content").className = "box slide-out";
+            setTimeout(function(){
+              setModal(!modal);
+            }.bind(this),500);
+          }
+        }
+        else{
+          setModal(true)
+        }
+      
     };
 
     useEffect(() => {
-        
+        console.log(modal)
     })
 
-    if(modal2) {
+    if(modal) {
         document.body.classList.add('active-modal2')
     } else {
         document.body.classList.remove('active-modal2')
@@ -27,16 +41,16 @@ const Menu = (props) => {
     
     return (
         <>
-        <Button onClick={toggleModal2} >
+        <Button onClick={toggleModal} >
             <MenuIcon style={{color: "#0000FF"}} sx={{ fontSize: 70 }}/>
         </Button>
     
-          {modal2 && (
+          {modal && (
             <div className="">
               <div className="popup-box">
-                <div className="box">
+                <div id="box-content" className="box slide-in">
                   <div className="menu-header">
-                    <button onClick={toggleModal2} className="close-btn">
+                    <button onClick={toggleModal} className="close-btn">
                       <KeyboardArrowLeftIcon style={{color: "#0000FF"}} sx={{ fontSize: 70 }}/>
                     </button>
                     <p className="menu-title">Menu Stuff</p>
