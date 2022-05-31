@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 0 - local
 // 1 - server
-const backend = 0 // Set to 1 before pushing to github for live deploy
+const backend = 1 // Set to 1 before pushing to github for live deploy
 
 const API = !backend ? axios.create({ baseURL: 'http://localhost:5000'}) : axios.create({ baseURL: 'https://byblos-xiv.herokuapp.com'});
 
