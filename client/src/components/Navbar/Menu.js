@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "../../style/menu.css";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button } from '@mui/material';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const Menu = (props) => {
 
@@ -41,31 +41,19 @@ const Menu = (props) => {
     
     return (
         <>
-        <Button onClick={toggleModal} >
-            <MenuIcon style={{color: "#0000FF"}} sx={{ fontSize: 70 }}/>
-        </Button>
-    
-          {modal && (
-            <div className="">
-              <div className="popup-box">
-                <div id="box-content" className="box slide-in">
-                  <div className="menu-header">
-                    <button onClick={toggleModal} className="close-btn">
-                      <KeyboardArrowLeftIcon style={{color: "#0000FF"}} sx={{ fontSize: 70 }}/>
-                    </button>
-                    <p className="menu-title">Menu Stuff</p>
-                  </div>
-                  <div className="menu-buttons">
-                    <button>Create Post</button>
-                    <button>My Posts</button>
-                    <button>Account Info</button>
-                    <button>About Byblos</button>
-                  </div>
-                </div>
-              </div>
-                
-            </div>
-          )}
+          <ul>
+              <li>
+                <a className="actions">
+                  Actions
+                </a>
+                <ul className="submenu">
+                  <li><a href="/create">Create Post</a></li>
+                  <li><a >My Posts</a></li>
+                  <li><a >Account Info</a></li>
+                  <li><a >About Byblos</a></li>
+                </ul>
+              </li>
+            </ul>
           </>
       );
 }
