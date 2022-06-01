@@ -50,7 +50,7 @@ export const getPostsBySearch = async (req, res) => {
     try {
         const q = new RegExp(searchQuery, "i");
         console.log(q)
-        const posts = await PostMessage.find({fight:q})
+        const posts = await PostMessage.find({fight:q, ilvl:""})
         //const posts = await PostMessage.find({ $or: [ { fight } ]});//, { tags: { $in: tags.split(',') } } ]});
         console.log("FOUND: " + posts)
         res.status(200).json({data: posts});
