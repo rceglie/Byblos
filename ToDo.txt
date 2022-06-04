@@ -1,0 +1,8 @@
+1. Figure out how I'm gonna store dates/times
+2. Complete roles needed (delete/edit)
+2. Finish create ability
+3. Sorting with the new attributes
+4. Saving sort(s)
+5. View and edit own posts page
+6. Prettify drop down menu
+7. Make the site look good (mobile?)

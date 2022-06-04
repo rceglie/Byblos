@@ -38,10 +38,6 @@ const Home = () => {
         }
     }
 
-    const handleAdd = (tag) => setTags ([...tags, tag]);
-
-    const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag != tagToDelete))
-
   return (
     <Grow in>
         <div>
@@ -54,7 +50,6 @@ const Home = () => {
                         <TextField name="search" label="Search Fight" onKeyPress={handleKeyPress} fullWidth value={search} onChange={(e) => setSearch(e.target.value)}/>
                         <Button variant="contained" onClick={searchPost} color="primary">Search</Button>
                     </AppBar>
-                    <Form currentId={currentId} setCurrentId={setCurrentId} />
                     <Paper>
                         <Pagination page={page}/>
                     </Paper>

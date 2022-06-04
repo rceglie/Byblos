@@ -36,6 +36,10 @@
     color: white;
 }
 
+.textfield {
+    color: white;
+}
+
 .lfm-title {
     text-align: center;
     border-bottom-color: rgb(139, 139, 139);
@@ -46,7 +50,7 @@
 }
 /* Below this is the css for the nice radio buttons */
 
-.wrapper{
+.fight-wrapper{
     display:flex;
     
     user-select:none;
@@ -59,7 +63,7 @@
     padding: 20px 15px;
     box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
 }
-.wrapper .option{
+.fight-wrapper .option{
     background: #fff;
     height: 100%;
     width: 100%;
@@ -73,14 +77,14 @@
     border: 2px solid lightgrey;
     transition: all 0.3s ease;
 }
-.wrapper .option .dot{
+.fight-wrapper .option .dot{
     height: 20px;
     width: 20px;
     background: #d9d9d9;
     border-radius: 50%;
     position: relative;
 }
-.wrapper .option .dot::before{
+.fight-wrapper .option .dot::before{
     position: absolute;
     content: "";
     top: 4px;
@@ -116,7 +120,7 @@ input[type="radio"]{
     opacity: 1;
     transform: scale(1);
 }
-.wrapper .option span{
+.fight-wrapper .option span{
     font-size: 20px;
     color: #808080;
 }

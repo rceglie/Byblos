@@ -30,7 +30,6 @@ const Menu = (props) => {
     };
 
     useEffect(() => {
-        console.log(modal)
     })
 
     if(modal) {

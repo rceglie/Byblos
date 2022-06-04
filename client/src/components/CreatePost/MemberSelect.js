@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import "../../style/roleselect.css";
+import "../../style/memberselect.css";
 import { Switch, FormControlLabel } from '@mui/material';
 
-const RoleSelect = (props) => {
+const MemberSelect = (props) => {
 
     const options = ["tank","war","pld","drk","gnb","healer","sge","whm","sch","ast","dps","melee","sam","nin","rpr","drg","mnk","ranged","dnc","brd","mch","caster","rdm","smn","blm"];
 
@@ -14,6 +14,7 @@ const RoleSelect = (props) => {
 
     const [modal, setModal] = useState(false);
     const [roles, setRoles] = useState([]);
+    const [logs, setLogs] = useState([]);
     let initial = Object.fromEntries(new Map(
         options.map(object => {
             return [object,false];
@@ -45,7 +46,6 @@ const RoleSelect = (props) => {
                 let newArray = roles.filter(item => !options2[e.target.value].includes(item))
                 setRoles(newArray)
                 for (let i = 0; i < options2[e.target.value].length; i++ ){
-                    console.log(options2[e.target.value][i])
                     setRoles(prevState => ([...prevState, options2[e.target.value][i]]))
                 }
             } else {
@@ -74,14 +74,15 @@ const RoleSelect = (props) => {
     const submitRoles = () => {
         setControl(initial)
         setChecked(initial)
-        props.parentCallback(roles)
+
+        props.parentCallback({role: roles, logs:document.getElementById("logs").value})
         setRoles([])
         toggleModal()
     }
 
       return (
         <>
-          <button type="button" onClick={toggleModal} className="btn-modal">Add Role Needed</button>
+          <button type="button" onClick={toggleModal} className="btn-modal">Add Member</button>
     
           {modal && (
             <div className="modal">
@@ -104,6 +105,8 @@ const RoleSelect = (props) => {
                         </div>
                     )}
                 </div>
+                <label htmlFor="logs">Link member's logs (optional)</label>
+                <input type="text" id="logs" name="logs"/>
                 <button onClick={submitRoles}>Confirm Roles</button>
               </div>
             </div>
@@ -112,4 +115,4 @@ const RoleSelect = (props) => {
       );
 }
 
-export default RoleSelect;
+export default MemberSelect;

@@ -78,19 +78,19 @@ const Form = ( {currentId, setCurrentId}) => {
                 <div className="fights">
                     <div className="radio">
                         <input type="radio" value="UWU" id="uwusel" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="uwusel">UWU</label>
+                        <label className="radiobtn" htmlFor="uwusel">UWU</label>
                     </div>
                     <div className="radio">
                         <input type="radio" value="UCOB" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="ucobsel">UCOB</label>
+                        <label className="radiobtn" htmlFor="ucobsel">UCOB</label>
                     </div>
                     <div className="radio">
                         <input type="radio" value="UWU" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="teasel">TEA</label>
+                        <label className="radiobtn" htmlFor="teasel">TEA</label>
                     </div>
                     <div className="radio">
                         <input type="radio" value="DSU" name="fight" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                        <label className="radiobtn" for="dsusel">DSU</label>
+                        <label className="radiobtn" htmlFor="dsusel">DSU</label>
                     </div>
                 </div>
                 <TextField
