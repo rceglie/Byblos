@@ -9,12 +9,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {getImage} from "./getImage.js";
 
-const CreatePost = ({currentId, setCurrentId}) => {
+const CreatePost = () => {
 
     const [postData, setPostData] = useState({
         fight: '', times: '', prog: '', roles: [], comp: '', ilvl: "", logs: "", exp: "", desc: ""
     });
     const dispatch = useDispatch();
+    const [currentId, setCurrentId] = useState(0);
     const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
     const user = JSON.parse(localStorage.getItem('profile'))
     const navigate = useNavigate();
@@ -81,16 +82,16 @@ const CreatePost = ({currentId, setCurrentId}) => {
                     <input type="radio" name="fightsel" id="option-2" value="UCOB" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
                     <input type="radio" name="fightsel" id="option-3" value="TEA" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
                     <input type="radio" name="fightsel" id="option-4" value="DSU" onChange={(e) => setPostData({ ... postData, fight: e.target.value })}/>
-                    <label for="option-1" class="option option-1">
+                    <label htmlFor="option-1" className="option option-1">
                         <span>UWU</span>
                     </label>
-                    <label for="option-2" class="option option-2">
+                    <label htmlFor="option-2" className="option option-2">
                         <span>UCOB</span>
                     </label>
-                    <label for="option-3" class="option option-3">
+                    <label htmlFor="option-3" className="option option-3">
                         <span>TEA</span>
                     </label>
-                    <label for="option-4" class="option option-4">
+                    <label htmlFor="option-4" className="option option-4">
                         <span>DSU</span>
                     </label>
                 </div>

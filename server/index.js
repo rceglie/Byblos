@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/users.js';
+import otherRoutes from './routes/other.js';
 
 const app = express();
 dotenv.config();
@@ -16,10 +17,9 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
+app.use('/', otherRoutes);
 
-app.get('/', (req,res) => {
-    res.send("New message");
-})
+//app.get('/', (req,res) => {res.send("New message");})
 
 const PORT = process.env.PORT || 5000;
 
