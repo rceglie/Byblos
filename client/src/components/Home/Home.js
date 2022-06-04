@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Switch, Route, useLocation, useNavigate } from 'react-router-dom';
-import ChipInput from 'material-ui-chip-input';
 import { getPosts, getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
@@ -53,7 +52,6 @@ const Home = () => {
                 <Grid item xs={12} sm={4} md={3}>
                     <AppBar position="static" color="inherit" className="search-container border">
                         <TextField name="search" label="Search Fight" onKeyPress={handleKeyPress} fullWidth value={search} onChange={(e) => setSearch(e.target.value)}/>
-                        <ChipInput value={tags} onAdd={handleAdd} onDelete={handleDelete} label="Search Tags"/>
                         <Button variant="contained" onClick={searchPost} color="primary">Search</Button>
                     </AppBar>
                     <Form currentId={currentId} setCurrentId={setCurrentId} />
