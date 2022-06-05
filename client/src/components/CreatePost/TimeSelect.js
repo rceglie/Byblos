@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "../../style/timeselect.css";
+import "../../style/createpost.css";
 
 const TimeSelect = (props) => {
 
@@ -40,8 +41,8 @@ const TimeSelect = (props) => {
     }
 
   return (
-    <>
-        <button type="button" onClick={toggleModal} className="btn-modal">Set Times</button>
+    <div className="timecontainer">
+        <button type="button" onClick={toggleModal} className="btn-modal addbtn">Set Times</button>
 
         {modal && (
             <div className="modal">
@@ -98,7 +99,7 @@ const TimeSelect = (props) => {
                 </div>
             </div>
         )}
-    </>
+    </div>
   )
 }
 

@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
-import { useNavigate } from "react-router-dom";
-import RoleSelect from "./RoleSelect/RoleSelect.js";
-import TimeSelect from "./TimeSelect";
-import MemberSelect from "./MemberSelect";
+import { Link, useNavigate } from "react-router-dom";
+import RoleSelect from "./RoleSelect.js";
+import TimeSelect from "./TimeSelect.js";
+import MemberSelect from "./MemberSelect.js";
 import "../../style/createpost.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getImage } from "./getImage.js";
@@ -128,16 +128,6 @@ const CreatePost = () => {
         setPostData((prevState) => ({ ...prevState, times: childData }));
     };
 
-    if (!user?.result?.name) {
-        return (
-            <Paper>
-                <Typography variant="h6" align="center">
-                    Sign in to create a LFM post
-                </Typography>
-            </Paper>
-        );
-    }
-
     const deleteSlot = (e) => {
         let newArr = postData.roles.map((x) => x);
         newArr.splice(e, 1);
@@ -174,6 +164,15 @@ const CreatePost = () => {
             startTime = (parseInt(startTime.split(":")[0], 10) - 12).toString() + ":" + startTime.split(":")[1]
         }
         return startTime.concat(sp).concat(" - ").concat(endTime).concat(ep)
+    }
+
+    if (!user?.result?.name) {
+        return (
+            <div className="no-user">
+                <h1 className="signheader">Sign in to create a LFM post</h1>
+                <Button component={Link} to="/auth" variant="contained" color="primary" className="signbtn">Sign In</Button>
+            </div>
+        );
     }
 
     return (

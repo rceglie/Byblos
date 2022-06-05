@@ -1,8 +1,11 @@
-1. Figure out how I'm gonna store dates/times
-2. Complete roles needed (delete/edit)
-2. Finish create ability
-3. Sorting with the new attributes
-4. Saving sort(s)
-5. View and edit own posts page
-6. Prettify drop down menu
-7. Make the site look good (mobile?)
+1. Sort/Search
+2. My posts
+3. Account info
+4. About byblos
+5. Email verification?
+6. Change password?
+7. Display posts
+8. Extended post page
+9. Home option on Actions
+
+LAST. Make it look good

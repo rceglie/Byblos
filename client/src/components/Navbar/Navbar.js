@@ -46,7 +46,7 @@ const Navbar = () => {
       </div>
       <Toolbar className="toolbar">
         {user ? (
-          <div>
+          <div className="userstuff">
             <Avatar>{user?.result.name.charAt(0)}</Avatar>
             <Typography variant="h6">{user?.result.name}</Typography>
             <Button variant="contained" color="secondary" onClick={logout}>Logout</Button>

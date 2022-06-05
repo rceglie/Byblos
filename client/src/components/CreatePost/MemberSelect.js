@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-//import "./memberselect.css";
+import "../../style/memberselect.css";
 import { Switch, FormControlLabel } from '@mui/material';
 
 const MemberSelect = (props) => {
@@ -82,7 +82,7 @@ const MemberSelect = (props) => {
 
       return (
         <>
-          <button type="button" onClick={toggleModal} className="btn-modal">Add Member</button>
+          <button type="button" onClick={toggleModal} className="btn-modal addbtn">Add Member</button>
     
           {modal && (
             <div className="modal">
