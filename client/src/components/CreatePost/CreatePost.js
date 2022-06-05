@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 import { useNavigate } from "react-router-dom";
-import RoleSelect from "./RoleSelect";
+import RoleSelect from "./RoleSelect/RoleSelect.js";
 import TimeSelect from "./TimeSelect";
 import MemberSelect from "./MemberSelect";
 import "../../style/createpost.css";
