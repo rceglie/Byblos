@@ -31,38 +31,11 @@
     display: flex;
 }
 
-.create-LFM {
-    background-color:rgb(37, 37, 37);
-    color: white;
-}
-
 .textfield {
     color: white;
 }
-
-.lfm-title {
-    text-align: center;
-    border-bottom-color: rgb(139, 139, 139);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    padding-bottom: 10px;
-    margin: 10px 0 10px 0;
-}
 /* Below this is the css for the nice radio buttons */
 
-.fight-wrapper{
-    display:flex;
-    
-    user-select:none;
-    
-    height: 100px;
-    
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 5px;
-    padding: 20px 15px;
-    box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
-}
 .fight-wrapper .option{
     background: #fff;
     height: 100%;
@@ -129,4 +102,98 @@ input[type="radio"]{
 #option-3:checked:checked ~ .option-3 span,
 #option-4:checked:checked ~ .option-4 span{
     color: #fff;
+}
+
+h3 {
+    text-align: center;
+}
+
+.create-LFM {
+    margin-left:12.5vw;
+    width: 75vw;
+    height: 86vh;
+    background-color:rgb(37, 37, 37);
+    color: white;
+    display: grid;
+    grid-template-columns: 5% 22.5% 22.5% 22.5% 22.5% 5%;
+    grid-template-rows: 10% 15% 60% 15%;
+    justify-items:center;
+    align-items:center;
+}
+
+.lfm-title {
+    display:flex;
+    text-align: center;
+    flex-direction:column;
+    justify-content:center;
+    border-bottom-color: rgb(139, 139, 139);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    grid-column: 1 / span 6;
+    grid-row: 1;
+}
+
+.fight-prog-wrapper{
+    grid-column: 2 / span 4;
+    grid-row: 2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-items: center;
+}
+
+.fight-wrapper{
+    width:50%;
+    height:75%;
+    display:flex;
+    user-select:none;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    padding: 20px 15px;
+    box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+}
+
+.prog-wrapper{
+    
+}
+
+.times-wrapper{
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.roles-needed-wrapper {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.comp-wrapper{
+    grid-column: 4;
+    grid-row: 3;
+}
+
+.other-wrapper {
+    display:flex;
+    flex-direction: column;
+    grid-column: 5;
+    grid-row: 3;
+}
+
+.exp-wrapper{
+}
+
+.ilvl-wrapper{
+}
+
+.desc-wrapper{
+}
+
+.submit{
+    width: 20vw;
+    height: 3vw;
+    justify-self:center;
+    grid-column: 3 / span 2;
+    grid-row: 4;
 }
