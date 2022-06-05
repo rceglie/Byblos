@@ -307,7 +307,7 @@ const CreatePost = () => {
                 </select>
                 </div>
             </div>
-            <div className="times-wrapper">
+            <div className="times-wrapper border">
                 <h3>Times</h3>
                 {postData.times["suns"] != "" ? <p>   Sunday: {"\xa0\xa0\xa0\xa0\xa0\xa0\xa0"}{convertDateToString("sun")}</p> : ""}
                 {postData.times["mons"] != "" ? <p>   Monday: {"\xa0\xa0\xa0\xa0\xa0\xa0"}{convertDateToString("mon")}</p> : ""}
@@ -321,7 +321,7 @@ const CreatePost = () => {
                     parentCallback={handleTimeCallback}
                 />
             </div>
-            <div className="roles-needed-wrapper">
+            <div className="roles-needed-wrapper border">
                 <h3>Roles Needed</h3>
                 {postData.roles.map((mem, index) => (
                     <div className="slot">
@@ -347,7 +347,7 @@ const CreatePost = () => {
                 ))}
                 <RoleSelect parentCallback={handleRoleCallback} />
             </div>
-            <div className="comp-wrapper">
+            <div className="comp-wrapper border">
                 <h3>Current Roster</h3>
                 {postData.comp.map((mem, index) => (
                     <div className="slot">
@@ -382,12 +382,10 @@ const CreatePost = () => {
                 ))}
                 <MemberSelect parentCallback={handleMemberCallback} />
             </div>
-            <div className="other-wrapper">
+            <div className="exp-ilvl-wrapper border">
                 <div className="exp-wrapper">
                     <label htmlFor="exp-sel">Preferred Experience Level</label>
-                    <select id="exp-sel"
-                        onChange={(e) => setPostData({ ...postData, exp: e.target.value })}
-                    >
+                    <select id="exp-sel" className="exp-sel" onChange={(e) => setPostData({ ...postData, exp: e.target.value })}>
                         <option value="unselected">Select Experience Level</option>
                         <>
                             <option>First Ultimate Experience</option>
@@ -399,16 +397,15 @@ const CreatePost = () => {
                     </select>
                 </div>
                 <div className="ilvl-wrapper">
-                    <label htmlFor="ilvl">Required Item Level</label>
+                    <label htmlFor="ilvl">Item Level</label>
                     <input type="number" id="ilvl" name="ilvl" max="600" />
                 </div>
-                <div className="desc-wrapper">
-                    <label htmlFor="desc">Other Information</label>
-                    <input type="text" id="desc" name="desc" />
-                </div>
             </div>
-
-            <button className="submit" onClick={handleSumbit}>Submit</button>
+            <div className="desc-wrapper">
+                <label htmlFor="desc">Other Information</label>
+                <textarea id="desc" name="desc"></textarea>
+            </div>
+            <button className="submit addbtn" onClick={handleSumbit}>Create Post</button>
         </div>
     );
 };

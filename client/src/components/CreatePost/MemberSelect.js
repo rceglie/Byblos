@@ -82,7 +82,10 @@ const MemberSelect = (props) => {
 
       return (
         <>
-          <button type="button" onClick={toggleModal} className="btn-modal addbtn">Add Member</button>
+        <div className="membtn">
+            <button type="button" onClick={toggleModal} className="btn-modal2 addbtn">Add Member</button>
+        </div>
+          
     
           {modal && (
             <div className="modal">
