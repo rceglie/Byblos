@@ -26,9 +26,9 @@ body.active-modal {
 .modal-content {
     position: absolute;
     line-height: 1.4;
-    background: #f1f1f1;
+    background: #751a1a;
     width: 50vw;
-    height: 60vh;
+    height: 80vh;
     margin-left: 25vw;
     margin-top: 25vh;
     z-index: 950;
@@ -43,7 +43,6 @@ body.active-modal {
 
 .role-container{
     display:flex;
-    width: 500px;
 }
 
 .role-group{
