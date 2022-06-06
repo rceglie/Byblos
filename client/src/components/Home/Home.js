@@ -6,6 +6,7 @@ import { getPosts, getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Pagination from '../Pagination';
 import "../../style/home.css"
+import Sort from "./Sort.js"
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -40,6 +41,7 @@ const Home = () => {
   return (
     <Grow in>
         <div>
+        <Sort />
             <Grid container justify="space-between" alignItems="stretch" spacing={3}>
                 <Grid item xs={12} sm={7} md={9}>
                     <Posts setCurrentId={setCurrentId}/>

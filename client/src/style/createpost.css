@@ -32,28 +32,28 @@
 }
 
 .textfield {
-    color: white;
+    color: rgb(255, 255, 255);
 }
 /* Below this is the css for the nice radio buttons */
 
 .fight-wrapper .option{
-    background: #fff;
+    background: rgb(221, 221, 221);
     height: 8vh;
     width: 8vw;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin: 0 10px;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
     padding: 0 10px;
-    border: 2px solid lightgrey;
+    border: 1px solid rgb(73, 73, 73);
     transition: all 0.3s ease;
 }
 .fight-wrapper .option .dot{
     height: 20px;
     width: 20px;
-    background: #d9d9d9;
+    background: #cc8d8d;
     border-radius: 50%;
     position: relative;
 }
@@ -118,7 +118,7 @@ h3 {
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     text-align:center;
     transition: all 0.2s;
-    background-color:rgb(12, 3, 95);
+    background-color:rgb(101, 0, 196);
 }
 
 .addbtn:hover{
@@ -212,6 +212,7 @@ h3 {
     height: 3vh;
     margin-top: 0vh;
     width: 45%;
+    background-color:rgb(221, 221, 221);
 }
 
 .times-wrapper{
@@ -258,12 +259,23 @@ h3 {
     height: 3vh;
     margin-top: 1vh;
     width: 100%;
+    background-color:rgb(221, 221, 221);
 }
 
 .ilvl-wrapper{
     display:flex;
-    flex-direction:column;
-    justify-content:center;
+    flex-direction:row;
+    justify-content:space-evenly;
+    width: 100%;
+    font-size: 20px;
+}
+
+.ilvl-wrapper input{
+    background-color:rgb(221, 221, 221);
+    width: 25%;
+    align-self: center;
+    border-radius: 5px;
+    font-size: 20px;
 }
 
 .desc-wrapper{
@@ -282,6 +294,9 @@ textarea{
     height:100%;
     width:120%;
     resize:none;
+    background-color:rgb(221, 221, 221);
+    font-size: 15px;
+    border-radius: 5px;
 }
 
 .submit{
@@ -291,5 +306,5 @@ textarea{
     width: 15vw;
     height: 3vw;
     justify-self:center;
-    background-color: rgb(1, 99, 1);
+    background-color: rgb(101, 0, 196);
 }

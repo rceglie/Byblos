@@ -66,11 +66,11 @@ const CreatePost = () => {
     const handleSumbit = (e) => {
         console.log("scrap");
         e.preventDefault();
-        setPostData((prevState) => ({
+        setPostData(((prevState) => ({
             ...prevState,
             ilvl: document.getElementById("ilvl").value,
             desc: document.getElementById("desc").value,
-        }));
+        })));
         // if(currentId == 0) {
         dispatch(
             createPost(
@@ -397,12 +397,13 @@ const CreatePost = () => {
                     </select>
                 </div>
                 <div className="ilvl-wrapper">
-                    <label htmlFor="ilvl">Item Level</label>
+                    <span>Item Level</span>
+                    
                     <input type="number" id="ilvl" name="ilvl" max="600" />
                 </div>
             </div>
             <div className="desc-wrapper">
-                <label htmlFor="desc">Other Information</label>
+                <label htmlFor="desc">Additional Information</label>
                 <textarea id="desc" name="desc"></textarea>
             </div>
             <button className="submit addbtn" onClick={handleSumbit}>Create Post</button>

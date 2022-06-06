@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 import CreatePost from './components/CreatePost/CreatePost'
+import LFG from './components/LFG/LFG'
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
                 <Route path="/posts/:id" exact element={<PostDetails />} />
                 <Route path="/auth" exact element={temp} />
                 <Route path="/create" exact element={<CreatePost />} />
+                <Route path="/lfg" exact element={<LFG />} />
             </Routes>
         </BrowserRouter>
     )
