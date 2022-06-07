@@ -7,6 +7,7 @@ import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 import CreatePost from './components/CreatePost/CreatePost'
 import LFG from './components/LFG/LFG'
+import ShowPosts from './components/ShowPosts/ShowPosts'
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
                 <Route path="/auth" exact element={temp} />
                 <Route path="/create" exact element={<CreatePost />} />
                 <Route path="/lfg" exact element={<LFG />} />
+                <Route path="/showposts" exact element={<ShowPosts />} />
             </Routes>
         </BrowserRouter>
     )

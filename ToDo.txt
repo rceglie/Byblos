@@ -7,5 +7,9 @@
 7. Display posts
 8. Extended post page
 9. Home option on Actions
+10. Add ignore criteria on search page
+11. Time overhaul
+12. Prog overhaul
+13. Exp overhaul
 
 LAST. Make it look good

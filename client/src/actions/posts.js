@@ -1,15 +1,38 @@
 import * as api from '../api';
 
 // Action Creators
-export const getPosts = (page) => async (dispatch) => {
-    try {
-      const { data: { data, currentPage, numberOfPages } } = await api.fetchPosts(page);
+// export const getPosts = (page) => async (dispatch) => {
+//     try {
+//       const { data: { data, currentPage, numberOfPages } } = await api.fetchPosts(page);
   
-      dispatch({ type: "FETCH_ALL", payload: { data, currentPage, numberOfPages } });
+//       dispatch({ type: "FETCH_ALL", payload: { data, currentPage, numberOfPages } });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+export const getPosts = (filter, navigate) => async (dispatch) => {
+    try {
+      const { data } = await api.fetchPosts();
+      let newArr = data.data
+      newArr.push(filter) // Adds filter as last element in data array
+      dispatch({ type: "FETCH_ALL", payload: data });
+      navigate("/showposts");
     } catch (error) {
       console.log(error);
     }
   };
+
+  export const getJustPosts = () => async (dispatch) => {
+    try {
+      const { data } = await api.fetchPosts();
+      //const newArr = data.data
+      dispatch({ type: "FETCH_ALL", payload: data.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
 export const getPost = (id) => async (dispatch) => {
     try {

@@ -5,14 +5,9 @@ export const getPosts = async (req, res) => {
     const { page } = req.query;
 
     try{
-        const LIMIT = 8;
-        const startIndex = (Number(page) - 1) * LIMIT;
-        const total = await PostMessage.countDocuments({});
-
-        const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        const posts = await PostMessage.find();
         console.log(posts)
-        
-        res.status(200).json({data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT)});
+        res.status(200).json({data: posts});
     } catch (error){
         res.status(404).json({message : error.message});
     }

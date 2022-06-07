@@ -10,6 +10,14 @@ body.active-modal {
     justify-self:center;
 }
 
+.modal-content3 table{
+    table-layout: fixed;
+}
+
+.modal-content3 td{
+    width: 100px;
+}
+
 .modal, .overlay {
     width: 100vw;
     height: 100vh;
@@ -30,13 +38,13 @@ button {
 .overlay {
     background: rgba(49,49,49,0.8);
 }
-.modal-content {
+.modal-content3 {
     position: absolute;
     line-height: 1.4;
     background: #ffffff;
-    width: 50vw;
-    height: 40vh;
-    margin-left: 25vw;
+    width: 30vw;
+    height: 50vh;
+    margin-left: 35vw;
     margin-top: 25vh;
     z-index: 950;
 }

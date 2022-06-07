@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import "../../style/timeselect.css";
-import "../../style/createpost.css";
 
 const TimeSelect = (props) => {
 
@@ -9,7 +8,7 @@ const TimeSelect = (props) => {
         props.times != null ?
             props.times
             :
-            {suns:"", mons:"", tues: "", weds: "", thurs:"", fris:"", sats:"",sune:"", mone:"", tuee: "", wede: "", thure:"", frie:"", sate:"",}
+            {suns:-1, mons:-1, tues: -1, weds: -1, thurs:-1, fris:-1, sats:-1,sune:-1, mone:-1, tuee: -1, wede: -1, thure:-1, frie:-1, sate:-1}
     );
 
     useEffect(() => {
@@ -30,14 +29,26 @@ const TimeSelect = (props) => {
     }
 
     const submitTimes = () => {
-        setTimes({...times, suns: document.getElementById("suns").value})
+        validateTimes()
         props.parentCallback(times)
         toggleModal()
     }
 
     const handleChange = (e) => {
-        let tar = e.target.id;
-        setTimes({...times, [tar]: e.target.value})
+        console.log(e)
+        setTimes({...times, [e.target.id]: e.target.value})
+    }
+
+    const validateTimes = () => {
+        let days = Object.keys(times)
+       
+        for (let i = 0 ; i < 7; i++){
+            console.log(times[days[i].slice(0, -1) + 'e'])
+            if (times[days[i]] > times[days[i].slice(0, -1) + 'e']){
+                console.log("convert")
+                console.log(days[i])
+            }
+        }
     }
 
   return (
@@ -47,54 +58,769 @@ const TimeSelect = (props) => {
         {modal && (
             <div className="modal">
                 <div onClick={toggleModal} className="overlay"></div>
-                <div className="modal-content">
+                <div className="modal-content3">
                     <button className="close-modal" onClick={toggleModal}> CLOSE</button>
                     <h2>Select Times</h2>
                     <p>Enter times in EST. If your time extends past midnight, keep it all in the same day. For example,  Monday 10pm - 1am.</p>
-                    <div className="time-area">
-                        <div className="date">
-                            <label htmlFor="sune">Sunday</label>
-                            <input type="time" id="suns" onChange={handleChange} value={times.suns}/>
-                            <label className="to" htmlFor="sune">to</label>
-                            <input type="time" id="sune" onChange={handleChange} value={times.sune}/>
-                        </div>
-                        <div className="date">
-                            <label htmlFor="mons">Monday</label>
-                            <input type="time" id="mons" onChange={handleChange} value={times.mons}/>
-                            <label className="to" htmlFor="mone">to</label>
-                            <input type="time" id="mone" onChange={handleChange} value={times.mone}/>
-                        </div>
-                        <div className="date">
-                            <label htmlFor="tues">Tuesday</label>
-                            <input type="time" id="tues" onChange={handleChange} value={times.tues}/>
-                            <label className="to" htmlFor="tuee">to</label>
-                            <input type="time" id="tuee" onChange={handleChange} value={times.tuee}/>
-                        </div>
-                        <div className="date">
-                            <label htmlFor="weds">Wednesday</label>
-                            <input type="time" id="weds" onChange={handleChange} value={times.weds}/>
-                            <label className="to" htmlFor="wede">to</label>
-                            <input type="time" id="wede" onChange={handleChange} value={times.wede}/>
-                        </div>
-                        <div className="date">
-                            <label htmlFor="thurs">Thursday</label>
-                            <input type="time" id="thurs" onChange={handleChange} value={times.thurs}/>
-                            <label className="to" htmlFor="thure">to</label>
-                            <input type="time" id="thure" onChange={handleChange} value={times.thure}/>
-                        </div>
-                        <div className="date">
-                            <label htmlFor="fris">Friday</label>
-                            <input type="time" id="fris" onChange={handleChange} value={times.fris}/>
-                            <label className="to" htmlFor="frie">to</label>
-                            <input type="time" id="frie" onChange={handleChange} value={times.frie}/>
-                        </div>
-                        <div className="date">
-                            <label htmlFor="sats">Saturday</label>
-                            <input type="time" id="sats" onChange={handleChange} value={times.sats}/>
-                            <label className="to" htmlFor="sate">to</label>
-                            <input type="time" id="sate" onChange={handleChange} value={times.sate}/>
-                        </div>
-                    </div>
+                    <table>
+                        <tr>
+                            <td width="100px">
+                                <span>Sunday</span>
+                            </td>
+                            <td>
+                                <select id="suns" onChange={handleChange}>
+                                    <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                    <option value={30}>12:30 AM</option>
+                                    <option value={60}>1:00 AM</option>
+                                    <option value={90}>1:30 AM</option>
+                                    <option value={120}>2:00 AM</option>
+                                    <option value={150}>2:30 AM</option>
+                                    <option value={180}>3:00 AM</option>
+                                    <option value={210}>3:30 AM</option>
+                                    <option value={240}>4:00 AM</option>
+                                    <option value={270}>4:30 AM</option>
+                                    <option value={300}>5:00 AM</option>
+                                    <option value={330}>5:30 AM</option>
+                                    <option value={360}>6:00 AM</option>
+                                    <option value={390}>6:30 AM</option>
+                                    <option value={420}>7:00 AM</option>
+                                    <option value={450}>7:30 AM</option>
+                                    <option value={480}>8:00 AM</option>
+                                    <option value={510}>8:30 AM</option>
+                                    <option value={540}>9:00 AM</option>
+                                    <option value={570}>9:30 AM</option>
+                                    <option value={600}>10:00 AM</option>
+                                    <option value={630}>10:30 AM</option>
+                                    <option value={660}>11:00 AM</option>
+                                    <option value={690}>11:30 AM</option>
+                                    <option value={720}>12:00 PM</option>
+                                    <option value={750}>12:30 PM</option>
+                                    <option value={780}>1:00 PM</option>
+                                    <option value={810}>1:30 PM</option>
+                                    <option value={840}>2:00 PM</option>
+                                    <option value={870}>2:30 PM</option>
+                                    <option value={900}>3:00 PM</option>
+                                    <option value={930}>3:30 PM</option>
+                                    <option value={960}>4:00 PM</option>
+                                    <option value={990}>4:30 PM</option>
+                                    <option value={1020}>5:00 PM</option>
+                                    <option value={1050}>5:30 PM</option>
+                                    <option value={1080}>6:00 PM</option>
+                                    <option value={1110}>6:30 PM</option>
+                                    <option value={1140}>7:00 PM</option>
+                                    <option value={1170}>7:30 PM</option>
+                                    <option value={1200}>8:00 PM</option>
+                                    <option value={1230}>8:30 PM</option>
+                                    <option value={1260}>9:00 PM</option>
+                                    <option value={1290}>9:30 PM</option>
+                                    <option value={1320}>10:00 PM</option>
+                                    <option value={1350}>10:30 PM</option>
+                                    <option value={1380}>11:00 PM</option>
+                                    <option value={1410}>11:30 PM</option>
+                                </select>
+                            </td>
+                            <span> to </span>
+                            <select id="sune" onChange={handleChange}>
+                                <option value={-1}>---</option>
+                                <option value={0}>12:00 AM</option>
+                                <option value={30}>12:30 AM</option>
+                                <option value={60}>1:00 AM</option>
+                                <option value={90}>1:30 AM</option>
+                                <option value={120}>2:00 AM</option>
+                                <option value={150}>2:30 AM</option>
+                                <option value={180}>3:00 AM</option>
+                                <option value={210}>3:30 AM</option>
+                                <option value={240}>4:00 AM</option>
+                                <option value={270}>4:30 AM</option>
+                                <option value={300}>5:00 AM</option>
+                                <option value={330}>5:30 AM</option>
+                                <option value={360}>6:00 AM</option>
+                                <option value={390}>6:30 AM</option>
+                                <option value={420}>7:00 AM</option>
+                                <option value={450}>7:30 AM</option>
+                                <option value={480}>8:00 AM</option>
+                                <option value={510}>8:30 AM</option>
+                                <option value={540}>9:00 AM</option>
+                                <option value={570}>9:30 AM</option>
+                                <option value={600}>10:00 AM</option>
+                                <option value={630}>10:30 AM</option>
+                                <option value={660}>11:00 AM</option>
+                                <option value={690}>11:30 AM</option>
+                                <option value={720}>12:00 PM</option>
+                                <option value={750}>12:30 PM</option>
+                                <option value={780}>1:00 PM</option>
+                                <option value={810}>1:30 PM</option>
+                                <option value={840}>2:00 PM</option>
+                                <option value={870}>2:30 PM</option>
+                                <option value={900}>3:00 PM</option>
+                                <option value={930}>3:30 PM</option>
+                                <option value={960}>4:00 PM</option>
+                                <option value={990}>4:30 PM</option>
+                                <option value={1020}>5:00 PM</option>
+                                <option value={1050}>5:30 PM</option>
+                                <option value={1080}>6:00 PM</option>
+                                <option value={1110}>6:30 PM</option>
+                                <option value={1140}>7:00 PM</option>
+                                <option value={1170}>7:30 PM</option>
+                                <option value={1200}>8:00 PM</option>
+                                <option value={1230}>8:30 PM</option>
+                                <option value={1260}>9:00 PM</option>
+                                <option value={1290}>9:30 PM</option>
+                                <option value={1320}>10:00 PM</option>
+                                <option value={1350}>10:30 PM</option>
+                                <option value={1380}>11:00 PM</option>
+                                <option value={1410}>11:30 PM</option>
+                            </select>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Monday</span>
+                            </td>
+                            <td>
+                                <select id="suns" onChange={handleChange}>
+                                    <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                    <option value={30}>12:30 AM</option>
+                                    <option value={60}>1:00 AM</option>
+                                    <option value={90}>1:30 AM</option>
+                                    <option value={120}>2:00 AM</option>
+                                    <option value={150}>2:30 AM</option>
+                                    <option value={180}>3:00 AM</option>
+                                    <option value={210}>3:30 AM</option>
+                                    <option value={240}>4:00 AM</option>
+                                    <option value={270}>4:30 AM</option>
+                                    <option value={300}>5:00 AM</option>
+                                    <option value={330}>5:30 AM</option>
+                                    <option value={360}>6:00 AM</option>
+                                    <option value={390}>6:30 AM</option>
+                                    <option value={420}>7:00 AM</option>
+                                    <option value={450}>7:30 AM</option>
+                                    <option value={480}>8:00 AM</option>
+                                    <option value={510}>8:30 AM</option>
+                                    <option value={540}>9:00 AM</option>
+                                    <option value={570}>9:30 AM</option>
+                                    <option value={600}>10:00 AM</option>
+                                    <option value={630}>10:30 AM</option>
+                                    <option value={660}>11:00 AM</option>
+                                    <option value={690}>11:30 AM</option>
+                                    <option value={720}>12:00 PM</option>
+                                    <option value={750}>12:30 PM</option>
+                                    <option value={780}>1:00 PM</option>
+                                    <option value={810}>1:30 PM</option>
+                                    <option value={840}>2:00 PM</option>
+                                    <option value={870}>2:30 PM</option>
+                                    <option value={900}>3:00 PM</option>
+                                    <option value={930}>3:30 PM</option>
+                                    <option value={960}>4:00 PM</option>
+                                    <option value={990}>4:30 PM</option>
+                                    <option value={1020}>5:00 PM</option>
+                                    <option value={1050}>5:30 PM</option>
+                                    <option value={1080}>6:00 PM</option>
+                                    <option value={1110}>6:30 PM</option>
+                                    <option value={1140}>7:00 PM</option>
+                                    <option value={1170}>7:30 PM</option>
+                                    <option value={1200}>8:00 PM</option>
+                                    <option value={1230}>8:30 PM</option>
+                                    <option value={1260}>9:00 PM</option>
+                                    <option value={1290}>9:30 PM</option>
+                                    <option value={1320}>10:00 PM</option>
+                                    <option value={1350}>10:30 PM</option>
+                                    <option value={1380}>11:00 PM</option>
+                                    <option value={1410}>11:30 PM</option>
+                                </select>
+                            </td>
+                            <span> to </span>
+                            <select id="sune" onChange={handleChange}>
+                                <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                <option value={30}>12:30 AM</option>
+                                <option value={60}>1:00 AM</option>
+                                <option value={90}>1:30 AM</option>
+                                <option value={120}>2:00 AM</option>
+                                <option value={150}>2:30 AM</option>
+                                <option value={180}>3:00 AM</option>
+                                <option value={210}>3:30 AM</option>
+                                <option value={240}>4:00 AM</option>
+                                <option value={270}>4:30 AM</option>
+                                <option value={300}>5:00 AM</option>
+                                <option value={330}>5:30 AM</option>
+                                <option value={360}>6:00 AM</option>
+                                <option value={390}>6:30 AM</option>
+                                <option value={420}>7:00 AM</option>
+                                <option value={450}>7:30 AM</option>
+                                <option value={480}>8:00 AM</option>
+                                <option value={510}>8:30 AM</option>
+                                <option value={540}>9:00 AM</option>
+                                <option value={570}>9:30 AM</option>
+                                <option value={600}>10:00 AM</option>
+                                <option value={630}>10:30 AM</option>
+                                <option value={660}>11:00 AM</option>
+                                <option value={690}>11:30 AM</option>
+                                <option value={720}>12:00 PM</option>
+                                <option value={750}>12:30 PM</option>
+                                <option value={780}>1:00 PM</option>
+                                <option value={810}>1:30 PM</option>
+                                <option value={840}>2:00 PM</option>
+                                <option value={870}>2:30 PM</option>
+                                <option value={900}>3:00 PM</option>
+                                <option value={930}>3:30 PM</option>
+                                <option value={960}>4:00 PM</option>
+                                <option value={990}>4:30 PM</option>
+                                <option value={1020}>5:00 PM</option>
+                                <option value={1050}>5:30 PM</option>
+                                <option value={1080}>6:00 PM</option>
+                                <option value={1110}>6:30 PM</option>
+                                <option value={1140}>7:00 PM</option>
+                                <option value={1170}>7:30 PM</option>
+                                <option value={1200}>8:00 PM</option>
+                                <option value={1230}>8:30 PM</option>
+                                <option value={1260}>9:00 PM</option>
+                                <option value={1290}>9:30 PM</option>
+                                <option value={1320}>10:00 PM</option>
+                                <option value={1350}>10:30 PM</option>
+                                <option value={1380}>11:00 PM</option>
+                                <option value={1410}>11:30 PM</option>
+                            </select>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Tuesday</span>
+                            </td>
+                            <td>
+                                <select id="tues" onChange={handleChange}>
+                                    <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                    <option value={30}>12:30 AM</option>
+                                    <option value={60}>1:00 AM</option>
+                                    <option value={90}>1:30 AM</option>
+                                    <option value={120}>2:00 AM</option>
+                                    <option value={150}>2:30 AM</option>
+                                    <option value={180}>3:00 AM</option>
+                                    <option value={210}>3:30 AM</option>
+                                    <option value={240}>4:00 AM</option>
+                                    <option value={270}>4:30 AM</option>
+                                    <option value={300}>5:00 AM</option>
+                                    <option value={330}>5:30 AM</option>
+                                    <option value={360}>6:00 AM</option>
+                                    <option value={390}>6:30 AM</option>
+                                    <option value={420}>7:00 AM</option>
+                                    <option value={450}>7:30 AM</option>
+                                    <option value={480}>8:00 AM</option>
+                                    <option value={510}>8:30 AM</option>
+                                    <option value={540}>9:00 AM</option>
+                                    <option value={570}>9:30 AM</option>
+                                    <option value={600}>10:00 AM</option>
+                                    <option value={630}>10:30 AM</option>
+                                    <option value={660}>11:00 AM</option>
+                                    <option value={690}>11:30 AM</option>
+                                    <option value={720}>12:00 PM</option>
+                                    <option value={750}>12:30 PM</option>
+                                    <option value={780}>1:00 PM</option>
+                                    <option value={810}>1:30 PM</option>
+                                    <option value={840}>2:00 PM</option>
+                                    <option value={870}>2:30 PM</option>
+                                    <option value={900}>3:00 PM</option>
+                                    <option value={930}>3:30 PM</option>
+                                    <option value={960}>4:00 PM</option>
+                                    <option value={990}>4:30 PM</option>
+                                    <option value={1020}>5:00 PM</option>
+                                    <option value={1050}>5:30 PM</option>
+                                    <option value={1080}>6:00 PM</option>
+                                    <option value={1110}>6:30 PM</option>
+                                    <option value={1140}>7:00 PM</option>
+                                    <option value={1170}>7:30 PM</option>
+                                    <option value={1200}>8:00 PM</option>
+                                    <option value={1230}>8:30 PM</option>
+                                    <option value={1260}>9:00 PM</option>
+                                    <option value={1290}>9:30 PM</option>
+                                    <option value={1320}>10:00 PM</option>
+                                    <option value={1350}>10:30 PM</option>
+                                    <option value={1380}>11:00 PM</option>
+                                    <option value={1410}>11:30 PM</option>
+                                </select>
+                            </td>
+                            <span> to </span>
+                            <select id="tuee" onChange={handleChange}>
+                                <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                <option value={30}>12:30 AM</option>
+                                <option value={60}>1:00 AM</option>
+                                <option value={90}>1:30 AM</option>
+                                <option value={120}>2:00 AM</option>
+                                <option value={150}>2:30 AM</option>
+                                <option value={180}>3:00 AM</option>
+                                <option value={210}>3:30 AM</option>
+                                <option value={240}>4:00 AM</option>
+                                <option value={270}>4:30 AM</option>
+                                <option value={300}>5:00 AM</option>
+                                <option value={330}>5:30 AM</option>
+                                <option value={360}>6:00 AM</option>
+                                <option value={390}>6:30 AM</option>
+                                <option value={420}>7:00 AM</option>
+                                <option value={450}>7:30 AM</option>
+                                <option value={480}>8:00 AM</option>
+                                <option value={510}>8:30 AM</option>
+                                <option value={540}>9:00 AM</option>
+                                <option value={570}>9:30 AM</option>
+                                <option value={600}>10:00 AM</option>
+                                <option value={630}>10:30 AM</option>
+                                <option value={660}>11:00 AM</option>
+                                <option value={690}>11:30 AM</option>
+                                <option value={720}>12:00 PM</option>
+                                <option value={750}>12:30 PM</option>
+                                <option value={780}>1:00 PM</option>
+                                <option value={810}>1:30 PM</option>
+                                <option value={840}>2:00 PM</option>
+                                <option value={870}>2:30 PM</option>
+                                <option value={900}>3:00 PM</option>
+                                <option value={930}>3:30 PM</option>
+                                <option value={960}>4:00 PM</option>
+                                <option value={990}>4:30 PM</option>
+                                <option value={1020}>5:00 PM</option>
+                                <option value={1050}>5:30 PM</option>
+                                <option value={1080}>6:00 PM</option>
+                                <option value={1110}>6:30 PM</option>
+                                <option value={1140}>7:00 PM</option>
+                                <option value={1170}>7:30 PM</option>
+                                <option value={1200}>8:00 PM</option>
+                                <option value={1230}>8:30 PM</option>
+                                <option value={1260}>9:00 PM</option>
+                                <option value={1290}>9:30 PM</option>
+                                <option value={1320}>10:00 PM</option>
+                                <option value={1350}>10:30 PM</option>
+                                <option value={1380}>11:00 PM</option>
+                                <option value={1410}>11:30 PM</option>
+                            </select>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Wednesday</span>
+                            </td>
+                            <td>
+                                <select id="weds" onChange={handleChange}>
+                                    <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                    <option value={30}>12:30 AM</option>
+                                    <option value={60}>1:00 AM</option>
+                                    <option value={90}>1:30 AM</option>
+                                    <option value={120}>2:00 AM</option>
+                                    <option value={150}>2:30 AM</option>
+                                    <option value={180}>3:00 AM</option>
+                                    <option value={210}>3:30 AM</option>
+                                    <option value={240}>4:00 AM</option>
+                                    <option value={270}>4:30 AM</option>
+                                    <option value={300}>5:00 AM</option>
+                                    <option value={330}>5:30 AM</option>
+                                    <option value={360}>6:00 AM</option>
+                                    <option value={390}>6:30 AM</option>
+                                    <option value={420}>7:00 AM</option>
+                                    <option value={450}>7:30 AM</option>
+                                    <option value={480}>8:00 AM</option>
+                                    <option value={510}>8:30 AM</option>
+                                    <option value={540}>9:00 AM</option>
+                                    <option value={570}>9:30 AM</option>
+                                    <option value={600}>10:00 AM</option>
+                                    <option value={630}>10:30 AM</option>
+                                    <option value={660}>11:00 AM</option>
+                                    <option value={690}>11:30 AM</option>
+                                    <option value={720}>12:00 PM</option>
+                                    <option value={750}>12:30 PM</option>
+                                    <option value={780}>1:00 PM</option>
+                                    <option value={810}>1:30 PM</option>
+                                    <option value={840}>2:00 PM</option>
+                                    <option value={870}>2:30 PM</option>
+                                    <option value={900}>3:00 PM</option>
+                                    <option value={930}>3:30 PM</option>
+                                    <option value={960}>4:00 PM</option>
+                                    <option value={990}>4:30 PM</option>
+                                    <option value={1020}>5:00 PM</option>
+                                    <option value={1050}>5:30 PM</option>
+                                    <option value={1080}>6:00 PM</option>
+                                    <option value={1110}>6:30 PM</option>
+                                    <option value={1140}>7:00 PM</option>
+                                    <option value={1170}>7:30 PM</option>
+                                    <option value={1200}>8:00 PM</option>
+                                    <option value={1230}>8:30 PM</option>
+                                    <option value={1260}>9:00 PM</option>
+                                    <option value={1290}>9:30 PM</option>
+                                    <option value={1320}>10:00 PM</option>
+                                    <option value={1350}>10:30 PM</option>
+                                    <option value={1380}>11:00 PM</option>
+                                    <option value={1410}>11:30 PM</option>
+                                </select>
+                            </td>
+                            <span> to </span>
+                            <select id="wede" onChange={handleChange}>
+                                <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                <option value={30}>12:30 AM</option>
+                                <option value={60}>1:00 AM</option>
+                                <option value={90}>1:30 AM</option>
+                                <option value={120}>2:00 AM</option>
+                                <option value={150}>2:30 AM</option>
+                                <option value={180}>3:00 AM</option>
+                                <option value={210}>3:30 AM</option>
+                                <option value={240}>4:00 AM</option>
+                                <option value={270}>4:30 AM</option>
+                                <option value={300}>5:00 AM</option>
+                                <option value={330}>5:30 AM</option>
+                                <option value={360}>6:00 AM</option>
+                                <option value={390}>6:30 AM</option>
+                                <option value={420}>7:00 AM</option>
+                                <option value={450}>7:30 AM</option>
+                                <option value={480}>8:00 AM</option>
+                                <option value={510}>8:30 AM</option>
+                                <option value={540}>9:00 AM</option>
+                                <option value={570}>9:30 AM</option>
+                                <option value={600}>10:00 AM</option>
+                                <option value={630}>10:30 AM</option>
+                                <option value={660}>11:00 AM</option>
+                                <option value={690}>11:30 AM</option>
+                                <option value={720}>12:00 PM</option>
+                                <option value={750}>12:30 PM</option>
+                                <option value={780}>1:00 PM</option>
+                                <option value={810}>1:30 PM</option>
+                                <option value={840}>2:00 PM</option>
+                                <option value={870}>2:30 PM</option>
+                                <option value={900}>3:00 PM</option>
+                                <option value={930}>3:30 PM</option>
+                                <option value={960}>4:00 PM</option>
+                                <option value={990}>4:30 PM</option>
+                                <option value={1020}>5:00 PM</option>
+                                <option value={1050}>5:30 PM</option>
+                                <option value={1080}>6:00 PM</option>
+                                <option value={1110}>6:30 PM</option>
+                                <option value={1140}>7:00 PM</option>
+                                <option value={1170}>7:30 PM</option>
+                                <option value={1200}>8:00 PM</option>
+                                <option value={1230}>8:30 PM</option>
+                                <option value={1260}>9:00 PM</option>
+                                <option value={1290}>9:30 PM</option>
+                                <option value={1320}>10:00 PM</option>
+                                <option value={1350}>10:30 PM</option>
+                                <option value={1380}>11:00 PM</option>
+                                <option value={1410}>11:30 PM</option>
+                            </select>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Thursday</span>
+                            </td>
+                            <td>
+                                <select id="thurs" onChange={handleChange}>
+                                    <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                    <option value={30}>12:30 AM</option>
+                                    <option value={60}>1:00 AM</option>
+                                    <option value={90}>1:30 AM</option>
+                                    <option value={120}>2:00 AM</option>
+                                    <option value={150}>2:30 AM</option>
+                                    <option value={180}>3:00 AM</option>
+                                    <option value={210}>3:30 AM</option>
+                                    <option value={240}>4:00 AM</option>
+                                    <option value={270}>4:30 AM</option>
+                                    <option value={300}>5:00 AM</option>
+                                    <option value={330}>5:30 AM</option>
+                                    <option value={360}>6:00 AM</option>
+                                    <option value={390}>6:30 AM</option>
+                                    <option value={420}>7:00 AM</option>
+                                    <option value={450}>7:30 AM</option>
+                                    <option value={480}>8:00 AM</option>
+                                    <option value={510}>8:30 AM</option>
+                                    <option value={540}>9:00 AM</option>
+                                    <option value={570}>9:30 AM</option>
+                                    <option value={600}>10:00 AM</option>
+                                    <option value={630}>10:30 AM</option>
+                                    <option value={660}>11:00 AM</option>
+                                    <option value={690}>11:30 AM</option>
+                                    <option value={720}>12:00 PM</option>
+                                    <option value={750}>12:30 PM</option>
+                                    <option value={780}>1:00 PM</option>
+                                    <option value={810}>1:30 PM</option>
+                                    <option value={840}>2:00 PM</option>
+                                    <option value={870}>2:30 PM</option>
+                                    <option value={900}>3:00 PM</option>
+                                    <option value={930}>3:30 PM</option>
+                                    <option value={960}>4:00 PM</option>
+                                    <option value={990}>4:30 PM</option>
+                                    <option value={1020}>5:00 PM</option>
+                                    <option value={1050}>5:30 PM</option>
+                                    <option value={1080}>6:00 PM</option>
+                                    <option value={1110}>6:30 PM</option>
+                                    <option value={1140}>7:00 PM</option>
+                                    <option value={1170}>7:30 PM</option>
+                                    <option value={1200}>8:00 PM</option>
+                                    <option value={1230}>8:30 PM</option>
+                                    <option value={1260}>9:00 PM</option>
+                                    <option value={1290}>9:30 PM</option>
+                                    <option value={1320}>10:00 PM</option>
+                                    <option value={1350}>10:30 PM</option>
+                                    <option value={1380}>11:00 PM</option>
+                                    <option value={1410}>11:30 PM</option>
+                                </select>
+                            </td>
+                            <span> to </span>
+                            <select id="thure" onChange={handleChange}>
+                                <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                <option value={30}>12:30 AM</option>
+                                <option value={60}>1:00 AM</option>
+                                <option value={90}>1:30 AM</option>
+                                <option value={120}>2:00 AM</option>
+                                <option value={150}>2:30 AM</option>
+                                <option value={180}>3:00 AM</option>
+                                <option value={210}>3:30 AM</option>
+                                <option value={240}>4:00 AM</option>
+                                <option value={270}>4:30 AM</option>
+                                <option value={300}>5:00 AM</option>
+                                <option value={330}>5:30 AM</option>
+                                <option value={360}>6:00 AM</option>
+                                <option value={390}>6:30 AM</option>
+                                <option value={420}>7:00 AM</option>
+                                <option value={450}>7:30 AM</option>
+                                <option value={480}>8:00 AM</option>
+                                <option value={510}>8:30 AM</option>
+                                <option value={540}>9:00 AM</option>
+                                <option value={570}>9:30 AM</option>
+                                <option value={600}>10:00 AM</option>
+                                <option value={630}>10:30 AM</option>
+                                <option value={660}>11:00 AM</option>
+                                <option value={690}>11:30 AM</option>
+                                <option value={720}>12:00 PM</option>
+                                <option value={750}>12:30 PM</option>
+                                <option value={780}>1:00 PM</option>
+                                <option value={810}>1:30 PM</option>
+                                <option value={840}>2:00 PM</option>
+                                <option value={870}>2:30 PM</option>
+                                <option value={900}>3:00 PM</option>
+                                <option value={930}>3:30 PM</option>
+                                <option value={960}>4:00 PM</option>
+                                <option value={990}>4:30 PM</option>
+                                <option value={1020}>5:00 PM</option>
+                                <option value={1050}>5:30 PM</option>
+                                <option value={1080}>6:00 PM</option>
+                                <option value={1110}>6:30 PM</option>
+                                <option value={1140}>7:00 PM</option>
+                                <option value={1170}>7:30 PM</option>
+                                <option value={1200}>8:00 PM</option>
+                                <option value={1230}>8:30 PM</option>
+                                <option value={1260}>9:00 PM</option>
+                                <option value={1290}>9:30 PM</option>
+                                <option value={1320}>10:00 PM</option>
+                                <option value={1350}>10:30 PM</option>
+                                <option value={1380}>11:00 PM</option>
+                                <option value={1410}>11:30 PM</option>
+                            </select>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Friday</span>
+                            </td>
+                            <td>
+                                <select id="fris" onChange={handleChange}>
+                                    <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                    <option value={30}>12:30 AM</option>
+                                    <option value={60}>1:00 AM</option>
+                                    <option value={90}>1:30 AM</option>
+                                    <option value={120}>2:00 AM</option>
+                                    <option value={150}>2:30 AM</option>
+                                    <option value={180}>3:00 AM</option>
+                                    <option value={210}>3:30 AM</option>
+                                    <option value={240}>4:00 AM</option>
+                                    <option value={270}>4:30 AM</option>
+                                    <option value={300}>5:00 AM</option>
+                                    <option value={330}>5:30 AM</option>
+                                    <option value={360}>6:00 AM</option>
+                                    <option value={390}>6:30 AM</option>
+                                    <option value={420}>7:00 AM</option>
+                                    <option value={450}>7:30 AM</option>
+                                    <option value={480}>8:00 AM</option>
+                                    <option value={510}>8:30 AM</option>
+                                    <option value={540}>9:00 AM</option>
+                                    <option value={570}>9:30 AM</option>
+                                    <option value={600}>10:00 AM</option>
+                                    <option value={630}>10:30 AM</option>
+                                    <option value={660}>11:00 AM</option>
+                                    <option value={690}>11:30 AM</option>
+                                    <option value={720}>12:00 PM</option>
+                                    <option value={750}>12:30 PM</option>
+                                    <option value={780}>1:00 PM</option>
+                                    <option value={810}>1:30 PM</option>
+                                    <option value={840}>2:00 PM</option>
+                                    <option value={870}>2:30 PM</option>
+                                    <option value={900}>3:00 PM</option>
+                                    <option value={930}>3:30 PM</option>
+                                    <option value={960}>4:00 PM</option>
+                                    <option value={990}>4:30 PM</option>
+                                    <option value={1020}>5:00 PM</option>
+                                    <option value={1050}>5:30 PM</option>
+                                    <option value={1080}>6:00 PM</option>
+                                    <option value={1110}>6:30 PM</option>
+                                    <option value={1140}>7:00 PM</option>
+                                    <option value={1170}>7:30 PM</option>
+                                    <option value={1200}>8:00 PM</option>
+                                    <option value={1230}>8:30 PM</option>
+                                    <option value={1260}>9:00 PM</option>
+                                    <option value={1290}>9:30 PM</option>
+                                    <option value={1320}>10:00 PM</option>
+                                    <option value={1350}>10:30 PM</option>
+                                    <option value={1380}>11:00 PM</option>
+                                    <option value={1410}>11:30 PM</option>
+                                </select>
+                            </td>
+                            <span> to </span>
+                            <select id="frie" onChange={handleChange}>
+                                <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                <option value={30}>12:30 AM</option>
+                                <option value={60}>1:00 AM</option>
+                                <option value={90}>1:30 AM</option>
+                                <option value={120}>2:00 AM</option>
+                                <option value={150}>2:30 AM</option>
+                                <option value={180}>3:00 AM</option>
+                                <option value={210}>3:30 AM</option>
+                                <option value={240}>4:00 AM</option>
+                                <option value={270}>4:30 AM</option>
+                                <option value={300}>5:00 AM</option>
+                                <option value={330}>5:30 AM</option>
+                                <option value={360}>6:00 AM</option>
+                                <option value={390}>6:30 AM</option>
+                                <option value={420}>7:00 AM</option>
+                                <option value={450}>7:30 AM</option>
+                                <option value={480}>8:00 AM</option>
+                                <option value={510}>8:30 AM</option>
+                                <option value={540}>9:00 AM</option>
+                                <option value={570}>9:30 AM</option>
+                                <option value={600}>10:00 AM</option>
+                                <option value={630}>10:30 AM</option>
+                                <option value={660}>11:00 AM</option>
+                                <option value={690}>11:30 AM</option>
+                                <option value={720}>12:00 PM</option>
+                                <option value={750}>12:30 PM</option>
+                                <option value={780}>1:00 PM</option>
+                                <option value={810}>1:30 PM</option>
+                                <option value={840}>2:00 PM</option>
+                                <option value={870}>2:30 PM</option>
+                                <option value={900}>3:00 PM</option>
+                                <option value={930}>3:30 PM</option>
+                                <option value={960}>4:00 PM</option>
+                                <option value={990}>4:30 PM</option>
+                                <option value={1020}>5:00 PM</option>
+                                <option value={1050}>5:30 PM</option>
+                                <option value={1080}>6:00 PM</option>
+                                <option value={1110}>6:30 PM</option>
+                                <option value={1140}>7:00 PM</option>
+                                <option value={1170}>7:30 PM</option>
+                                <option value={1200}>8:00 PM</option>
+                                <option value={1230}>8:30 PM</option>
+                                <option value={1260}>9:00 PM</option>
+                                <option value={1290}>9:30 PM</option>
+                                <option value={1320}>10:00 PM</option>
+                                <option value={1350}>10:30 PM</option>
+                                <option value={1380}>11:00 PM</option>
+                                <option value={1410}>11:30 PM</option>
+                            </select>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Saturday</span>
+                            </td>
+                            <td>
+                                <select id="sats" onChange={handleChange}>
+                                    <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                    <option value={30}>12:30 AM</option>
+                                    <option value={60}>1:00 AM</option>
+                                    <option value={90}>1:30 AM</option>
+                                    <option value={120}>2:00 AM</option>
+                                    <option value={150}>2:30 AM</option>
+                                    <option value={180}>3:00 AM</option>
+                                    <option value={210}>3:30 AM</option>
+                                    <option value={240}>4:00 AM</option>
+                                    <option value={270}>4:30 AM</option>
+                                    <option value={300}>5:00 AM</option>
+                                    <option value={330}>5:30 AM</option>
+                                    <option value={360}>6:00 AM</option>
+                                    <option value={390}>6:30 AM</option>
+                                    <option value={420}>7:00 AM</option>
+                                    <option value={450}>7:30 AM</option>
+                                    <option value={480}>8:00 AM</option>
+                                    <option value={510}>8:30 AM</option>
+                                    <option value={540}>9:00 AM</option>
+                                    <option value={570}>9:30 AM</option>
+                                    <option value={600}>10:00 AM</option>
+                                    <option value={630}>10:30 AM</option>
+                                    <option value={660}>11:00 AM</option>
+                                    <option value={690}>11:30 AM</option>
+                                    <option value={720}>12:00 PM</option>
+                                    <option value={750}>12:30 PM</option>
+                                    <option value={780}>1:00 PM</option>
+                                    <option value={810}>1:30 PM</option>
+                                    <option value={840}>2:00 PM</option>
+                                    <option value={870}>2:30 PM</option>
+                                    <option value={900}>3:00 PM</option>
+                                    <option value={930}>3:30 PM</option>
+                                    <option value={960}>4:00 PM</option>
+                                    <option value={990}>4:30 PM</option>
+                                    <option value={1020}>5:00 PM</option>
+                                    <option value={1050}>5:30 PM</option>
+                                    <option value={1080}>6:00 PM</option>
+                                    <option value={1110}>6:30 PM</option>
+                                    <option value={1140}>7:00 PM</option>
+                                    <option value={1170}>7:30 PM</option>
+                                    <option value={1200}>8:00 PM</option>
+                                    <option value={1230}>8:30 PM</option>
+                                    <option value={1260}>9:00 PM</option>
+                                    <option value={1290}>9:30 PM</option>
+                                    <option value={1320}>10:00 PM</option>
+                                    <option value={1350}>10:30 PM</option>
+                                    <option value={1380}>11:00 PM</option>
+                                    <option value={1410}>11:30 PM</option>
+                                </select>
+                            </td>
+                            <span> to </span>
+                            <select id="sate" onChange={handleChange}>
+                                <option value={-1}>---</option><option value={0}>12:00 AM</option>
+                                <option value={30}>12:30 AM</option>
+                                <option value={60}>1:00 AM</option>
+                                <option value={90}>1:30 AM</option>
+                                <option value={120}>2:00 AM</option>
+                                <option value={150}>2:30 AM</option>
+                                <option value={180}>3:00 AM</option>
+                                <option value={210}>3:30 AM</option>
+                                <option value={240}>4:00 AM</option>
+                                <option value={270}>4:30 AM</option>
+                                <option value={300}>5:00 AM</option>
+                                <option value={330}>5:30 AM</option>
+                                <option value={360}>6:00 AM</option>
+                                <option value={390}>6:30 AM</option>
+                                <option value={420}>7:00 AM</option>
+                                <option value={450}>7:30 AM</option>
+                                <option value={480}>8:00 AM</option>
+                                <option value={510}>8:30 AM</option>
+                                <option value={540}>9:00 AM</option>
+                                <option value={570}>9:30 AM</option>
+                                <option value={600}>10:00 AM</option>
+                                <option value={630}>10:30 AM</option>
+                                <option value={660}>11:00 AM</option>
+                                <option value={690}>11:30 AM</option>
+                                <option value={720}>12:00 PM</option>
+                                <option value={750}>12:30 PM</option>
+                                <option value={780}>1:00 PM</option>
+                                <option value={810}>1:30 PM</option>
+                                <option value={840}>2:00 PM</option>
+                                <option value={870}>2:30 PM</option>
+                                <option value={900}>3:00 PM</option>
+                                <option value={930}>3:30 PM</option>
+                                <option value={960}>4:00 PM</option>
+                                <option value={990}>4:30 PM</option>
+                                <option value={1020}>5:00 PM</option>
+                                <option value={1050}>5:30 PM</option>
+                                <option value={1080}>6:00 PM</option>
+                                <option value={1110}>6:30 PM</option>
+                                <option value={1140}>7:00 PM</option>
+                                <option value={1170}>7:30 PM</option>
+                                <option value={1200}>8:00 PM</option>
+                                <option value={1230}>8:30 PM</option>
+                                <option value={1260}>9:00 PM</option>
+                                <option value={1290}>9:30 PM</option>
+                                <option value={1320}>10:00 PM</option>
+                                <option value={1350}>10:30 PM</option>
+                                <option value={1380}>11:00 PM</option>
+                                <option value={1410}>11:30 PM</option>
+                            </select>
+                        </tr>
+                    </table>
                     <button type="button" onClick={submitTimes}>Confirm Times</button>
                 </div>
             </div>
