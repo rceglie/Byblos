@@ -22,20 +22,20 @@ const CreatePost = () => {
     const [postData, setPostData] = useState({
         fight: "",
         times: {
-            suns: "",
-            mons: "",
-            tues: "",
-            weds: "",
-            thurs: "",
-            fris: "",
-            sats: "",
-            sune: "",
-            mone: "",
-            tuee: "",
-            wede: "",
-            thure: "",
-            frie: "",
-            sate: "",
+            suns: -1,
+            mons: -1,
+            tues: -1,
+            weds: -1,
+            thurs: -1,
+            fris: -1,
+            sats: -1,
+            sune: -1,
+            mone: -1,
+            tuee: -1,
+            wede: -1,
+            thure: -1,
+            frie: -1,
+            sate: -1,
         },
         prog: "",
         roles: [],
@@ -49,6 +49,7 @@ const CreatePost = () => {
     const post = useSelector((state) =>
         currentId ? state.posts.posts.find((p) => p._id === currentId) : null
     );
+    const [timeDisplay, setTimeDisplay] = useState({suns:"", mons:"", tues: "", weds: "", thurs:"", fris:"", sats:"",sune:"", mone:"", tuee: "", wede: "", thure:"", frie:"", sate:""})
     const user = JSON.parse(localStorage.getItem("profile"));
     const navigate = useNavigate();
 
@@ -71,16 +72,12 @@ const CreatePost = () => {
             ilvl: document.getElementById("ilvl").value,
             desc: document.getElementById("desc").value,
         })));
-        // if(currentId == 0) {
         dispatch(
             createPost(
                 { ...postData, name: user?.result?.name, creator: user?.result?._id },
                 navigate
             )
         );
-        // } else {
-        //     dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
-        // }
     };
 
     const handleRoleCallback = (childData) => {
@@ -96,37 +93,62 @@ const CreatePost = () => {
     };
 
     const handleTimeCallback = (childData) => {
-        // If end time < start time, convert end time to 36 hour time
-        // 1. Get every end date and check it with its start data
-        console.log("child data:");
-        console.log(childData);
-        let allKeys = Object.keys(childData);
-        for (let i = 0; i < allKeys.length; i++) {
-            if (allKeys[i].slice(-1) == "s" && childData[allKeys[i]] != null) {
-                let endKey = allKeys[i].replace(/.$/, "e");
-                let endTime = childData[endKey];
-                let startTime = childData[allKeys[i]];
-                console.log("Start time", startTime);
-                console.log("End time", endTime);
-                var startMinutes =
-                    parseInt(startTime.split(":")[1], 10) +
-                    parseInt(startTime.split(":")[0], 10) * 60;
-                var endMinutes =
-                    parseInt(endTime.split(":")[1], 10) +
-                    parseInt(endTime.split(":")[0], 10) * 60;
-                if (endMinutes < startMinutes) {
-                    console.log("need to convert");
-                    console.log(parseInt(endTime.split(":")[0], 10) + 24);
-                    childData[endKey] =
-                        (parseInt(endTime.split(":")[0], 10) + 24).toString() +
-                        ":" +
-                        endTime.split(":")[1];
-                    console.log(childData);
-                }
-            }
-        }
+        console.log(childData)
+        convertDateToString(childData)
         setPostData((prevState) => ({ ...prevState, times: childData }));
     };
+
+    const convertDateToString = (d) => {
+        console.log(d)
+        let tempStrings = {suns:"", mons:"", tues: "", weds: "", thurs:"", fris:"", sats:"",sune:"", mone:"", tuee: "", wede: "", thure:"", frie:"", sate:""}
+        let allKeys = Object.keys(tempStrings);
+        for (let i = 0; i < 7; i++) {
+            console.log(allKeys[i])
+            console.log(d[allKeys[i]])
+            if (d[allKeys[i]] != -1) { // If key has data
+                let startKey = allKeys[i]
+                let endKey = allKeys[i].replace(/.$/, "e");
+                let startTime = d[startKey]
+                let endTime = d[endKey] > 1440 ? d[endKey] - 1440 : d[endKey]; // Converts to 24 hour time if greater than 1440 (24 hr)
+                console.log(endTime)
+
+                // For start time
+                let hour = Math.floor(startTime / 60)
+                let minute = startTime % 60
+                let suffix = "AM"
+                if (hour > 12){
+                    hour = hour - 12
+                    suffix = "PM"
+                } else if (hour == 0){
+                    hour = 12
+                }
+                let strHour = hour < 10 ? "0".concat(hour) : "".concat(hour)
+                let strMin = minute < 10 ? "0".concat(minute) : "".concat(minute)
+                tempStrings[startKey] = "".concat(strHour).concat(":").concat(strMin).concat(" ").concat(suffix)
+
+                // For end time
+                hour = Math.floor(endTime / 60)
+                minute = endTime % 60
+                //console.log(hour, minute)
+                suffix = "AM"
+                if (hour > 12){
+                    hour = hour - 12
+                    suffix = "PM"
+                } else if (hour == 0){
+                    hour = 12
+                }
+                strHour = hour < 10 ? "0".concat(hour) : "".concat(hour)
+                strMin = minute < 10 ? "0".concat(minute) : "".concat(minute)
+                tempStrings[endKey] = "".concat(strHour).concat(":").concat(strMin).concat(" ").concat(suffix)
+            }
+        }
+
+        console.log("Temp Strings:")
+        console.log(tempStrings)
+        setTimeDisplay(tempStrings)
+        
+        return 0
+    }
 
     const deleteSlot = (e) => {
         let newArr = postData.roles.map((x) => x);
@@ -139,32 +161,6 @@ const CreatePost = () => {
         newArr.splice(e, 1);
         setPostData({ ...postData, comp: newArr });
     };
-
-    const convertDateToString = (d) => {
-        let startTime = postData.times[d.concat("s")]
-        let endTime = postData.times[d.concat("e")]
-        let sp = ""
-        let ep = ""
-        if (parseInt(startTime.split(":")[0], 10) > 12){
-            sp = " PM"
-        } else {
-            sp = " AM"
-        }
-        if (parseInt(endTime.split(":")[0], 10) > 12){
-            ep = " PM"
-        } else {
-            ep = " AM"
-        }
-        if (parseInt(endTime.split(":")[0], 10) >= 24){
-            endTime = (parseInt(endTime.split(":")[0], 10) - 24).toString() + ":" + endTime.split(":")[1]
-        } else if (parseInt(endTime.split(":")[0], 10) > 12){
-            endTime = (parseInt(endTime.split(":")[0], 10) - 12).toString() + ":" + endTime.split(":")[1]
-        }
-        if (parseInt(startTime.split(":")[0], 10) > 12){
-            startTime = (parseInt(startTime.split(":")[0], 10) - 12).toString() + ":" + startTime.split(":")[1]
-        }
-        return startTime.concat(sp).concat(" - ").concat(endTime).concat(ep)
-    }
 
     if (!user?.result?.name) {
         return (
@@ -309,13 +305,38 @@ const CreatePost = () => {
             </div>
             <div className="times-wrapper border">
                 <h3>Times</h3>
-                {postData.times["suns"] != "" ? <p>   Sunday: {"\xa0\xa0\xa0\xa0\xa0\xa0\xa0"}{convertDateToString("sun")}</p> : ""}
-                {postData.times["mons"] != "" ? <p>   Monday: {"\xa0\xa0\xa0\xa0\xa0\xa0"}{convertDateToString("mon")}</p> : ""}
-                {postData.times["tues"] != "" ? <p>  Tuesday: {"\xa0\xa0\xa0\xa0\xa0\xa0"}{convertDateToString("tue")}</p> : ""}
-                {postData.times["weds"] != "" ? <p>Wednesday: {"\xa0"}{convertDateToString("wed")}</p> : ""}
-                {postData.times["thurs"] != "" ? <p>Thursday: {"\xa0\xa0\xa0\xa0"}{convertDateToString("thur")}</p> : ""}
-                {postData.times["fris"] != "" ? <p>   Friday: {"\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"}{convertDateToString("fri")}</p> : ""}
-                {postData.times["sats"] != "" ? <p> Saturday: {"\xa0\xa0\xa0\xa0\xa0"}{convertDateToString("sat")}</p> : ""}
+                <div className="timedisplay2">
+                    <table className="timedisplaycreate">
+                        {postData.times["suns"] != -1 ? <tr>
+                            <td>Sun</td>
+                            <td>{timeDisplay["suns"]} to {timeDisplay["sune"]}</td>
+                        </tr> : ""}
+                        {postData.times["mons"] != -1 ? <tr>
+                            <td>Mon</td>
+                            <td>{timeDisplay["mons"]} to {timeDisplay["mone"]}</td>
+                        </tr> : ""}
+                        {postData.times["tues"] != -1 ? <tr>
+                            <td>Tues</td>
+                            <td>{timeDisplay["tues"]} to {timeDisplay["tuee"]}</td>
+                        </tr> : ""}
+                        {postData.times["weds"] != -1 ? <tr>
+                            <td>Wed</td>
+                            <td>{timeDisplay["weds"]} to {timeDisplay["wede"]}</td>
+                        </tr> : ""}
+                        {postData.times["thurs"] != -1 ? <tr>
+                            <td>Thur</td>
+                            <td>{timeDisplay["thurs"]} to {timeDisplay["thure"]}</td>
+                        </tr> : ""}
+                        {postData.times["fris"] != -1 ? <tr>
+                            <td>Fri</td>
+                            <td>{timeDisplay["fris"]} to {timeDisplay["frie"]}</td>
+                        </tr> : ""}
+                        {postData.times["sats"] != -1 ? <tr>
+                            <td>Sat</td>
+                            <td>{timeDisplay["sats"]} to {timeDisplay["sate"]}</td>
+                        </tr> : ""}
+                    </table>
+                </div>
                 <TimeSelect
                     times={postData.times}
                     parentCallback={handleTimeCallback}

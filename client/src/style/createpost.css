@@ -308,3 +308,7 @@ textarea{
     justify-self:center;
     background-color: rgb(101, 0, 196);
 }
+
+.timedisplaycreate{
+    margin-bottom: .5vh;
+}

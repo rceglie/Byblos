@@ -5,17 +5,17 @@ const TimeSelect = (props) => {
 
     const [modal, setModal] = useState(false);
     const [times, setTimes] = useState(
-        props.times != null ?
-            props.times
-            :
-            {suns:-1, mons:-1, tues: -1, weds: -1, thurs:-1, fris:-1, sats:-1,sune:-1, mone:-1, tuee: -1, wede: -1, thure:-1, frie:-1, sate:-1}
+        {suns:-1, mons:-1, tues: -1, weds: -1, thurs:-1, fris:-1, sats:-1,sune:-1, mone:-1, tuee: -1, wede: -1, thure:-1, frie:-1, sate:-1}
     );
 
+    let strTimes = {suns:"", mons:"", tues: "", weds: "", thurs:"", fris:"", sats:"",sune:"", mone:"", tuee: "", wede: "", thure:"", frie:"", sate:""}
+
+
     useEffect(() => {
-        console.log(times)
     })
 
     const toggleModal = () => {
+        setTimes({suns:-1, mons:-1, tues: -1, weds: -1, thurs:-1, fris:-1, sats:-1,sune:-1, mone:-1, tuee: -1, wede: -1, thure:-1, frie:-1, sate:-1})
         if (!modal){
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -28,27 +28,34 @@ const TimeSelect = (props) => {
         document.body.classList.remove('active-modal')
     }
 
+    const handleChange = (e) => {
+        console.log(e)
+        setTimes({...times, [e.target.id]: parseInt(e.target.value)})
+    }
+
+    // Converts times to 48 hour format
+    const validateTimes = () => {
+
+        let days = Object.keys(times)
+        let newDates = times
+
+        for (let i = 0 ; i < 7; i++){
+            console.log(times[days[i].slice(0, -1) + 's'])
+            console.log(times[days[i].slice(0, -1) + 'e'])
+            if (parseInt(times[days[i].slice(0, -1) + 's']) > times[days[i].slice(0, -1) + 'e']){ // If start > end
+                console.log("change")
+                newDates[days[i].slice(0, -1) + 'e'] = times[days[i].slice(0, -1) + 'e'] + 1440
+            }
+        }
+        
+        setTimes(newDates)
+    }
+
+    // Handles sumbit button click
     const submitTimes = () => {
         validateTimes()
         props.parentCallback(times)
         toggleModal()
-    }
-
-    const handleChange = (e) => {
-        console.log(e)
-        setTimes({...times, [e.target.id]: e.target.value})
-    }
-
-    const validateTimes = () => {
-        let days = Object.keys(times)
-       
-        for (let i = 0 ; i < 7; i++){
-            console.log(times[days[i].slice(0, -1) + 'e'])
-            if (times[days[i]] > times[days[i].slice(0, -1) + 'e']){
-                console.log("convert")
-                console.log(days[i])
-            }
-        }
     }
 
   return (
@@ -119,8 +126,8 @@ const TimeSelect = (props) => {
                                     <option value={1410}>11:30 PM</option>
                                 </select>
                             </td>
-                            <span> to </span>
-                            <select id="sune" onChange={handleChange}>
+                            to
+                            <select id="sune" onChange={handleChange} defaultValue={-1}>
                                 <option value={-1}>---</option>
                                 <option value={0}>12:00 AM</option>
                                 <option value={30}>12:30 AM</option>
@@ -177,7 +184,7 @@ const TimeSelect = (props) => {
                                 <span>Monday</span>
                             </td>
                             <td>
-                                <select id="suns" onChange={handleChange}>
+                                <select id="mons" onChange={handleChange}>
                                     <option value={-1}>---</option><option value={0}>12:00 AM</option>
                                     <option value={30}>12:30 AM</option>
                                     <option value={60}>1:00 AM</option>
@@ -228,8 +235,8 @@ const TimeSelect = (props) => {
                                     <option value={1410}>11:30 PM</option>
                                 </select>
                             </td>
-                            <span> to </span>
-                            <select id="sune" onChange={handleChange}>
+                            to
+                            <select id="mone" onChange={handleChange}>
                                 <option value={-1}>---</option><option value={0}>12:00 AM</option>
                                 <option value={30}>12:30 AM</option>
                                 <option value={60}>1:00 AM</option>
@@ -336,7 +343,7 @@ const TimeSelect = (props) => {
                                     <option value={1410}>11:30 PM</option>
                                 </select>
                             </td>
-                            <span> to </span>
+                            to
                             <select id="tuee" onChange={handleChange}>
                                 <option value={-1}>---</option><option value={0}>12:00 AM</option>
                                 <option value={30}>12:30 AM</option>
@@ -444,7 +451,7 @@ const TimeSelect = (props) => {
                                     <option value={1410}>11:30 PM</option>
                                 </select>
                             </td>
-                            <span> to </span>
+                            to
                             <select id="wede" onChange={handleChange}>
                                 <option value={-1}>---</option><option value={0}>12:00 AM</option>
                                 <option value={30}>12:30 AM</option>
@@ -552,7 +559,7 @@ const TimeSelect = (props) => {
                                     <option value={1410}>11:30 PM</option>
                                 </select>
                             </td>
-                            <span> to </span>
+                            to
                             <select id="thure" onChange={handleChange}>
                                 <option value={-1}>---</option><option value={0}>12:00 AM</option>
                                 <option value={30}>12:30 AM</option>
@@ -660,7 +667,7 @@ const TimeSelect = (props) => {
                                     <option value={1410}>11:30 PM</option>
                                 </select>
                             </td>
-                            <span> to </span>
+                            to
                             <select id="frie" onChange={handleChange}>
                                 <option value={-1}>---</option><option value={0}>12:00 AM</option>
                                 <option value={30}>12:30 AM</option>
@@ -768,7 +775,7 @@ const TimeSelect = (props) => {
                                     <option value={1410}>11:30 PM</option>
                                 </select>
                             </td>
-                            <span> to </span>
+                            to
                             <select id="sate" onChange={handleChange}>
                                 <option value={-1}>---</option><option value={0}>12:00 AM</option>
                                 <option value={30}>12:30 AM</option>

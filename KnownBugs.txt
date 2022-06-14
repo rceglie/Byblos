@@ -3,3 +3,9 @@ will still appear to be selected, but will not actually be selected in the code.
 EX) PLD selected, Tank (ANY) select, Tank (ANY) deselected : PLD will still appear to be selected but will not show up after "Confirm Roles" is pressed
 
 When selecting a time for create post, the times will save even if the user doesnt hit confirm times. However, the actual postData state does not update with the unsaved times.
+
+
+
+
+Not a bug:
+When adding new prog point, change options dropdown (obviouisly) and change Components/ShowPosts/config.js

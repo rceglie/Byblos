@@ -1,15 +1,10 @@
-1. Sort/Search
-2. My posts
-3. Account info
-4. About byblos
-5. Email verification?
-6. Change password?
-7. Display posts
-8. Extended post page
-9. Home option on Actions
-10. Add ignore criteria on search page
-11. Time overhaul
-12. Prog overhaul
-13. Exp overhaul
+1. My posts
+2. Account info
+3. How to display posts
+4. Extended post page
+5. Filter posts approximation
+6. Change password
+7. Email verification
 
-LAST. Make it look good
+
+LAST. Make it all look good

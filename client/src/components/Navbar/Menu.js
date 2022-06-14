@@ -43,14 +43,15 @@ const Menu = (props) => {
           <ul>
               <li>
                 <a className="actions">
-                  Actions
+                  Quick Navigation
                 </a>
                 <ul className="submenu">
+                  <li><a href="/home">Home</a></li>
                   <li><a href="/lfg">Look for a Group</a></li>
                   <li><a href="/create">Create Post</a></li>
-                  <li><a >My Posts</a></li>
+                  <li><a href="/myposts">My Posts</a></li>
                   <li><a >Account Info</a></li>
-                  <li><a >About Byblos</a></li>
+                  <li><a href="/about">About Byblos</a></li>
                 </ul>
               </li>
             </ul>

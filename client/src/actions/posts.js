@@ -13,6 +13,7 @@ import * as api from '../api';
 
 export const getPosts = (filter, navigate) => async (dispatch) => {
     try {
+      console.log(filter)
       const { data } = await api.fetchPosts();
       let newArr = data.data
       newArr.push(filter) // Adds filter as last element in data array

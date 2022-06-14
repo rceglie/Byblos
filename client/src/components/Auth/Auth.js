@@ -18,6 +18,10 @@ const Auth = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault();
+    if (!/[A-Z]/.test(formData.password) || !/\d/.test(formData.password)){
+      alert("Password must contain at least one uppercase letter and at least one number.")
+      return 0;
+    }
     if (isSignup){
       dispatch(signup(formData, navigate))
     } else {
