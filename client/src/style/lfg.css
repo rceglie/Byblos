@@ -1,0 +1,302 @@
+.roleImage {
+    width: 40px;
+    height: 40px;
+    margin: 0px 5px 0px 5px;
+}
+
+.role-row {
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.singleRole {
+    height:45px;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+}
+
+/* Below this is the css for the nice radio buttons */
+
+
+.fight-wrapper2 .option{
+    background: rgb(221, 221, 221);
+    height: 8vh;
+    min-width: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    border-radius: 100%;
+    cursor: pointer;
+    padding: 0 10px;
+    border: 1px solid rgb(73, 73, 73);
+    transition: all 0.3s ease;
+}
+.fight-wrapper2 .option .dot{
+    background: #cc8d8d;
+    border-radius: 100%;
+    position: relative;
+}
+.fight-wrapper2 .option .dot::before{
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background: #0069d9;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1.5);
+    transition: all 0.3s ease;
+}
+input[type="radio"]{
+    display: none;
+}
+#option-1:checked:checked ~ .option-1,
+#option-2:checked:checked ~ .option-2,
+#option-3:checked:checked ~ .option-3,
+#option-4:checked:checked ~ .option-4{
+    border-color: #0069d9;
+    background: #0069d9;
+}
+#option-1:checked:checked ~ .option-1 .dot,
+#option-2:checked:checked ~ .option-2 .dot,
+#option-3:checked:checked ~ .option-3 .dot,
+#option-4:checked:checked ~ .option-4 .dot{
+    background: #fff;
+}
+#option-1:checked:checked ~ .option-1 .dot::before,
+#option-2:checked:checked ~ .option-2 .dot::before,
+#option-3:checked:checked ~ .option-3 .dot::before,
+#option-4:checked:checked ~ .option-4 .dot::before{
+    opacity: 1;
+    transform: scale(1);
+}
+.fight-wrapper .option span{
+    font-size: 23px;
+    color: #000000;
+}
+#option-1:checked:checked ~ .option-1 span,
+#option-2:checked:checked ~ .option-2 span,
+#option-3:checked:checked ~ .option-3 span,
+#option-4:checked:checked ~ .option-4 span{
+    color: #fff;
+}
+
+h3 {
+    text-align: center;
+}
+
+.addbtn{
+    border:0.16em solid rgba(255,255,255,0);
+    border-radius:2em;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+    background-color:rgb(101, 0, 196);
+}
+
+.addbtn:hover{
+    border-color: rgba(255,255,255,1);
+}
+
+.no-user{
+    width: 100%;
+    height:100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.signheader {
+    align-self: center;
+}
+
+.signbtn {
+    align-self: center;
+    width: 30vw;
+    height: 10vh;
+}
+
+/* ----------------- */
+
+.LFG {
+    margin-left:22.5vw;
+    width: 55vw;
+    height: 86vh;
+    background-color:rgb(0, 0, 0);
+    color: white;
+    display: grid;
+    grid-template-columns: 5% 30% 30% 30% 5%;
+    grid-template-rows: 10% 20% 50% 20%;
+    justify-items:center;
+    align-items:center;
+}
+
+.lfg-title {
+    display:flex;
+    text-align: center;
+    flex-direction:column;
+    justify-content:center;
+    border-bottom-color: rgb(139, 139, 139);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    grid-column: 1 / span 6;
+    grid-row: 1;
+}
+
+.fight-prog-wrapper2{
+    grid-column: 2 / span 3;
+    grid-row: 2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-items: center;
+}
+
+.fight-wrapper2{
+    font-size: 25px;
+    color:black;
+    width:50%;
+    height:40%;
+    display:flex;
+    flex-direction: row;
+    user-select:none;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    padding: 20px 15px;
+    margin-bottom: 2vh;
+    box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+}
+
+.ignorelabel{
+    color: white;
+}
+
+
+.prog-wrapper{
+    display: flex;
+    width: 75%;
+    justify-content: center;
+}
+
+.prog-wrapper label {
+    height: 100%;
+    margin-top: .5vh;
+}
+
+.prog-wrapper select{
+    border-radius: 5px;
+    height: 3vh;
+    margin-top: 0vh;
+    width: 45%;
+    background-color:rgb(221, 221, 221);
+}
+
+.times-wrapper2{
+    grid-column: 3;
+    grid-row: 3;
+    min-height: 90%;
+    min-width: 90%;
+    display:flex;
+    flex-direction: column;
+}
+
+.times-wrapper2 h3{
+    
+}
+
+.timedisplay{
+    padding-top: 2vh;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.timedisplay td{
+    padding-bottom: 1vh;
+}
+
+.roles-needed-wrapper2 {
+    grid-column: 2;
+    grid-row: 3;
+    min-height: 90%;
+    min-width: 90%;
+}
+
+.roles-content{
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.exp-ilvl-wrapper2{
+    grid-column: 4;
+    grid-row: 3;
+    height: 90%;
+    width: 90%;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+.exp-wrapper{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.exp-sel {
+    border-radius: 5px;
+    height: 3vh;
+    margin-top: 1vh;
+    width: 100%;
+    background-color:rgb(221, 221, 221);
+}
+
+.ilvl-wrapper{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    width: 100%;
+    font-size: 20px;
+}
+
+.ilvl-wrapper input{
+    background-color:rgb(221, 221, 221);
+    width: 25%;
+    align-self: center;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.btns{
+    grid-column: 1 / span 6;
+    grid-row: 4;
+    display: flex;
+    gap: 1vw;
+}
+
+.submit-search{
+    width: 15vw;
+    height: 5vw;
+    font-size: 25px;
+    justify-self:center;
+    background-color: rgb(12, 1, 78);
+}
