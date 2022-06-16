@@ -1,10 +1,9 @@
-1. My posts
-2. Account info
+1. Email verification
+2. My posts
 3. How to display posts
 4. Extended post page
-5. Filter posts approximation
+5. Account info
 6. Change password
-7. Email verification
+7. Filter posts approximation
 
 LAST. Make it all look good
-

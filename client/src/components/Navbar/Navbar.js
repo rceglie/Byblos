@@ -1,42 +1,51 @@
-import React, { useEffect, useState }  from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Typography, Toolbar, Button, Avatar, Divider } from "@mui/material";
 import logo from '../../images/logo2.jpg';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import "../../style/navbar.css"
-import Menu from "./Menu.js"
 
 const Navbar = () => {
 
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    useEffect(()=>{
-      const token = user?.token;
-      if (token) {
-        const decodedToken = decode(token);
-  
-        if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-      }
-      setUser(JSON.parse(localStorage.getItem('profile')))
-    }, [location])
+  useEffect(() => {
+    const token = user?.token;
+    if (token) {
+      const decodedToken = decode(token);
 
-    const logout = () => {
-      dispatch({type: 'LOGOUT'});
-      navigate("/")
-      setUser(null)
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
+    setUser(JSON.parse(localStorage.getItem('profile')))
+  }, [location])
 
-    const clickHome = () => {
-      navigate("/")
-    }
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' });
+    navigate("/")
+    setUser(null)
+  }
 
-  return(
+  const clickHome = () => {
+    navigate("/")
+  }
+
+  return (
     <div className="container">
-      <Menu />
+      <div className="dropdown">
+        <button className="dropbtn">Quick Navigation</button>
+        <div className="dropdown-content">
+          <a href="/home">Home</a>
+          <a href="/lfg">Look for a Group</a>
+          <a href="/create">Create Post</a>
+          <a href="/myposts">My Posts</a>
+          <a href="/">Account Info</a>
+          <a href="/about">About Byblos</a>
+        </div>
+      </div>
       <div className="middle-item">
         <div className="title-pic">
           <img className="logo" onClick={clickHome} src={logo} alt="icon" height="60" />
@@ -55,7 +64,7 @@ const Navbar = () => {
           <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
         )}
       </Toolbar>
-    </div>
+    </div >
   )
 }
 

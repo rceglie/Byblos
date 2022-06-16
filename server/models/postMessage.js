@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-//role:String, logs:String
-
 const postSchema = mongoose.Schema({
     name: String,
     creator: String,
