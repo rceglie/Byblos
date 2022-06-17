@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, Button, Avatar, Divider } from "@mui/mater
 import logo from '../../images/logo2.jpg';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { getPostsByUser } from '../../actions/posts';
 import decode from 'jwt-decode';
 import "../../style/navbar.css"
 
@@ -33,6 +34,11 @@ const Navbar = () => {
     navigate("/")
   }
 
+  const clickMyPosts = () => {
+    const user = JSON.parse(localStorage.getItem("profile"));
+    dispatch(getPostsByUser({ userId: user.result._id }, navigate));
+  }
+
   return (
     <div className="container">
       <div className="dropdown">
@@ -41,7 +47,7 @@ const Navbar = () => {
           <a href="/home">Home</a>
           <a href="/lfg">Look for a Group</a>
           <a href="/create">Create Post</a>
-          <a href="/myposts">My Posts</a>
+          <a onClick={clickMyPosts}>My Posts</a>
           <a href="/">Account Info</a>
           <a href="/about">About Byblos</a>
         </div>
@@ -61,7 +67,7 @@ const Navbar = () => {
             <Button variant="contained" color="secondary" onClick={logout}>Logout</Button>
           </div>
         ) : (
-          <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+          <Button component={Link} to="/signin" variant="contained" color="primary">Sign In</Button>
         )}
       </Toolbar>
     </div >

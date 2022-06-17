@@ -18,20 +18,23 @@ export const signin = async (req, res) => {
 
         if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" })
 
-        if (!user.verified) {
-			let token = await Token.findOne({ userId: user._id });
-			if (!token) {
+        if (!existingUser.verified) {
+            console.log("not verify")
+			let token = await Token.findOne({ userId: existingUser._id });
+            console.log(token);
+			if (!token) { // If token for user does not exist, create new one
 				token = await new Token({
-					userId: user._id,
+					userId: existingUser._id,
 					token: crypto.randomBytes(32).toString("hex"),
 				}).save();
-				const url = `${process.env.BASE_URL}users/${user.id}/verify/${token.token}`;
-				await sendEmail(user.email, "Verify Email", url);
-			}
+            }
+            // Then send email
+			const url = `${process.env.BASE_URL}users/${existingUser._id}/verify/${token.token}`;
+			await sendEmail(existingUser.email, "Verify Email", url);
 
 			return res
 				.status(400)
-				.send({ message: "An Email sent to your account please verify" });
+				.send({ message: "An email was sent to your account to verify." });
 		}
 
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, 'test', { expiresIn: '6hr' })
@@ -43,7 +46,7 @@ export const signin = async (req, res) => {
 }
 
 export const signup = async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, displayName } = req.body;
     try {
         const existingUser = await User.findOne({ email });
 
@@ -51,20 +54,20 @@ export const signup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` })
+        const result = await User.create({ email, password: hashedPassword, name: `${displayName}` })
 
-        const authtoken = await new Token({
-            userId: user._id,
+        const authtoken = await Token.create({
+            userId: result._id,
             token: crypto.randomBytes(32).toString("hex")
         })
         console.log(authtoken)
-        const url = `${process.env.BASE_URL}users/${user.id}/verify/${authtoken.token}`;
+        const url = `${process.env.BASE_URL}users/${authtoken.userId}/verify/${authtoken.token}`;
+        console.log(url)
 		await sendEmail(result.email, "Verify Email", url);
 
-        const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: '6hr' })
-
-        res.status(200).json({ result, token })
+        res.status(200).json({message: "Account created. Stil need to verify email."})
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Something went wrong" })
     }
 }
@@ -78,13 +81,17 @@ export const verify = async (req, res) => {
 			userId: user._id,
 			token: req.params.token,
 		});
+        console.log('Token:');
+        console.log(req.params.token)
+        console.log(token);
 		if (!token) return res.status(400).send({ message: "Invalid link" });
 
-		await User.updateOne({ _id: user._id, verified: true });
-		await token.remove();
+		await User.updateOne({ _id: user._id }, { verified: true });
+		await Token.deleteOne({ token: req.params.token});
 
 		res.status(200).send({ message: "Email verified successfully" });
 	} catch (error) {
+        console.log(error)
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 }

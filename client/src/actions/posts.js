@@ -24,17 +24,6 @@ export const getPosts = (filter, navigate) => async (dispatch) => {
     }
   };
 
-  export const getJustPosts = () => async (dispatch) => {
-    try {
-      const { data } = await api.fetchPosts();
-      //const newArr = data.data
-      dispatch({ type: "FETCH_ALL", payload: data.data });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
 export const getPost = (id) => async (dispatch) => {
     try {
       const { data } = await api.fetchPost(id);
@@ -44,12 +33,11 @@ export const getPost = (id) => async (dispatch) => {
     }
   };
 
-export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+export const getPostsByUser = (searchQuery, navigate) => async (dispatch) => {
     try{
-        console.log("SEARCHING FOR:")
-        console.log(searchQuery)
-        const { data: {data} } = await api.fetchPostsBySearch(searchQuery);
-        dispatch({type: 'FETCH_BY_SEARCH', payload: {data}})
+        const { data: {data} } = await api.fetchPostsByUser(searchQuery);
+        dispatch({type: 'FETCH_BY_USER', payload: {data}})
+        navigate("/myposts");
     } catch(error){
         console.log(error);
     }
