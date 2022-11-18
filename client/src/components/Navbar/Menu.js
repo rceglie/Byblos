@@ -47,7 +47,7 @@ const Menu = (props) => {
                 </a>
                 <ul className="submenu">
                   <li><a href="/home">Home</a></li>
-                  <li><a href="/lfg">Look for a Group</a></li>
+                  <li><a href="/groups">Look for a Group</a></li>
                   <li><a href="/create">Create Post</a></li>
                   <li><a href="/myposts">My Posts</a></li>
                   <li><a >Account Info</a></li>

@@ -6,7 +6,8 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 import CreatePost from './components/CreatePost/CreatePost'
-import LFG from './components/LFG/LFG'
+import Groups from './components/Groups/Groups'
+import TestGroups from './components/Groups/TestGroups'
 import ShowPosts from './components/ShowPosts/ShowPosts'
 import AllPosts from './components/AllPosts/AllPosts';
 import About from "./components/About/About";
@@ -27,7 +28,8 @@ const App = () => {
                 <Route path="/posts/:id" exact element={<PostDetails />} />
                 <Route path="/auth" exact element={temp} />
                 <Route path="/create" exact element={<CreatePost />} />
-                <Route path="/lfg" exact element={<LFG />} />
+                <Route path="/groups" exact element={<Navigate to="/testgroups"/>} />
+                <Route path="/testgroups" exact element={<TestGroups />} />
                 <Route path="/showposts" exact element={<ShowPosts />} />
                 <Route path="/about" exact element={<About />} />
                 <Route path="/myposts" exact element={<MyPosts />} />

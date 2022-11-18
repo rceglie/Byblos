@@ -31,30 +31,29 @@ const Navbar = () => {
     }
 
     const clickHome = () => {
-      navigate("/")
+      navigate("/home")
     }
 
   return(
     <div className="container">
-      <Menu />
-      <div className="middle-item">
-        <div className="title-pic">
-          <img className="logo" onClick={clickHome} src={logo} alt="icon" height="60" />
-          <h1 className="title" onClick={clickHome}>Byblos</h1>
-        </div>
-        <h2>The Final Fantasy XIV Static Finder</h2>
+      <div className="title-pic"> 
+        <img className="logo" onClick={clickHome} src={logo} alt="icon" height="60" />
+        <h1 className="title" onClick={clickHome}>Byblos</h1>
       </div>
-      <Toolbar className="toolbar">
+      <div className="right-side">
+        <button className="button-37" onClick={() => navigate("/groups")}>Browse Groups</button>
+        <button className="button-37" onClick={() => navigate("/groups")}>Browse Players</button>
+        <button className="button-37" onClick={() => navigate("/about")}>My Information</button>
         {user ? (
           <div className="userstuff">
             <Avatar>{user?.result.name.charAt(0)}</Avatar>
             <Typography variant="h6">{user?.result.name}</Typography>
-            <Button variant="contained" color="secondary" onClick={logout}>Logout</Button>
+            <Button variant="contained" className="button-37" onClick={logout}>Logout</Button>
           </div>
         ) : (
-          <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+          <button onClick={() => navigate("/auth")} className="button-37">Sign In</button>
         )}
-      </Toolbar>
+      </div>
     </div>
   )
 }

@@ -1,8 +1,10 @@
 body {
-    background-color: #05040c;
-    background-color: #160013;
-    background-color: rgb(5, 13, 41);
-    background-size: cover;
+    /* background-color: rgb(5, 13, 41);
+    background-image: linear-gradient(92.88deg, #11225f 9.16%, #160969 43.89%, rgb(5, 13, 41) 64.72%);
+    background-image: linear-gradient(92.88deg, #160969 10%, rgb(5, 13, 41) 60%); */
+    background-image: linear-gradient(#36096D, #160969);
+    background-image: linear-gradient(#001058, #010027);
+    background-image: radial-gradient(ellipse at center, #030057, #010027);
     font-family: Tahoma, sans-serif;
 }
 
