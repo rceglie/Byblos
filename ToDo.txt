@@ -1,12 +1,23 @@
-1. Display email verification stuff
+(STAGE A)
+
+1. Email verification stuff
 2. Delete/edit posts
 3. Add contact info to post
 4. Extended post page
 5. Account info
 6. Change password
-7. Filter posts approximation
-8. Limit user posts
-9. Save search filter for user
+7. Improve visuals to look decent
+8. Parse current posts on discords
+9. Players section
+10. Group search results should be on same page as group search
+11. Limit groups per user
 
-LAST. Make it all look good
-- Display posts
+(STAGE B)
+
+1. Email verification
+2. Filter posts approximation
+3. Save search filters for user
+
+(STAGE C)
+
+1. Make visuals look excellent
