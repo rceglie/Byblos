@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Switch, Route, useLocation, useNavigate } from 'react-router-dom';
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPosts } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import "../../style/allposts.css"
 
@@ -29,7 +29,7 @@ const AllPosts = () => {
 
     const searchPost = () => {
         if (search.trim() || tags) {
-            dispatch(getPostsBySearch({search, tags: tags.join(",")}))
+            dispatch(getPosts({search, tags: tags.join(",")}))
             navigate(`/posts/search?searchQuery=${search || ''}&tags=${tags.join(',')}`)
         } else {
             navigate("/");

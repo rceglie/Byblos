@@ -12,8 +12,6 @@ import AllPosts from './components/AllPosts/AllPosts';
 import About from "./components/About/About";
 import MyPosts from "./components/MyPosts/MyPosts";
 import EmailVerify from './components/EmailVerify/EmailVerify';
-import Signin from './components/Auth/Signin';
-import Signup from './components/Auth/Signup';
 
 const App = () => {
     return (
@@ -31,8 +29,6 @@ const App = () => {
                 <Route path="/about" exact element={<About />} />
                 <Route path="/myposts" exact element={<MyPosts />} />
                 <Route path="/users/:id/verify/:token" element={<EmailVerify/>}/>
-                <Route path="/signin" exact element={<Signin/>}/>
-                <Route path="/signup" exact element={<Signup/>}/>
             </Routes>
         </BrowserRouter>
     )

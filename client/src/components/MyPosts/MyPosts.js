@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from "react-redux";
-import Post from '../DisplayPosts/Post';
+import Post from '../Posts/Post/Post.js';
 
 const MyPosts = () => {
 
