@@ -1,5 +1,6 @@
 (STAGE A)
 
+0. Put back showposts and auth pages
 1. Email verification stuff
 2. Delete/edit posts
 3. Add contact info to post
@@ -11,6 +12,7 @@
 9. Players section
 10. Group search results should be on same page as group search
 11. Limit groups per user
+12. Filter on backend, not frontend
 
 (STAGE B)
 
