@@ -45,23 +45,15 @@ const CreatePost = () => {
         desc: "",
     });
     const dispatch = useDispatch();
-    const [currentId, setCurrentId] = useState(0);
-    const post = useSelector((state) =>
-        currentId ? state.posts.posts.find((p) => p._id === currentId) : null
-    );
     const [timeDisplay, setTimeDisplay] = useState({suns:"", mons:"", tues: "", weds: "", thurs:"", fris:"", sats:"",sune:"", mone:"", tuee: "", wede: "", thure:"", frie:"", sate:""})
     const user = JSON.parse(localStorage.getItem("profile"));
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (post) setPostData(post);
-    }, [post]);
-
-    useEffect(() => {
-        console.log("------ Use Effect ------");
-        console.log("Post data:");
-        console.log(postData);
-        console.log("------ End Effect ------");
+        // console.log("------ Use Effect ------");
+        // console.log("Post data:");
+        // console.log(postData);
+        // console.log("------ End Effect ------");
     });
 
     const handleSumbit = (e) => {
@@ -173,10 +165,7 @@ const CreatePost = () => {
 
     return (
         <div className="create-LFM border">
-            <h3 className="lfm-title">
-                {" "}
-                {currentId ? "Editing a Post" : "Create a Post"}
-            </h3>
+            <h3 className="lfm-title">Create a Post</h3>
             <div className="fight-prog-wrapper">
                 <div className="fight-wrapper">
                 <input

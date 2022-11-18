@@ -2,7 +2,10 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div>About page info</div>
+    <div>
+      <h3>About page info</h3>
+      <p>Byblos good, discord bad</p>
+    </div>
   )
 }
 

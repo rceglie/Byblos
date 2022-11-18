@@ -38,15 +38,10 @@ export const getPost = async (req, res) => {
     }
 }
 
-export const getPostsBySearch = async (req, res) => { 
-
-    const { searchQuery, tags } = req.query;
-
+export const getPostsByUser = async (req, res) => {
+    const userId = req.params.id;
     try {
-        const q = new RegExp(searchQuery, "i");
-        console.log(q)
-        const posts = await PostMessage.find({fight:q, ilvl:""})
-        //const posts = await PostMessage.find({ $or: [ { fight } ]});//, { tags: { $in: tags.split(',') } } ]});
+        const posts = await PostMessage.find({creator:userId})
         console.log("FOUND: " + posts)
         res.status(200).json({data: posts});
     } catch (error) {

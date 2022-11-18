@@ -12,10 +12,9 @@ export const signin = (formData, navigate) => async (dispatch) => {
 
 export const signup = (formData, navigate) => async (dispatch) => {
     try {
-        const {data} = await api.signUp(formData)
-        console.log("here")
-        dispatch({type:"AUTH", data})
-        navigate("/");
+        const {} = await api.signUp(formData)
+        console.log("Account created, redirecting to login")
+        navigate("/signin")
     } catch(error){
         console.log(error)
     }
