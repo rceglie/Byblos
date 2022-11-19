@@ -26,13 +26,13 @@ export const auth = async (navigate) => {
         // check if token is still valid (checks to make sure last login was within 6 hours)
         // check key/id for validity (checks to make sure user is valid)
 
-        const token = JSON.parse(localStorage.getItem('profile'))?.token;
+        const token = JSON.parse(localStorage.getItem('token'));
         if (token) {
             const decodedToken = decode(token);
             if (decodedToken.exp * 1000 >= new Date().getTime()){
                 return true;
             } else {
-                localStorage.setItem('profile', "");
+                localStorage.setItem('user', "");
                 navigate("/signin");
             }
         }

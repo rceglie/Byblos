@@ -42,7 +42,7 @@ export const signin = async (req, res) => {
 
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, 'test', { expiresIn: '6hr' })
 
-        res.status(200).json({ message: "SUCCESS", result: {existingUser, token} })
+        res.status(200).json({ message: "SUCCESS", _id: existingUser._id, displayName: existingUser.name, token })
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Something went wrong" })
@@ -73,10 +73,10 @@ export const signup = async (req, res) => {
         let newUser = await User.find({ email: email });
         newUser = newUser[0];
 
-        console.log(newUser);
+        console.log(newUser)
 
         const token = jwt.sign({ email: newUser.email, id: newUser.id }, 'test', { expiresIn: '6hr' })
-        res.status(200).json({ message: "SUCCESS", result: {newUser, token} })
+        res.status(200).json({ message: "SUCCESS", _id: newUser._id, displayName: newUser.name, token })
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Something went wrong" })
@@ -114,6 +114,7 @@ export const getInfo = async (req, res) => {
         console.log(id)
         const result = await User.find({ _id: id });
         console.log(result.length)
+        res.status(200).send(result)
     } catch (e) {
         //console.log(e)
         res.status(500).send({message: "Internal Server Error"})

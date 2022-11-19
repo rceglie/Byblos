@@ -12,8 +12,7 @@
 10. Group search results should be on same page as group search
 11. Limit groups per user
 12. Email verification stuff
-13. Reorganize components
-14. Redo time
+13. Redo time
 
 (STAGE B)
 
@@ -29,3 +28,11 @@
 On sign in, generate random key
 Store key and userid in localstorage and database
 For any authetication step, check that local key and local userid and are in database
+
+Tomorrow:
+Finish all Group content
+- create group
+- limit 2 groups per user
+- show my groups
+- expand group info
+- save search info

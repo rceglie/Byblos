@@ -9,7 +9,7 @@ import "../../style/navbar.css"
 
 const Navbar = () => {
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +21,9 @@ const Navbar = () => {
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
-    setUser(JSON.parse(localStorage.getItem('profile')))
+    setUser(JSON.parse(localStorage.getItem('user')))
+    const col = Math.floor(Math.random()*16777215).toString(16);
+    document.getElementById("avatar").style.background = "#" + col;
   }, [location])
 
   const logout = () => {
@@ -34,9 +36,16 @@ const Navbar = () => {
       navigate("/home")
     }
 
-  const clickMyPosts = () => {
-    const user = JSON.parse(localStorage.getItem("profile"));
-    dispatch(getPostsByUser({ userId: user.result._id }, navigate));
+  const mouseout = () => {
+    document.getElementById("logout-btn").style.display="none";
+    document.getElementById("avatar").style.display="block";
+    document.getElementById("name").style.display="block";
+  }
+
+  const mouseover = () => {
+    document.getElementById("logout-btn").style.display="block";
+    document.getElementById("avatar").style.display="none";
+    document.getElementById("name").style.display="none";
   }
 
   return (
@@ -50,10 +59,17 @@ const Navbar = () => {
         <button className="button-37" onClick={() => navigate("/groups")}>Browse Players</button>
         <button className="button-37" onClick={() => navigate("/myinfo")}>My Information</button>
         {user ? (
-          <div className="userstuff">
-            <Avatar>{user?.result.name.charAt(0)}</Avatar>
-            <Typography variant="h6">{user?.result.name}</Typography>
-            <Button variant="contained" className="button-37" onClick={logout}>Logout</Button>
+          <div className="userstuff" onMouseOver={mouseover} onMouseOut={mouseout}>
+            <div className="circle" id="avatar" display="block">
+              {
+                (user.displayName.indexOf(' ') >= 0) ?
+                  (user.displayName.charAt(0) + user.displayName.charAt(user.displayName.indexOf(' ')+1)).toUpperCase()
+                  :
+                  (user.displayName.charAt(0) + user.displayName.charAt(1)).toUpperCase()
+              }
+            </div>
+            <p id="name" display="block">{user.displayName}</p>
+            <button className="button-37" hidden onClick={logout} id="logout-btn">Logout</button>
           </div>
         ) : (
           <button onClick={() => navigate("/signin")} className="button-37">Sign In</button>

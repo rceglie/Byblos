@@ -22,33 +22,40 @@ const Auth = () => {
     console.log(isSignup)
   })
 
-  const handleSumbit = async () => {
-    //e.preventDefault();
+  const handleSumbit = async (e) => {
+    e.preventDefault();
     if (!/[A-Z]/.test(formData.password) || !/\d/.test(formData.password)){
       alert("Password must contain at least one uppercase letter and at least one number.")
-      return 0;
+      //return 0;
     } else {
       console.log("clicked")
-      // if (isSignup){
-      //   console.log("pre call")
-      //   const data = await api.signUp(formData)
-      //   console.log(data);
-      //   if (data.message == "SUCCESS"){
-      //     localStorage.setItem('profile', JSON.stringify(data.result));
-      //     //navigate("/home");
-      //   } else {
-      //     console.log(data.result)
-      //   }
-      //   //navigate("/home");
-      // } else {
-      //   const data = await api.signIn(formData)
-      //   if (data.message == "SUCCESS"){
-      //     localStorage.setItem('profile', JSON.stringify(data.result));
-      //     navigate("/home");
-      //   } else {
-      //     console.log(data.result)
-      //   }
-      // }
+      if (isSignup){
+        console.log("pre call")
+        const {data} = await api.signUp(formData)
+        console.log(data);
+        if (data.message == "SUCCESS"){
+          const _id = data._id;
+          const displayName = data.displayName;
+          localStorage.setItem('user', JSON.stringify({_id, displayName}));
+          localStorage.setItem('token', JSON.stringify(data.token));
+          navigate("/home");
+        } else {
+          console.log(data.result)
+        }
+        //navigate("/home");
+      } else {
+        const {data} = await api.signIn(formData)
+        console.log(data.message)
+        if (data.message == "SUCCESS"){
+          const _id = data._id;
+          const displayName = data.displayName;
+          localStorage.setItem('user', JSON.stringify({_id, displayName}));
+          localStorage.setItem('token', JSON.stringify(data.token));
+          navigate("/home");
+        } else {
+          console.log(data.result)
+        }
+      }
     }
 
   }
