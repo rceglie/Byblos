@@ -17,51 +17,45 @@ import "../../style/createpost.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getImage } from "./getImage.js";
 import fflogsPic from "../../images/fflogs.jpg";
+import { auth } from "../../actions/auth";
+import BetterTimeSelect from "../Util/BetterTimeSelect";
 
 const CreatePost = () => {
     const [postData, setPostData] = useState({
         fight: "",
-        times: {
-            suns: -1,
-            mons: -1,
-            tues: -1,
-            weds: -1,
-            thurs: -1,
-            fris: -1,
-            sats: -1,
-            sune: -1,
-            mone: -1,
-            tuee: -1,
-            wede: -1,
-            thure: -1,
-            frie: -1,
-            sate: -1,
-        },
+        times: [],
         prog: "",
         roles: [],
         comp: [],
         ilvl: "",
         exp: "",
-        desc: "",
+        sum: "",
+        desc: ""
     });
     const dispatch = useDispatch();
-    const [timeDisplay, setTimeDisplay] = useState({suns:"", mons:"", tues: "", weds: "", thurs:"", fris:"", sats:"",sune:"", mone:"", tuee: "", wede: "", thure:"", frie:"", sate:""})
-    const user = JSON.parse(localStorage.getItem("profile"));
+    const [user, setUser] = useState("")
     const navigate = useNavigate();
 
+
+    // TEMPORARY: for now, if user == true, then logged in
     useEffect(() => {
-        // console.log("------ Use Effect ------");
-        // console.log("Post data:");
-        // console.log(postData);
-        // console.log("------ End Effect ------");
-    });
+        async function fetchData() {
+          const result = await auth();
+          if (result){
+            setUser(result)
+          } else {
+            setUser(result);
+          }
+        }
+        fetchData();
+      }, [])
 
     const handleSumbit = (e) => {
-        console.log("scrap");
+        console.log("submitting");
         e.preventDefault();
         setPostData(((prevState) => ({
             ...prevState,
-            ilvl: document.getElementById("ilvl").value,
+            sum: document.getElementById("sum").value,
             desc: document.getElementById("desc").value,
         })));
         dispatch(
@@ -85,62 +79,8 @@ const CreatePost = () => {
     };
 
     const handleTimeCallback = (childData) => {
-        console.log(childData)
-        convertDateToString(childData)
         setPostData((prevState) => ({ ...prevState, times: childData }));
     };
-
-    const convertDateToString = (d) => {
-        console.log(d)
-        let tempStrings = {suns:"", mons:"", tues: "", weds: "", thurs:"", fris:"", sats:"",sune:"", mone:"", tuee: "", wede: "", thure:"", frie:"", sate:""}
-        let allKeys = Object.keys(tempStrings);
-        for (let i = 0; i < 7; i++) {
-            console.log(allKeys[i])
-            console.log(d[allKeys[i]])
-            if (d[allKeys[i]] != -1) { // If key has data
-                let startKey = allKeys[i]
-                let endKey = allKeys[i].replace(/.$/, "e");
-                let startTime = d[startKey]
-                let endTime = d[endKey] > 1440 ? d[endKey] - 1440 : d[endKey]; // Converts to 24 hour time if greater than 1440 (24 hr)
-                console.log(endTime)
-
-                // For start time
-                let hour = Math.floor(startTime / 60)
-                let minute = startTime % 60
-                let suffix = "AM"
-                if (hour > 12){
-                    hour = hour - 12
-                    suffix = "PM"
-                } else if (hour == 0){
-                    hour = 12
-                }
-                let strHour = hour < 10 ? "0".concat(hour) : "".concat(hour)
-                let strMin = minute < 10 ? "0".concat(minute) : "".concat(minute)
-                tempStrings[startKey] = "".concat(strHour).concat(":").concat(strMin).concat(" ").concat(suffix)
-
-                // For end time
-                hour = Math.floor(endTime / 60)
-                minute = endTime % 60
-                //console.log(hour, minute)
-                suffix = "AM"
-                if (hour > 12){
-                    hour = hour - 12
-                    suffix = "PM"
-                } else if (hour == 0){
-                    hour = 12
-                }
-                strHour = hour < 10 ? "0".concat(hour) : "".concat(hour)
-                strMin = minute < 10 ? "0".concat(minute) : "".concat(minute)
-                tempStrings[endKey] = "".concat(strHour).concat(":").concat(strMin).concat(" ").concat(suffix)
-            }
-        }
-
-        console.log("Temp Strings:")
-        console.log(tempStrings)
-        setTimeDisplay(tempStrings)
-        
-        return 0
-    }
 
     const deleteSlot = (e) => {
         let newArr = postData.roles.map((x) => x);
@@ -154,11 +94,22 @@ const CreatePost = () => {
         setPostData({ ...postData, comp: newArr });
     };
 
-    if (!user?.result?.name) {
+    function enforceMinMax(e) {
+        if (e.target.value != "") {
+          if (e.target.value < 1) {
+            e.target.value = 1;
+          } else if (e.target.value > 999) {
+            e.target.value = 999;
+          }
+          setPostData({...postData, ilvl: e.target.value});
+        }
+      }
+
+    if (!user) {
         return (
             <div className="no-user">
                 <h1 className="signheader">Sign in to create a LFM post</h1>
-                <Button component={Link} to="/auth" variant="contained" color="primary" className="signbtn">Sign In</Button>
+                <Button component={Link} to="/signin" variant="contained" color="primary" className="signbtn">Sign In</Button>
             </div>
         );
     }
@@ -293,43 +244,7 @@ const CreatePost = () => {
                 </div>
             </div>
             <div className="times-wrapper border">
-                <h3>Times</h3>
-                <div className="timedisplay2">
-                    <table className="timedisplaycreate">
-                        {postData.times["suns"] != -1 ? <tr>
-                            <td>Sun</td>
-                            <td>{timeDisplay["suns"]} to {timeDisplay["sune"]}</td>
-                        </tr> : ""}
-                        {postData.times["mons"] != -1 ? <tr>
-                            <td>Mon</td>
-                            <td>{timeDisplay["mons"]} to {timeDisplay["mone"]}</td>
-                        </tr> : ""}
-                        {postData.times["tues"] != -1 ? <tr>
-                            <td>Tues</td>
-                            <td>{timeDisplay["tues"]} to {timeDisplay["tuee"]}</td>
-                        </tr> : ""}
-                        {postData.times["weds"] != -1 ? <tr>
-                            <td>Wed</td>
-                            <td>{timeDisplay["weds"]} to {timeDisplay["wede"]}</td>
-                        </tr> : ""}
-                        {postData.times["thurs"] != -1 ? <tr>
-                            <td>Thur</td>
-                            <td>{timeDisplay["thurs"]} to {timeDisplay["thure"]}</td>
-                        </tr> : ""}
-                        {postData.times["fris"] != -1 ? <tr>
-                            <td>Fri</td>
-                            <td>{timeDisplay["fris"]} to {timeDisplay["frie"]}</td>
-                        </tr> : ""}
-                        {postData.times["sats"] != -1 ? <tr>
-                            <td>Sat</td>
-                            <td>{timeDisplay["sats"]} to {timeDisplay["sate"]}</td>
-                        </tr> : ""}
-                    </table>
-                </div>
-                <TimeSelect
-                    times={postData.times}
-                    parentCallback={handleTimeCallback}
-                />
+                <BetterTimeSelect times={postData.times} parentCallback={handleTimeCallback}/>
             </div>
             <div className="roles-needed-wrapper border">
                 <h3>Roles Needed</h3>
@@ -408,11 +323,12 @@ const CreatePost = () => {
                 </div>
                 <div className="ilvl-wrapper">
                     <span>Item Level</span>
-                    
-                    <input type="number" id="ilvl" name="ilvl" max="600" />
+                    <input type="number" id="ilvl" name="ilvl" min="1" max="999" onKeyUp={(e) => enforceMinMax(e)}/>
                 </div>
             </div>
             <div className="desc-wrapper">
+                <label htmlFor="sum">Group Summary ({"<"} 500 char)</label>
+                <textarea maxLength="500" id="sum" name="sum"></textarea>
                 <label htmlFor="desc">Additional Information</label>
                 <textarea id="desc" name="desc"></textarea>
             </div>

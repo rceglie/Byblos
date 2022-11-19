@@ -4,12 +4,13 @@ const postSchema = mongoose.Schema({
     name: String,
     creator: String,
     fight: String,
-    times: {suns:String, mons:String, tues: String, weds: String, thurs:String, fris:String, sats:String,sune:String, mone:String, tuee: String, wede: String, thure:String, frie:String, sate:String},
+    times: [{}],
     prog: String,
     roles: [[String]],
     comp: [{role: [String], logs: String}],
     ilvl: String,
-    exp: String, 
+    exp: String,
+    sum: String,
     desc: String,
     createdAt: String
 });

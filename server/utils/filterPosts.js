@@ -43,19 +43,29 @@ export const filterPosts = (posts, filter) => {
         };
     })
 
+    for (let i = 0; i < filter.times.length; i++){
+        let date = new Date(filter.times[i])
+        date.setHours(date.getHours()-5);
+        filter.times[i] = date.toISOString();
+    }
+    console.log("all times",filter.times)
+
     // Sort times
     sp = sp.filter((post) => {
+        if (filter.times.length == 0){
+            return true
+        }
+        // make sure every time in post.time is in filter.time
+        for (let i = 0; i < post.times.length; i++){
+            let date = new Date(post.times[i])
+            date.setHours(date.getHours()-5);
+            date = date.toISOString();
+            if (!filter.times.includes(date)){
+                console.log("filter" , filter.times, "does not include", date)
+                return false;
+            }
+        }
         return true;
-        let val = true;
-        ["sun", "mon", "tues", "wed", "thur", "fri", "sat"].forEach((day) => {
-            if (filter.times[day + 'e'] == -1 && post.times[day + 'e'] != -1){
-                val = false
-            }
-            if ((filter.times[day + 'e'] < post.times[day + 'e']) || (filter.times[day + 's'] > post.times[day + 's'])){
-                val = false
-            }
-        });
-        return val;
     })
 
     // Sort prog

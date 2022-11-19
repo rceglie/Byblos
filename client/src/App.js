@@ -9,6 +9,7 @@ import About from "./components/About/About";
 import MyInfo from "./components/MyInfo/MyInfo";
 import EmailVerify from './components/Auth/EmailVerify';
 import Auth from './components/Auth/Auth';
+import ExpandedGroup from './components/Groups/ExpandedGroup';
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                         <Route path="/about" exact element={<About />} />
                         <Route path="/myinfo" exact element={<MyInfo />} />
                         <Route path="/users/:id/verify/:token" element={<EmailVerify/>}/>
+                        <Route path="/group/:id" element={<ExpandedGroup/>}/>
                     </Routes> 
             </BrowserRouter>
     )

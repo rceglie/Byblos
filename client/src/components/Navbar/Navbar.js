@@ -4,27 +4,32 @@ import logo from '../../images/logo2.jpg';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getPostsByUser } from '../../actions/posts';
-import decode from 'jwt-decode';
 import "../../style/navbar.css"
+import {auth} from '../../actions/auth.js'
 
 const Navbar = () => {
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  //const tempuser = localStorage.getItem('user');
+  //console.log(tempuser.displayName)
+  const [user, setUser] = useState({displayName:""})
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const token = user?.token;
-    if (token) {
-      const decodedToken = decode(token);
-
-      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    async function fetchData() {
+      const result = await auth();
+      console.log("Signed in:", result)
+      if (result){
+        setUser(JSON.parse(localStorage.getItem('user')))
+        const col = Math.floor(Math.random()*16777215).toString(16);
+        document.getElementById("avatar").style.background = "#" + col;
+      } else {
+        setUser(null);
+      }
     }
-    setUser(JSON.parse(localStorage.getItem('user')))
-    const col = Math.floor(Math.random()*16777215).toString(16);
-    document.getElementById("avatar").style.background = "#" + col;
-  }, [location])
+    fetchData();
+  }, [])
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' });

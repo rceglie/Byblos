@@ -12,7 +12,6 @@
 10. Group search results should be on same page as group search
 11. Limit groups per user
 12. Email verification stuff
-13. Redo time
 
 (STAGE B)
 

@@ -42,8 +42,7 @@ const Auth = () => {
         } else {
           console.log(data.result)
         }
-        //navigate("/home");
-      } else {
+      } else { // Signing in
         const {data} = await api.signIn(formData)
         console.log(data.message)
         if (data.message == "SUCCESS"){
@@ -52,6 +51,7 @@ const Auth = () => {
           localStorage.setItem('user', JSON.stringify({_id, displayName}));
           localStorage.setItem('token', JSON.stringify(data.token));
           navigate("/home");
+          window.location.reload(false);
         } else {
           console.log(data.result)
         }

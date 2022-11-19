@@ -26,7 +26,7 @@ export const getPosts = (filter, navigate) => async (dispatch) => {
 
 export const getPost = (id) => async (dispatch) => {
     try {
-      const { data } = await api.fetchPost(id);
+      const { data } = []//await api.fetchPost(id);
       dispatch({ type: "FETCH_POST", payload: { post: data } });
     } catch (error) {
       console.log(error);

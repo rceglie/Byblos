@@ -1,0 +1,16 @@
+*** Groups (general) ***
+- Brief description
+- Extended description
+- Extended group page
+
+*** Users ***
+- Change password
+- Email verification
+- Two groups per user
+- Set user player data
+- Discord id
+discordapp.com/users/279673113141182475
+
+*** Players ***
+- Browse all Players
+- Sort players

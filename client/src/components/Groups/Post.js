@@ -13,14 +13,11 @@ const Post = ({post, setCurrentId}) => {
     const navigate = useNavigate();
 
     const openPost = () => {
-        navigate(`/posts/${post._id}`);
+        navigate(`/group/${post._id}`);
     }
 
     console.log("In post component: ")
     console.log(post)
-
-    // To show times:
-    // <Typography variant="body2">(WIP) Times: {JSON.stringify(post.times)}</Typography>
 
     return (
         <div className="card-container border">
@@ -38,6 +35,7 @@ const Post = ({post, setCurrentId}) => {
                         <Typography variant="body2">Comp:  WIP</Typography>
                         <Typography variant="body2">ilvl:  {post.ilvl}</Typography>
                         <Typography variant="body2">Exp:   {post.exp}</Typography>
+                        <Typography variant="body2">Summary:   {post.sum}</Typography>
                         <Typography variant="body2">Desc:  {post.desc}</Typography>
                         <Typography variant="body2">Posted by: {post.name}</Typography>
                         <Typography variant="body2">Created {moment(post.createdAt).fromNow()}</Typography>

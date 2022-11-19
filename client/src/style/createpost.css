@@ -149,8 +149,8 @@ h3 {
 /* ----------------- */
 
 .create-LFM {
-    margin-left:22.5vw;
-    width: 55vw;
+    margin-left:15vw;
+    width: 70vw;
     height: 86vh;
     background-color:rgb(0, 0, 0);
     color: white;
@@ -311,4 +311,10 @@ textarea{
 
 .timedisplaycreate{
     margin-bottom: .5vh;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

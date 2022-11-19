@@ -23,13 +23,15 @@ const MyInfo = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await auth(navigate);
-      console.log(result)
+      const result = await auth();
       if (result){
         const info = await api.fetchInfo(JSON.parse(localStorage.getItem('user'))._id);
         setInfo(info);
+        setUser(result)
+      } else {
+        setUser(null);
+        //navigate("/myinfo");
       }
-      setUser(result);
       setLoading(false);
     }
     fetchData();
@@ -45,6 +47,10 @@ const MyInfo = () => {
           </div>
           :
           <div className="my-info-wrapper">
+            <div className="discord-link">
+                <label htmlFor="discord">Insert Discord UserID. Click here to find out how to get it.</label>
+                <input type="number" name="discord" maxLength="20"/>
+            </div>
             <div className="my-info">
                 <span>My Information</span>
                 <span>Fight</span>
@@ -66,7 +72,7 @@ const MyInfo = () => {
                     : (
                       <div>
                         <span>"No posts were found for your account"</span>
-                        <button>Create Post</button>
+                        <button onClick={() => navigate("/create")}>Create Post</button>
                       </div>
                     )}
             </div>

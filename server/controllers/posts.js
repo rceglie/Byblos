@@ -18,6 +18,7 @@ export const getGroups = async (req, res) => {
 export const createPost = async (req, res) => {
     
     const post = req.body;
+    console.log(post)
     const newPost = new PostMessage({...post, creator: req.userId, createdAt: new Date().toISOString()});
 
     try{
@@ -28,12 +29,13 @@ export const createPost = async (req, res) => {
     }
 }
 
-export const getPost = async (req, res) => { 
+export const getGroup = async (req, res) => { 
     const { id } = req.params;
 
     try {
+        console.log(id)
         const post = await PostMessage.findById(id);
-        
+        console.log(post)
         res.status(200).json(post);
     } catch (error) {
         res.status(404).json({ message: error.message });

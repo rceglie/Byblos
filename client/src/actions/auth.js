@@ -21,7 +21,7 @@ export const signup = (formData, navigate) => async (dispatch) => {
     }
 }
 
-export const auth = async (navigate) => {
+export const auth = async () => {
     try {
         // check if token is still valid (checks to make sure last login was within 6 hours)
         // check key/id for validity (checks to make sure user is valid)
@@ -33,13 +33,14 @@ export const auth = async (navigate) => {
                 return true;
             } else {
                 localStorage.setItem('user', "");
-                navigate("/signin");
+                localStorage.setItem('token', "");
+                window.location.reload(false);
             }
         }
-        // logs out (maybe lol)
         return false;
 
     } catch(error) {   
-        console.log(error);
+        //console.log(error);
+        return false;
     }
 }
