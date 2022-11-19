@@ -8,6 +8,7 @@ import "./index.css";
 import reducers from './reducers';
 
 document.title = 'Byblos'
+document.body.style = 'background-image: radial-gradient(ellipse at center, #030057, #010027);';
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
@@ -16,4 +17,5 @@ root.render(
     <Provider store={store}>
         <App />
     </Provider>
+    
 );

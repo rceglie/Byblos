@@ -1,0 +1,9 @@
+.auth-wrapper {
+  user-select: none;
+  width: 99vw;
+  height: 87vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-family: Optima, Segoe, "Segoe UI";
+}

@@ -1,0 +1,10 @@
+.content-wrapper {
+    width: 99vw;
+    height: 87vh;
+    font-family: Optima, Segoe, "Segoe UI";
+    background-image: radial-gradient(ellipse at center, #030057, #010027);
+    font-family: Tahoma, sans-serif;
+    color: white;
+    height: 99vh;
+    width: 99%;
+}

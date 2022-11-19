@@ -1,15 +1,16 @@
 import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js';
+import { filterPosts } from '../utils/filterPosts.js';
 
 export const getGroups = async (req, res) => {
-    const { page } = req.query;
+    const filter = req.body;
 
     try{
         const posts = await PostMessage.find();
-        console.log(posts)
-        // sort posts by info
-        res.status(200).json({data: posts});
+        const filteredPosts = filterPosts(posts, filter);
+        res.status(200).json({data: filteredPosts});
     } catch (error){
+        console.log(error)
         res.status(404).json({message : error.message});
     }
 }

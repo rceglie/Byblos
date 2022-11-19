@@ -48,7 +48,7 @@ const Navbar = () => {
       <div className="right-side">
         <button className="button-37" onClick={() => navigate("/groups")}>Browse Groups</button>
         <button className="button-37" onClick={() => navigate("/groups")}>Browse Players</button>
-        <button className="button-37" onClick={() => navigate("/about")}>My Information</button>
+        <button className="button-37" onClick={() => navigate("/myinfo")}>My Information</button>
         {user ? (
           <div className="userstuff">
             <Avatar>{user?.result.name.charAt(0)}</Avatar>
@@ -56,7 +56,7 @@ const Navbar = () => {
             <Button variant="contained" className="button-37" onClick={logout}>Logout</Button>
           </div>
         ) : (
-          <button onClick={() => navigate("/auth")} className="button-37">Sign In</button>
+          <button onClick={() => navigate("/signin")} className="button-37">Sign In</button>
         )}
       </div>
     </div>

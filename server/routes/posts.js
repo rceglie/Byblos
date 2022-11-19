@@ -6,7 +6,7 @@ const router = express.Router();
 import auth from "../middleware/auth.js";
 
 router.get('/search/:id', getPostsByUser); // probably rename to /searchgroups/
-router.get('/', getGroups); // rename to /posts/searchgroups
+router.post('/getgroups', getGroups); // rename to /posts/searchgroups
 router.post('/',auth,  createPost);
 router.patch('/:id', auth, updatePost);
 router.delete('/:id', auth, deletePost);

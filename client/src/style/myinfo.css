@@ -1,0 +1,31 @@
+.my-info-wrapper {
+    user-select: none;
+    width: 99vw;
+    height: 87vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-family: Optima, Segoe, "Segoe UI";
+    color: white;
+  }
+  
+  .my-info {
+      width: 45%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      margin-top: -5vh;
+  }
+  
+  .my-posts {
+    margin-top: -5vh;
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6vh;
+    text-align: center;
+  }

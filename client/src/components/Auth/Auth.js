@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import Input from './Input';
@@ -6,26 +6,49 @@ import {useState} from 'react';
 import { signin, signup } from '../../actions/auth';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import '../../style/auth.css';
+import * as api from "../../api";
 
-const initialState = {firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
+const initialState = {displayName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
 
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState)
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const handleSumbit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    console.log(formData)
+    console.log(isSignup)
+  })
+
+  const handleSumbit = async () => {
+    //e.preventDefault();
     if (!/[A-Z]/.test(formData.password) || !/\d/.test(formData.password)){
       alert("Password must contain at least one uppercase letter and at least one number.")
       return 0;
-    }
-    if (isSignup){
-      dispatch(signup(formData, navigate))
     } else {
-      dispatch(signin(formData, navigate))
+      console.log("clicked")
+      // if (isSignup){
+      //   console.log("pre call")
+      //   const data = await api.signUp(formData)
+      //   console.log(data);
+      //   if (data.message == "SUCCESS"){
+      //     localStorage.setItem('profile', JSON.stringify(data.result));
+      //     //navigate("/home");
+      //   } else {
+      //     console.log(data.result)
+      //   }
+      //   //navigate("/home");
+      // } else {
+      //   const data = await api.signIn(formData)
+      //   if (data.message == "SUCCESS"){
+      //     localStorage.setItem('profile', JSON.stringify(data.result));
+      //     navigate("/home");
+      //   } else {
+      //     console.log(data.result)
+      //   }
+      // }
     }
 
   }
@@ -39,7 +62,7 @@ const Auth = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="auth-wrapper">
       <Paper>
         <Avatar>
           <LockIcon />
@@ -49,8 +72,7 @@ const Auth = () => {
           <Grid container spacing={2}>
             { isSignup && (
                 <>
-                  <Input name="firstName" label="First Name" handleChange={handleChange} autofocus/>
-                  <Input name="lastName" label="Last Name" handleChange={handleChange} autofocus/>
+                  <Input name="displayName" label="Name" handleChange={handleChange} autofocus/>
                 </>
               )}
             <Input name="email" label="Email Address" handleChange={handleChange} type="email"/>
