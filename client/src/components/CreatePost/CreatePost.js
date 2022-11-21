@@ -10,8 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 import { Link, useNavigate } from "react-router-dom";
-import RoleSelect from "./RoleSelect.js";
-import TimeSelect from "./TimeSelect.js";
+import BetterRoleSelect from "../Util/BetterRoleSelect";
 import MemberSelect from "./MemberSelect.js";
 import "../../style/createpost.css";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -60,7 +59,7 @@ const CreatePost = () => {
         })));
         dispatch(
             createPost(
-                { ...postData, name: user?.result?.name, creator: user?.result?._id },
+                { ...postData, name: user?.result?.name, creator: JSON.parse(localStorage.getItem("user"))._id},
                 navigate
             )
         );
@@ -270,7 +269,7 @@ const CreatePost = () => {
                         </div>
                     </div>
                 ))}
-                <RoleSelect parentCallback={handleRoleCallback} />
+                <BetterRoleSelect parentCallback={handleRoleCallback} />
             </div>
             <div className="comp-wrapper border">
                 <h3>Current Roster</h3>

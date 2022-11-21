@@ -21,11 +21,11 @@ const Home = () => {
         </div>
         <div className="home-group">
           <span>Are you leading a group? Find players to join yours!</span>
-        <button className="button-36" onClick={() => navigate("/create")}>Browse Players</button>
+        <button className="button-36" onClick={() => navigate("/players")}>Browse Players</button>
         </div>
         <div className="home-group">
           <span>Update your profile to let leads find you or create your own group</span>
-        <button className="button-36" onClick={() => navigate("/about")}>My Information</button>
+        <button className="button-36" onClick={() => navigate("/myinfo")}>My Information</button>
         </div>
       </div>
     </div>

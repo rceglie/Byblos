@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import "../../style/roleselect.css";
+import styles from "../../style/betterroleselect.module.css";
 import { Switch, FormControlLabel } from '@mui/material';
+import { style } from '@mui/system';
 
 const BetterRoleSelect = (props) => {
 
@@ -24,6 +25,7 @@ const BetterRoleSelect = (props) => {
 
     const toggleModal = () => {
         setRoles(props.roles)
+        setRoles({...roles, dps:true})
         if (!modal){
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -34,11 +36,11 @@ const BetterRoleSelect = (props) => {
         console.log(roles)
     })
 
-    // if(modal) {
-    //     document.body.classList.add('active-modal')
-    //   } else {
-    //     document.body.classList.remove('active-modal')
-    //   }
+    if(modal) {
+        document.body.classList.add('active-modal')
+      } else {
+        document.body.classList.remove('active-modal')
+      }
     
     const handleChange = (e) => {
         setChecked(prevState => ({...prevState, [e.target.value]:e.target.checked}))
@@ -83,29 +85,104 @@ const BetterRoleSelect = (props) => {
 
       return (
         <>
-        <div className="rolebtn">
-            <button type="button1" onClick={toggleModal} className="btn-modal1 addbtn">Role Select Menu</button>
+        <div className={styles.rolebtn}>
+            <button type={styles.button} onClick={toggleModal} className={styles.modalbtn}>{props.label}</button>
         </div>
     
           {modal && (
-            <div className="modal1">
-              <div onClick={toggleModal} className="overlay1"></div>
-              <div className="modal-content1">
-                <button className="close-modal1" onClick={toggleModal}> CLOSE</button>
-                <h2>Select Your Role(s)</h2>
-                <p>Choose the roles you play.
-                </p>
-                <div className="role-container1">
-                    {Object.keys(options2).map((item) =>
-                        <div className={`role-group ${item}`}>
-                            <FormControlLabel className="role-title" disabled={control.item} key={item} control={<Switch value={item} checked={checked.item} onChange={handleChange}/>} label={`${item.charAt(0).toUpperCase() + item.slice(1)} (ANY)`} labelPlacement="start"/>
+            <div className={styles.modal}>
+              <div onClick={toggleModal} className={styles.overlay}></div>
+              <div className={styles.modalcontent}>
+                <button className={styles.closebutton} onClick={toggleModal}>X</button>
+                <h1>Select Jobs</h1>
+                <div className={styles.rolecontainer}>
+                    <div className={styles.dpscontainer}>
+                        <div className={styles.dpsheader}>
+                            <FormControlLabel control={
+                                <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                            } label={<span style={{color: "white"}}>All DPS</span>}/>
+                        </div>
+                        <div className={style.castercontainer}>
+                            <div className={style.casterheader}>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>All Casters</span>}/>
+                            </div>
+                            <div className={style.casterbody}>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>RDM</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>BLM</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>SMN</span>}/>
+                            </div>
+                        </div>
+                        <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>MCH</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>DNC</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>BRD</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>SAM</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>NIN</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>DRG</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>RPR</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>MNK</span>}/>
+                    </div>
+                    <div className={styles.tankcontainer}>
+                    <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>PLD</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>WAR</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>GNB</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>DRK</span>}/>
+                    </div>
+                    <div className={styles.healercontainer}>
+                    <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>WHM</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>SCH</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>AST</span>}/>
+                                <FormControlLabel control={
+                                    <Switch label={"All DPS"} checked={roles.dps} onChange={() => setRoles({ ...roles, dps: !roles.dps })}/>
+                                } label={<span style={{color: "white"}}>SGE</span>}/>
+                    </div>
+                    {/* {Object.keys(options2).map((item) =>
+                        <div className={`${styles.rolegroup} ${item}`}>
+                            <FormControlLabel className={styles.roletitle} disabled={control.item} key={item} control={<Switch value={item} checked={checked.item} onChange={handleChange}/>} label={`${item.charAt(0).toUpperCase() + item.slice(1)} (ANY)`} labelPlacement="start"/>
                             {options2[item].map((item2) => 
                                 <FormControlLabel disabled={control[item2]} key={item2} control={<Switch value={item2} checked={checked.item2} onChange={handleChange}/>} label={item2} labelPlacement="start"/> 
                             )}
                         </div>
-                    )}
+                    )} */}
                 </div>
-                <button onClick={submitRoles}>Confirm Roles</button>
+                <button className={styles.confirmbutton} onClick={submitRoles}>Confirm Jobs</button>
               </div>
             </div>
           )}

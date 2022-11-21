@@ -24,6 +24,11 @@ API.interceptors.request.use((req) => {
 
   export const fetchGroups = (filter) => API.post('/posts/getgroups', filter);
   export const fetchInfo = (id) => API.get(`/users/getInfo/${id}`);
+  export const setInfo = (info) => API.post(`/users/setInfo`, info);
+  export const getPlayers = (filter) => API.post("/posts/getplayers", filter);
+  export const setDiscord = (body) => API.post("/users/setDiscord", body);
+  export const getUserGroups = (id) => API.post('/posts/getUserGroups', id)
   
   export const signIn = (formData) => API.post('/users/signin', formData);
   export const signUp = (formData) => API.post('/users/signup', formData);
+

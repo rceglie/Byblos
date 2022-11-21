@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import "../../style/roleselect.css";
+import styles from "../../style/betterroleselect.module.css";
 import { Switch, FormControlLabel } from '@mui/material';
+import { style } from '@mui/system';
 
-const RoleSelect = (props) => {
+const BetterRoleSelect = (props) => {
 
     const options = ["tank","war","pld","drk","gnb","healer","sge","whm","sch","ast","dps","melee","sam","nin","rpr","drg","mnk","ranged","dnc","brd","mch","caster","rdm","smn","blm"];
 
@@ -23,6 +24,7 @@ const RoleSelect = (props) => {
     const [control, setControl] = useState(initial);
 
     const toggleModal = () => {
+        setRoles(props.roles)
         if (!modal){
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -30,13 +32,14 @@ const RoleSelect = (props) => {
     };
 
     useEffect(() => {
+        //console.log(roles)
     })
 
-    // if(modal) {
-    //     document.body.classList.add('active-modal')
-    //   } else {
-    //     document.body.classList.remove('active-modal')
-    //   }
+    if(modal) {
+        document.body.classList.add('active-modal')
+      } else {
+        document.body.classList.remove('active-modal')
+      }
     
     const handleChange = (e) => {
         setChecked(prevState => ({...prevState, [e.target.value]:e.target.checked}))
@@ -81,28 +84,16 @@ const RoleSelect = (props) => {
 
       return (
         <>
-        <div className="rolebtn">
-            <button type="button1" onClick={toggleModal} className="btn-modal1 addbtn">Add Role Needed</button>
+        <div className={styles.rolebtn}>
+            <button type={styles.button} onClick={toggleModal} className={styles.modalbtn}>{props.label}</button>
         </div>
     
           {modal && (
-            <div className="modal1">
-              <div onClick={toggleModal} className="overlay1"></div>
-              <div className="modal-content1">
-                <button className="close-modal1" onClick={toggleModal}> CLOSE</button>
-                <h2>Select Role</h2>
-                <p>Select only one slot at a time. One slot can look for multiple jobs/roles.
-                </p>
-                <div className="role-container1">
-                    {Object.keys(options2).map((item) =>
-                        <div className={`role-group ${item}`}>
-                            <FormControlLabel className="role-title" disabled={control.item} key={item} control={<Switch value={item} checked={checked.item} onChange={handleChange}/>} label={`${item.charAt(0).toUpperCase() + item.slice(1)} (ANY)`} labelPlacement="start"/>
-                            {options2[item].map((item2) => 
-                                <FormControlLabel disabled={control[item2]} key={item2} control={<Switch value={item2} checked={checked.item2} onChange={handleChange}/>} label={item2} labelPlacement="start"/> 
-                            )}
-                        </div>
-                    )}
-                </div>
+            <div className={styles.modal}>
+              <div onClick={toggleModal} className={styles.overlay}></div>
+              <div className={styles.modalcontent}>
+                <button className={styles.closebutton} onClick={toggleModal}>X</button>
+                <h1>Select Jobs</h1>
                 <button onClick={submitRoles}>Confirm Roles</button>
               </div>
             </div>
@@ -111,4 +102,4 @@ const RoleSelect = (props) => {
       );
 }
 
-export default RoleSelect;
+export default BetterRoleSelect;

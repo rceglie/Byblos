@@ -39,6 +39,7 @@ const Auth = () => {
           localStorage.setItem('user', JSON.stringify({_id, displayName}));
           localStorage.setItem('token', JSON.stringify(data.token));
           navigate("/home");
+          window.location.reload(false);
         } else {
           console.log(data.result)
         }

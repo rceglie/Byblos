@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js';
+import User from "../models/user.js"
 import { filterPosts } from '../utils/filterPosts.js';
 
 export const getGroups = async (req, res) => {
@@ -17,13 +18,19 @@ export const getGroups = async (req, res) => {
 
 export const createPost = async (req, res) => {
     
-    const post = req.body;
-    console.log(post)
-    const newPost = new PostMessage({...post, creator: req.userId, createdAt: new Date().toISOString()});
+    try {
+        const post = req.body;
 
-    try{
-        await newPost.save();
-        res.status(201).json(newPost)
+        const userId = req.body.creator;
+        const groups = await PostMessage.findOne({creator: userId})
+        console.log("trying to make new group found", groups)
+        if (groups == null){
+            const newPost = new PostMessage({...post, creator: post.creator, createdAt: new Date().toISOString()});
+            await newPost.save()
+            res.status(201).json(newPost)
+        } else {
+            res.status(500).json({message: "FAILURE"})
+        }
     } catch (error){
         res.status(409).json({ message : error.message })
     }
@@ -37,17 +44,6 @@ export const getGroup = async (req, res) => {
         const post = await PostMessage.findById(id);
         console.log(post)
         res.status(200).json(post);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-
-export const getPostsByUser = async (req, res) => {
-    const userId = req.params.id;
-    try {
-        const posts = await PostMessage.find({creator:userId})
-        console.log("FOUND: " + posts)
-        res.status(200).json({data: posts});
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -85,4 +81,29 @@ export const likePost = async (req, res) => {
     const updatedPost = await PostMessage.findByIdAndUpdate(id, {likeCount: post.likeCount + 1}, { new: true});
 
     res.json(updatedPost);
+}
+
+export const getPlayers = async (req, res) => {
+    const players = await User.find({"active" : true}, {"_id" : 0, "info" : 1, "discord" : 1, "name" : 1})
+    players.forEach((player, index) => {
+        console.log(player)
+        let temp = {...player.info}
+        temp["discord"] = player.discord
+        temp["name"] = player.name
+        players[index] = temp
+    })
+    console.log(players)
+    res.json(players);
+}
+
+export const getUserGroups = async (req, res) => {
+    console.log("Getting user groups")
+    const userId = req.body.id;
+    try {
+        const posts = await PostMessage.findOne({creator:userId})
+        console.log("  FOUND:", posts)
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 }

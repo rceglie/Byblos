@@ -61,7 +61,7 @@ const Navbar = () => {
       </div>
       <div className="right-side">
         <button className="button-37" onClick={() => navigate("/groups")}>Browse Groups</button>
-        <button className="button-37" onClick={() => navigate("/groups")}>Browse Players</button>
+        <button className="button-37" onClick={() => navigate("/players")}>Browse Players</button>
         <button className="button-37" onClick={() => navigate("/myinfo")}>My Information</button>
         {user ? (
           <div className="userstuff" onMouseOver={mouseover} onMouseOut={mouseout}>

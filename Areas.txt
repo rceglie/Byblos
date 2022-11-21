@@ -1,15 +1,14 @@
 *** Groups (general) ***
-- Brief description
-- Extended description
-- Extended group page
+- instead of going to a new page for an individual group, change the layout of current page to see that group
+- This will allow us to keep search filters (and results) so you can just click back to search results
 
 *** Users ***
 - Change password
 - Email verification
 - Two groups per user
-- Set user player data
 - Discord id
 discordapp.com/users/279673113141182475
+- Manage, edit, delete groups
 
 *** Players ***
 - Browse all Players

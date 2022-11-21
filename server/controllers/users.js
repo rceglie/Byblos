@@ -59,7 +59,23 @@ export const signup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const result = await User.create({ email, password: hashedPassword, name: `${displayName}` })
+        const result = await User.create({
+            name: `${displayName}`,
+            email,
+            password: hashedPassword,
+            verified: false,
+            active: false,
+            discord: "",
+            info: {
+                fight:"",
+                times:[""],
+                prog:"",
+                roles:[""],
+                ilvl:"",
+                exp:"",
+                desc:""
+            }
+        })
 
         // const authtoken = await Token.create({
         //     userId: result._id,
@@ -108,15 +124,52 @@ export const verify = async (req, res) => {
 }
 
 export const getInfo = async (req, res) => {
-    console.log("here");
     try {
         const id = req.params.id;
-        console.log(id)
-        const result = await User.find({ _id: id });
-        console.log(result.length)
+        const data = await User.find({ _id: id });
+        let result = {...data[0].info}
+        result.active = data[0].active;
+        result.discord = data[0].discord;
         res.status(200).send(result)
     } catch (e) {
-        //console.log(e)
+        res.status(500).send({message: "Internal Server Error"})
+    }
+}
+
+export const setInfo = async (req, res) => {
+    try {
+        const id = req.body.id;
+        const oguser = await User.findOne({_id : id})
+        oguser.info.fight = req.body.fight
+        oguser.info.times = req.body.times
+        oguser.info.prog = req.body.prog
+        oguser.info.roles = req.body.roles
+        oguser.info.ilvl = req.body.ilvl
+        oguser.info.exp = req.body.exp
+        oguser.info.desc = req.body.desc
+        oguser.active = req.body.active
+        const data = await User.updateOne(
+            {_id: id}, oguser
+        )
+        res.status(200).send({message: "SUCCESS"})
+    } catch (e) {
+        res.status(500).send({message: "Internal Server Error"})
+    }
+}
+
+export const setDiscord = async (req, res) => {
+    try {
+        const result = await User.updateOne({
+            "_id": req.body.id
+          },{
+            "$set": {
+              "discord": req.body.discord
+            }
+          })
+        console.log(result)
+        res.status(200).send({message: "SUCCESS"})
+    } catch (e) {
+        console.log(e)
         res.status(500).send({message: "Internal Server Error"})
     }
 }

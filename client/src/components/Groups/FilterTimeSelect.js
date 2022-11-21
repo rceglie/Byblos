@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import styles from "../../style/bettertimeselect.module.css";
+import styles from "../../style/filtertimeselect.module.css";
 import ScheduleSelector from 'react-schedule-selector/dist/lib/ScheduleSelector';
-import { style } from '@mui/system';
 
 const TimeSelect = (props) => {
 
@@ -33,14 +32,14 @@ const TimeSelect = (props) => {
 
   return (
     <div className="timecontainer">
-        <button type="button" onClick={toggleModal} className={`${styles.btnmodal} ${styles.addbtn}`}>{props.label}</button>
+        <button type="button" onClick={toggleModal} className={`${styles.btnmodal} ${styles.addbtn}`}>Times</button>
 
         {modal && (
             <div className={styles.modal}>
                 <div onClick={toggleModal} className={styles.overlay}></div>
                 <div className={styles.modalcontent3}>
-                    <div className={style.modalheader}>
-                        <button className="close-button modal-button" onClick={toggleModal}>X</button>
+                    <div>
+                        <button className={`${styles.modalbutton} ${styles.closebutton}`} onClick={toggleModal}>X</button>
                         <h1>{(props.viewonly != undefined) ? "Availability" : "Select Times (EST)"}</h1>
                     </div>
                     <ScheduleSelector
@@ -57,7 +56,7 @@ const TimeSelect = (props) => {
                         viewonly={props.viewonly != undefined}
                     />
                     {(props.viewonly != undefined) ? <></> :
-                        <button className="save-times modal-button" onClick={submitTimes}>Confirm Times</button>
+                        <button className={`${styles.savetimes} ${styles.modalbutton}`} onClick={submitTimes}>Confirm Times</button>
                     }
                 </div>
             </div>

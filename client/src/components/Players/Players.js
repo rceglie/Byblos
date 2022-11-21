@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchGroups } from "../../actions/posts";
 import { Link, useNavigate } from "react-router-dom";
-
-import "../../style/groups.css";
-
-import * as api from '../../api';
-
-import Post from './Post.js';
-import BetterTimeSelect from "../Util/BetterTimeSelect";
 import BetterRoleSelect from "../Util/BetterRoleSelect";
-import FilterTimeSelect from './FilterTimeSelect';
+import TimeSelect from "../CreatePost/TimeSelect.js";
+import "../../style/testgroups.css";
+import { getImage } from "../CreatePost/getImage";
+import { applyMiddleware } from "redux";
+import * as api from '../../api';
+import Player from './Player';
+import ScheduleSelector from "react-schedule-selector";
+import BetterTimeSelect from "../Util/BetterTimeSelect";
 
-const Groups = () => {
+const Players = () => {
     const [filter, setFilter] = useState({
         fight: "ANY",
         times: [],
@@ -20,7 +21,7 @@ const Groups = () => {
         ilvl: "ANY",
         exp: "ANY"
     });
-    const [groups, setGroups] = useState([]);
+    const [players, setPlayers] = useState([]);
 
     const user = JSON.parse(localStorage.getItem("profile"));
     const navigate = useNavigate();
@@ -28,17 +29,18 @@ const Groups = () => {
 
     useEffect(() => {
         console.log("------ Use Effect ------");
-        console.log("Post data:");
+        console.log("Filter:");
         console.log(filter);
-        console.log("Groups:");
-        console.log(groups);
+        console.log("Players:");
+        console.log(players);
         console.log("------ End Effect ------");
     });
 
     const handleSumbit = async (e) => {
         e.preventDefault();
-        const { data } = await api.fetchGroups(filter);
-        setGroups(data.data);
+        const { data } = await api.getPlayers(filter);
+        console.log(data)
+        setPlayers(data);
     };
 
     const handleRoleCallback = (childData) => {
@@ -50,49 +52,20 @@ const Groups = () => {
         setFilter((prevState) => ({ ...prevState, times: childData }));
     };
 
-    const handleCollapse = (e) => {
-        var content = e.target.nextElementSibling;
-        closeMenus(content.className)
-        e.target.classList.toggle("active")
-        if (content.style.display == "block") {
-            content.style.display = "none";
-        } else {
-            content.style.display = "block";
-        }
-    }
-
-    const closeMenus = (avoid) => {
-        const collection = document.getElementsByClassName("collapsible")
-        for (let i = 0; i < collection.length; i++){
-            try {
-                if (collection[i].nextElementSibling.className != avoid){
-                    collection[i].classList.remove("active");
-                    collection[i].nextElementSibling.style.display = "none";
-                }
-            } catch (e) {console.log(e)}
-        }
-    }
-
     return (
-        <div className="groups-wrapper">
-            <span className="filter-groups-label">Filter Groups</span>
-            <div className="filter-area">
-                <button className="collapsible" onClick={handleCollapse}>Fight</button>
-                <div className="fight-content">
-                    <input type="radio" id="UWU" name="fight" value="UWU" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
-                    <label for="UWU">UWU</label>
-                    <input type="radio" id="UCOB" name="fight" value="UCOB" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
-                    <label for="UCOB">UCOB</label>
-                    <input type="radio" id="TEA" name="fight" value="TEA" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
-                    <label for="TEA">TEA</label>
-                    <input type="radio" id="DSU" name="fight" value="DSU" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
-                    <label for="DSU">DSU</label>
-                    <input type="radio" id="ANY" default name="fight" value="ANY" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
-                    <label for="ANY">ANY</label>
+        <div>
+            <div>
+                <div className="fight">
+                    <select defaultValue="ANY" onChange={(e) => setFilter({...filter,fight: e.target.value})}>
+                        <option value="UWU">UWU</option>
+                        <option value="UCOB">UCOB</option>
+                        <option value="TEA">TEA</option>
+                        <option value="DSU">DSU</option>
+                        <option value="ANY">Any</option>
+                    </select>
                 </div>
 
-                <button className="collapsible" onClick={handleCollapse}>Prog</button>
-                <div className="prog-content">
+                <div className="prog">
                     <select id="select-prog" onChange={(e) =>
                         setFilter({ ...filter, prog: e.target.value })}>
                         <option value="ANY">Any</option>
@@ -150,8 +123,7 @@ const Groups = () => {
                     </select>
                 </div>
 
-                <button className="collapsible" onClick={handleCollapse}>Experience</button>
-                <div className="exp-content">
+                <div className="exp">
                     <select id="exp-sel" className="exp-sel" onChange={(e) => setFilter({ ...filter, exp: e.target.value })}>
                         <option value="ANY">Any</option>
                         <option>First Ultimate Experience</option>
@@ -162,33 +134,29 @@ const Groups = () => {
                     </select>
                 </div> 
 
-                <button className="collapsible" onClick={handleCollapse}>Item Level</button>
-                <div className="ilvl-content">
+                <div className="ilvl">
                     <input type="number" id="ilvl" name="ilvl" min="0" max="600" onChange={(e) => setFilter({ ...filter, ilvl: e.target.value })}/>
                 </div>
 
                 <div className="times">
-                    <FilterTimeSelect times={filter.times} parentCallback={handleTimeCallback}/>
-                    {/* <BetterTimeSelect times={filter.times} label={"Set time filter"} parentCallback={handleTimeCallback}/> */}
+                    <BetterTimeSelect times={filter.times} label={"Set Times Filter"} parentCallback={handleTimeCallback}/>
                 </div>
 
                 <div className='jobs'>
-                    <BetterRoleSelect label={"Jobs"} roles={filter.roles} parentCallback={handleRoleCallback} />
+                    <BetterRoleSelect roles={filter.roles} parentCallback={handleRoleCallback} />
                 </div>
 
                 <div className="sumbit-buttons">
-                    <button className="submit-search" onClick={handleSumbit}>Sort with My Information</button>
-                    <button className="submit-search" onClick={handleSumbit}>Sort with Filter</button>
+                    <button className="submit-search addbtn" onClick={handleSumbit}>Sort</button>
                 </div>
             </div>
-            <span className="display-groups-label">Groups</span>
-            <div className="group-area">
-                {groups?.map((post, index) => (
-                    <Post key={index} post={post} />
+            <div>
+                {players?.map((player, index) => (
+                    <Player key={index} player={player} />
                 ))}
             </div>
         </div>
     );
 };
 
-export default Groups;
+export default Players;
