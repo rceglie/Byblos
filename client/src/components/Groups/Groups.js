@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import "../../style/groups.css";
+import "./groups.css"
+import "reactjs-popup/dist/index.css"
+import {styles} from './groups.module.css'
 
 import * as api from '../../api';
 
@@ -10,6 +12,8 @@ import Post from './Post.js';
 import BetterTimeSelect from "../Util/BetterTimeSelect";
 import BetterRoleSelect from "../Util/BetterRoleSelect";
 import FilterTimeSelect from './FilterTimeSelect';
+import Popup from 'reactjs-popup';
+import ScheduleSelector from 'react-schedule-selector'
 
 const Groups = () => {
     const [filter, setFilter] = useState({
@@ -73,10 +77,22 @@ const Groups = () => {
         }
     }
 
+    const renderCustomTimeCell = (time, selected, innerRef) => (
+        <div style={{ textAlign: 'center'}} ref={innerRef}>
+            <div style={{ height: '10px', width: '100%', 'background-color': selected ? 'blue' : 'lightBlue'}}>
+            </div>
+        </div>
+      )
+
+    const renderCustomTimeLabel = (time, selected, innerRef) => (
+        <div style={{ textAlign: 'center', color:'black'}} ref={innerRef}>{time.getHours()}
+        </div>
+      )
+
     return (
         <div className="groups-wrapper">
             <span className="filter-groups-label">Filter Groups</span>
-            <div className="filter-area">
+            <div className="filter-area">{}
                 <button className="collapsible" onClick={handleCollapse}>Fight</button>
                 <div className="fight-content">
                     <input type="radio" id="UWU" name="fight" value="UWU" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
@@ -168,8 +184,30 @@ const Groups = () => {
                 </div>
 
                 <div className="times">
-                    <FilterTimeSelect times={filter.times} parentCallback={handleTimeCallback}/>
-                    {/* <BetterTimeSelect times={filter.times} label={"Set time filter"} parentCallback={handleTimeCallback}/> */}
+                    <Popup trigger={<button>Open modal</button>} position="center" modal>
+                        {close => (
+                            <div>
+                                <button onClick={close}>close</button>
+                                <ScheduleSelector
+                                    selection={filter.times}
+                                    onChange={(e) => {setFilter({...filter, times:e})}}
+                                    rowGap={"1px"}
+                                    renderDateCell={renderCustomTimeCell}
+                                    renderTimeLabel={renderCustomTimeLabel}
+                                    numDays={7}
+                                    minTime={0}
+                                    maxTime={24}
+                                    hourlyChunks={1}
+                                    dateFormat={"ddd"}
+                                    timeFormat={"hh:mm A"}
+                                    startDate={"11-20-22"}
+                                    columnGap={"1vw"}
+                                />
+                                <button onClick={() => setFilter({...filter, times:[]})}>clear</button>
+                            </div>
+                        )}
+                        {/* <FilterTimeSelect times={filter.times} parentCallback={handleTimeCallback}/> */}
+                    </Popup>
                 </div>
 
                 <div className='jobs'>

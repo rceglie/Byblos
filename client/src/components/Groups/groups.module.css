@@ -1,0 +1,117 @@
+.groups-wrapper {
+    user-select: none;
+    width: 99vw;
+    height: 87vh;
+    position:relative;
+    font-family: Optima, Segoe, "Segoe UI";
+    color: white;
+  }
+
+.filter-area {
+    position:absolute;
+    left: 3vw;
+    top: 5vh;
+    width: 20vw;
+    height: 75vh;
+    border-style:solid;
+    border-color:rgb(255, 255, 255);
+    border-width: .25vh;
+    padding: 2vh;
+    display: flex;
+    flex-direction:column;
+    gap: 1vh;
+}
+
+.group-area{
+    border-style: solid;
+    border-color: white;
+    border-width: .25vh;
+    width: 10vw;
+    position: absolute;
+    left: 30vw;
+    top: 5vh;
+    width: 64vw;
+    height: 75vh;
+    padding: 2vh;
+}
+
+.filter-groups-label {
+    position: absolute;
+    left: 3.25vw;
+    top: 0vh;
+    font-size: 3vh;
+}
+
+.display-groups-label {
+    position: absolute;
+    left: 30vw;
+    top: 0vh;
+    font-size: 3vh;
+}
+
+.collapsible {
+    background-color: rgb(223, 223, 223);
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 2vh;
+    border: solid 1vh #673FD7;
+    border-radius:5%;
+}
+
+.active, .collapsible:hover {
+    background-color: rgb(172, 172, 172);
+}
+
+.fight-content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.prog-content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.exp-content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.ilvl-content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.fight-content label {
+    color: black;
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    border: solid 2px #ccc;
+    transition: all 0.3s;
+  }
+  
+  .fight-content input[type="radio"] {
+    display: none;
+  }
+  
+  .fight-content input[type="radio"]:checked + label {
+    border: solid 1vh green;
+  }
+
+  .popup-content {
+    width: 80vw;
+  }

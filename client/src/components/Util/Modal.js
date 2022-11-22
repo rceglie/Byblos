@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styles from "../../style/betterroleselect.module.css";
+import styles from "./modal.module.css";
 import { Switch, FormControlLabel } from '@mui/material';
-import { style } from '@mui/system';
 
 const BetterRoleSelect = (props) => {
 
