@@ -27,7 +27,7 @@ const Player = ({player, setCurrentId}) => {
                     <div>
                         <Typography variant="h6">{player.name}</Typography>
                         <Typography variant="body2">Fight: {player.fight}</Typography>
-                        <BetterTimeSelect times={player.times} parentCallback={() => {}} label={"View Availability"} viewonly={true}/>
+                        <BetterTimeSelect times={player.times} parentCallback={() => {}} label={"View Availability"} disable viewonly={true}/>
                         <Typography variant="body2">Times: {player.times}</Typography>
                         <Typography variant="body2">Prog:  {player.prog}</Typography>
                         <Typography variant="body2">Roles: {player.roles}</Typography>

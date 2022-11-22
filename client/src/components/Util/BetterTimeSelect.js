@@ -43,19 +43,21 @@ const TimeSelect = (props) => {
                         <button className="close-button modal-button" onClick={toggleModal}>X</button>
                         <h1>{(props.viewonly != undefined) ? "Availability" : "Select Times (EST)"}</h1>
                     </div>
-                    <ScheduleSelector
-                        selection={times}
-                        numDays={7}
-                        minTime={0}
-                        maxTime={24}
-                        hourlyChunks={1}
-                        rowGap={"1px"}
-                        dateFormat={"ddd"}
-                        timeFormat={"hh:mm A"}
-                        startDate={"11-20-22"}
-                        onChange={handleTimeChange}
-                        viewonly={props.viewonly != undefined}
-                    />
+                    <div className={styles.scheduleselector}>
+                        <ScheduleSelector
+                            selection={times}
+                            numDays={7}
+                            minTime={0}
+                            maxTime={24}
+                            hourlyChunks={1}
+                            rowGap={"1px"}
+                            dateFormat={"ddd"}
+                            timeFormat={"hh:mm A"}
+                            startDate={"11-20-22"}
+                            onChange={handleTimeChange}
+                            viewonly={props.viewonly != undefined}
+                        />
+                    </div>
                     {(props.viewonly != undefined) ? <></> :
                         <button className="save-times modal-button" onClick={submitTimes}>Confirm Times</button>
                     }
