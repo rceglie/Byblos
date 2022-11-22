@@ -107,3 +107,12 @@ export const getUserGroups = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+export const test = async (req, res) => {
+    console.log("Getting user groups")
+    try {
+        res.status(200).json("Hello");
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}

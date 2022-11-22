@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getGroups, getGroup, createPost, updatePost, likePost, deletePost, getPlayers, getUserGroups } from '../controllers/posts.js';
+import { getGroups, getGroup, createPost, updatePost, likePost, deletePost, getPlayers, getUserGroups, test } from '../controllers/posts.js';
 
 const router = express.Router();
 import auth from "../middleware/auth.js";
@@ -13,5 +13,6 @@ router.patch('/:id/likePost', auth, likePost);
 router.get('/:id', getGroup)
 router.post('/getplayers', getPlayers)
 router.post('/getUserGroups', getUserGroups)
+router.get('/test', test)
 
 export default router;
