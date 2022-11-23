@@ -109,6 +109,10 @@ export const getUserGroups = async (req, res) => {
 }
 
 export const test = async (req, res) => {
+    for (let i = 0 ; i < 10; i++){
+        let fight = ""
+        let times = ""
+    }
     console.log("Getting user groups")
     try {
         res.status(200).json("Hello");

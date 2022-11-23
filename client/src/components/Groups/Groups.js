@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 import "./groups.css"
 import "reactjs-popup/dist/index.css"
-import {styles} from './groups.module.css'
+import styles from './groups.module.css'
 
 import * as api from '../../api';
+import {progmapping} from '../../actions/progmapping.js'
 
 import Post from './Post.js';
 import BetterTimeSelect from "../Util/BetterTimeSelect";
@@ -14,6 +15,8 @@ import BetterRoleSelect from "../Util/BetterRoleSelect";
 import FilterTimeSelect from './FilterTimeSelect';
 import Popup from 'reactjs-popup';
 import ScheduleSelector from 'react-schedule-selector'
+import Modal from '@mui/material/Modal'
+import { ListItem, ListItemText, List, Drawer, DrawerHeader, RadioGroup, FormControlLabel, Radio, FormLabel } from "@mui/material";
 
 const Groups = () => {
     const [filter, setFilter] = useState({
@@ -25,6 +28,8 @@ const Groups = () => {
         exp: "ANY"
     });
     const [groups, setGroups] = useState([]);
+    const [timesModal, setTimesModal] = useState(false)
+    const [fightOpen, setFightOpen] = useState(false)
 
     const user = JSON.parse(localStorage.getItem("profile"));
     const navigate = useNavigate();
@@ -79,7 +84,7 @@ const Groups = () => {
 
     const renderCustomTimeCell = (time, selected, innerRef) => (
         <div style={{ textAlign: 'center'}} ref={innerRef}>
-            <div style={{ height: '10px', width: '100%', 'background-color': selected ? 'blue' : 'lightBlue'}}>
+            <div style={{ height: '2.5vh', width: '100%', 'background-color': selected ? 'blue' : 'lightBlue'}}>
             </div>
         </div>
       )
@@ -89,11 +94,27 @@ const Groups = () => {
         </div>
       )
 
+    Object.keys(progmapping).map((item) => console.log(item))
+
     return (
         <div className="groups-wrapper">
             <span className="filter-groups-label">Filter Groups</span>
-            <div className="filter-area">{}
-                <button className="collapsible" onClick={handleCollapse}>Fight</button>
+            <div className="filter-area" style={{"backgroundColor":"white", "overflowY":"auto"}}>
+
+                <FormLabel style={{color: "black", "fontSize": "3vh", "textAlign": "left"}}>Fight</FormLabel>
+                <RadioGroup
+                    defaultValue="Any"
+                    onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}
+                    style={{color:"black", "marginLeft": "3vw"}}
+                >
+                    <FormControlLabel value="UWU" control={<Radio/>} label="UWU" />
+                    <FormControlLabel value="UCOB" control={<Radio/>} label="UCOB" />
+                    <FormControlLabel value="TEA" control={<Radio/>} label="TEA" />
+                    <FormControlLabel value="DSU" control={<Radio/>} label="DSU" />
+                    <FormControlLabel value="Any" control={<Radio/>} label="Any" />
+                </RadioGroup>
+
+                {/* <button className="collapsible" onClick={handleCollapse}>Fight</button>
                 <div className="fight-content">
                     <input type="radio" id="UWU" name="fight" value="UWU" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
                     <label for="UWU">UWU</label>
@@ -105,7 +126,21 @@ const Groups = () => {
                     <label for="DSU">DSU</label>
                     <input type="radio" id="ANY" default name="fight" value="ANY" onChange={(e) => {setFilter((prevState) => ({ ...prevState, fight: e.target.value }))}}></input>
                     <label for="ANY">ANY</label>
-                </div>
+                </div> */}
+
+                <FormLabel style={{color: "black", "fontSize": "3vh", "textAlign": "left"}}>Minimum Prog Point</FormLabel>
+                <RadioGroup
+                    defaultValue="Any"
+                    onChange={(e) => {setFilter((prevState) => ({ ...prevState, prog: e.target.value }))}}
+                    style={{color:"black", "marginLeft": "3vw"}}
+                >
+                    <>
+                    {Object.keys(progmapping).map((item) => { <>
+                        <FormLabel>{item}</FormLabel>
+                        <FormControlLabel value={item} control={<Radio/>} label={`${item}`} /></>
+                    })}
+                    </>
+                </RadioGroup>
 
                 <button className="collapsible" onClick={handleCollapse}>Prog</button>
                 <div className="prog-content">
@@ -166,7 +201,7 @@ const Groups = () => {
                     </select>
                 </div>
 
-                <button className="collapsible" onClick={handleCollapse}>Experience</button>
+                <button className="collapsible" onClick={handleCollapse}>Minimum Raiding Experience</button>
                 <div className="exp-content">
                     <select id="exp-sel" className="exp-sel" onChange={(e) => setFilter({ ...filter, exp: e.target.value })}>
                         <option value="ANY">Any</option>
@@ -184,16 +219,19 @@ const Groups = () => {
                 </div>
 
                 <div className="times">
-                    <Popup trigger={<button>Open modal</button>} position="center" modal>
+                    <Popup trigger={<button>Open modal</button>} position="center" modal
+                        contentStyle={{
+                            width: "50vw", border: "#673FD7 10px inset",
+                            "border-radius": "5%"
+                            }}>
                         {close => (
                             <div>
                                 <button onClick={close}>close</button>
                                 <ScheduleSelector
                                     selection={filter.times}
                                     onChange={(e) => {setFilter({...filter, times:e})}}
-                                    rowGap={"1px"}
+                                    rowGap={".25vh"}
                                     renderDateCell={renderCustomTimeCell}
-                                    renderTimeLabel={renderCustomTimeLabel}
                                     numDays={7}
                                     minTime={0}
                                     maxTime={24}
@@ -201,7 +239,7 @@ const Groups = () => {
                                     dateFormat={"ddd"}
                                     timeFormat={"hh:mm A"}
                                     startDate={"11-20-22"}
-                                    columnGap={"1vw"}
+                                    columnGap={".5vw"}
                                 />
                                 <button onClick={() => setFilter({...filter, times:[]})}>clear</button>
                             </div>

@@ -111,7 +111,3 @@
   .fight-content input[type="radio"]:checked + label {
     border: solid 1vh green;
   }
-
-  .popup-content {
-    width: 80vw;
-  }
