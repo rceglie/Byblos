@@ -4,7 +4,7 @@ import logo from '../../images/logo2.jpg';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getPostsByUser } from '../../actions/posts';
-import "../../style/navbar.css"
+import "./navbar.css"
 import {auth} from '../../actions/auth.js'
 
 const Navbar = () => {
