@@ -137,11 +137,12 @@ const Groups = () => {
                 </FormControl>
 
                 <FormControl>
-                    <InputLabel style={{color:"white", textAlign: "left"}}>Minimum Prog Point</InputLabel>
+                    <InputLabel style={{color:"white", textAlign: "left", textOverflow:"clip"}}>Prog Point</InputLabel>
                     <Select
                     sx={theme}
                     variant="outlined"
-                    label="Minimum Prog Point"
+                    textOverflow=""
+                    label="Prog Point"
                     defaultValue="ANY"
                     onChange={(e) => setFilter({...filter, prog: e.target.value})}
                     >
@@ -221,11 +222,11 @@ const Groups = () => {
 
                 {/* exp */}
                 <FormControl fullWidth>
-                    <InputLabel style={{color:"white", textAlign: "left"}}>Raiding Experience</InputLabel>
+                    <InputLabel style={{color:"white", textAlign: "left"}}>Experience</InputLabel>
                     <Select
                     sx={theme}
                     variant="outlined"
-                    label="Raiding Experience"
+                    label="Experience"
                     defaultValue="ANY"
                     onChange={(e) => setFilter({...filter, exp: e.target.value})}
                     >
@@ -239,10 +240,10 @@ const Groups = () => {
 
                 {/* ilvl */}
                 <FormControl fullWidth>
-                    <TextField label="Minimum Item Level" variant="outlined" type="number" 
+                    <TextField label="Item Level" variant="outlined" type="number" 
                         sx={theme}
                         inputProps={{style: {color: "white"}}}
-                        InputLabelProps={{style: {color:"white"}}}
+                        InputLabelProps={{style: {color:"white", textAlign: "left"}}}
                         onChange={(e) => setFilter({ ...filter, ilvl: e.target.value })}
                         />
                 </FormControl>

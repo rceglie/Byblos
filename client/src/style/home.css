@@ -1,7 +1,7 @@
 .home-wrapper {
   user-select: none;
-  width: 99vw;
-  height: 87vh;
+  width: 95vw;
+  height: 80vh;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

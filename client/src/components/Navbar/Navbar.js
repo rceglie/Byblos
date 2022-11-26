@@ -65,14 +65,14 @@ const Navbar = () => {
         <button className="button-37" onClick={() => navigate("/myinfo")}>My Information</button>
         {user ? (
           <div className="userstuff" onMouseOver={mouseover} onMouseOut={mouseout}>
-            <div className="circle" id="avatar" display="block">
+            <Avatar sx={{bgcolor:"purple"}}>
               {
                 (user.displayName.indexOf(' ') >= 0) ?
                   (user.displayName.charAt(0) + user.displayName.charAt(user.displayName.indexOf(' ')+1)).toUpperCase()
                   :
                   (user.displayName.charAt(0) + user.displayName.charAt(1)).toUpperCase()
               }
-            </div>
+            </Avatar>
             <p id="name" display="block">{user.displayName}</p>
             <button className="button-37" hidden onClick={logout} id="logout-btn">Logout</button>
           </div>

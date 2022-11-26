@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from "../../style/betterroleselect.module.css";
 import { Switch, FormControlLabel } from '@mui/material';
 import { style } from '@mui/system';
-import graphTheoryFordFulkerson from 'graph-theory-ford-fulkerson';
 
 const RoleSelect = (props) => {
 
