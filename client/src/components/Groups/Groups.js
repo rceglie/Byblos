@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import "./groups.css"
 import "reactjs-popup/dist/index.css"
 import styles from './groups.module.css'
 
 import * as api from '../../api';
-import {progmapping} from '../../actions/progmapping.js'
+import {auth} from '../../actions/auth.js'
 
 import Post from './Post.js';
-import BetterTimeSelect from "../Util/BetterTimeSelect";
-import BetterRoleSelect from "../Util/BetterRoleSelect";
-import FilterTimeSelect from './FilterTimeSelect';
 import Popup from 'reactjs-popup';
 import ScheduleSelector from 'react-schedule-selector'
-import Modal from '@mui/material/Modal'
-import {RadioGroup, FormControlLabel, Radio, FormLabel, TextField, Button, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
+import {TextField, Button, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
 import RoleSelect from "../Util/RoleSelect";
-import { createTheme } from "@mui/system";
 
 const Groups = () => {
     const [filter, setFilter] = useState({
@@ -30,12 +24,9 @@ const Groups = () => {
         exp: "ANY"
     });
     const [groups, setGroups] = useState([]);
-    const [timesModal, setTimesModal] = useState(false)
-    const [fightOpen, setFightOpen] = useState(false)
+    const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("profile"));
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     useEffect(() => {
         console.log("------ Use Effect ------");
@@ -98,6 +89,7 @@ const Groups = () => {
 
     const theme = {
         color: "white",
+        borderColor:'white',
         '.MuiOutlinedInput-notchedOutline': {
         borderColor: 'white',
         },
@@ -109,13 +101,27 @@ const Groups = () => {
         },
         '.MuiSvgIcon-root ': {
         fill: "white !important",
+        },
+        '&:hover': {
+            borderColor: 'white',
+        },
+        ':hover': {
+            borderColor: 'white',
         }
     }
+
+    function importAll(r) {
+        let images = {};
+        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+        return images;
+      }
+
+      const images = importAll(require.context('../../images/JobIcons', false, /\.(png|jpe?g|svg)$/));
 
     return (
         <div className="groups-wrapper">
             <span className="filter-groups-label">Filter Groups</span>
-            <div className="filter-area" style={{"backgroundColor":"transparent", "overflowY":"auto"}}>
+            <div className="filter-area" style={{"backgroundColor":"transparent", "overflowY":"auto", height:"60vh"}}>
 
                 {/* fight */}
                 <FormControl fullWidth style={{color: "white"}}>
@@ -130,18 +136,18 @@ const Groups = () => {
                     >
                         {['UWU', 'UCOB', 'TEA', 'DSU', 'ANY'].map((e) => {
                             return (
-                                <MenuItem value={e}>{e}</MenuItem>
+                                <MenuItem value={e} key={e}>{e}</MenuItem>
                             )
                         })}
                     </Select>
                 </FormControl>
 
+                {/* prog */}
                 <FormControl>
-                    <InputLabel style={{color:"white", textAlign: "left", textOverflow:"clip"}}>Prog Point</InputLabel>
+                    <InputLabel style={{color:"white", textAlign: "left"}}>Prog Point</InputLabel>
                     <Select
                     sx={theme}
                     variant="outlined"
-                    textOverflow=""
                     label="Prog Point"
                     defaultValue="ANY"
                     onChange={(e) => setFilter({...filter, prog: e.target.value})}
@@ -154,71 +160,12 @@ const Groups = () => {
                         "DSU": ["vault", "nidhogg", "double dragons"],
                         }[filter.fight].map((e) => {
                             return (
-                                <MenuItem value={e}>{e}</MenuItem>
+                                <MenuItem value={e} key={e}>{e}</MenuItem>
                             )
                         })}
-                        <MenuItem value="ANY">ANY</MenuItem>
+                        <MenuItem value="ANY" key="ANY">ANY</MenuItem>
                     </Select>
                 </FormControl>
-
-                {/* <button className="collapsible" onClick={handleCollapse}>Prog</button>
-                <div className="prog-content">
-                    <select id="select-prog" onChange={(e) =>
-                        setFilter({ ...filter, prog: e.target.value })}>
-                        <option value="ANY">Any</option>
-                        {filter.fight == "ANY" && (
-                            <>
-                                <option disabled>Select Fight to Select Prog Point</option>
-                            </>
-                        )}
-                        {filter.fight == "UWU" && (
-                            <>
-                                <option>Fresh</option>
-                                <option>Garuda</option>
-                                <option>Ifrit</option>
-                                <option>Titan</option>
-                                <option>Predation</option>
-                                <option>Annihilation</option>
-                                <option>Suppression</option>
-                                <option>Primal Roulette</option>
-                            </>
-                        )}
-                        {filter.fight == "UCOB" && (
-                            <>
-                                <option>Fresh</option>
-                                <option>Twin</option>
-                                <option>Nael</option>
-                                <option>Quickmarch/Blackfire/Fellruin</option>
-                                <option>Heavensfall</option>
-                                <option>Tenstrike/Octet</option>
-                                <option>Adds</option>
-                                <option>Golden</option>
-                            </>
-                        )}
-                        {filter.fight == "TEA" && (
-                            <>
-                                <option>Fresh</option>
-                                <option>Living Liquid</option>
-                                <option>Brute Justice + Cruise Chaser</option>
-                                <option>Inception</option>
-                                <option>Wormhole</option>
-                                <option>Perfect Alexander</option>
-                            </>
-                        )}
-                        {filter.fight == "DSU" && (
-                            <>
-                                <option>Fresh</option>
-                                <option>Vault</option>
-                                <option>Thordan 1</option>
-                                <option>Nidstinien</option>
-                                <option>Eyes</option>
-                                <option>Thordan 2</option>
-                                <option>Double Dragons</option>
-                                <option>Dragon King</option>
-                            </>
-                        )}
-                    </select>
-                </div> */}
 
                 {/* exp */}
                 <FormControl fullWidth>
@@ -232,7 +179,7 @@ const Groups = () => {
                     >
                         {['First Ultimate', 'Some Ultimate Experience', 'Triple Legend', 'ANY'].map((e) => {
                             return (
-                                <MenuItem value={e}>{e}</MenuItem>
+                                <MenuItem value={e} key={e}>{e}</MenuItem>
                             )
                         })}
                     </Select>
@@ -248,9 +195,13 @@ const Groups = () => {
                         />
                 </FormControl>
 
-
+                {/* times */}
                 <div className="times">
-                    <Popup trigger={<Button variant="outlined">Select Times</Button>} position="center" modal
+                    <Popup trigger={
+                        <Button variant="outlined" style={{width:"100%", height: "5.5vh"}} sx={theme}>
+                            Times: {filter.times.length == 0 ? "All" : "Custom Times"}
+                        </Button>
+                    } position="center" modal
                         contentStyle={{
                             width: "50vw", border: "#673FD7 10px inset",
                             borderRadius: "5%"
@@ -279,8 +230,29 @@ const Groups = () => {
                     </Popup>
                 </div>
 
+                {/* jobs */}
                 <div className='jobs'>
-                    <Popup trigger={<Button variant="outlined">Select Jobs</Button>} position="center" modal
+                    <InputLabel sx={theme} style={{textAlign: "left"}}></InputLabel>
+                    <Popup trigger={
+                        <Button variant="outlined" sx={theme} style={{width:"100%", height:"5.5vh", overflowX:"clip"}}>Jobs:&nbsp;
+                            {filter.roles.length == 0 ? " All" :
+                                filter.roles.length > 5 ? 
+                                    <>
+                                    {
+                                    filter.roles.slice(0, 5).map((job) => {
+                                        return (<img style={{height:"3vh"}} src={images[`${job}.png`]}/>)
+                                    })
+                                    }
+                                    <p>&nbsp;...</p>
+                                    </>
+                                :
+                                    filter.roles.map((job) => {
+                                        console.log(images)
+                                        return (<img style={{height:"3vh"}} src={images[`${job}.png`]}/>)
+                                    })
+                                
+                            }
+                        </Button>} position="center" modal
                             contentStyle={{
                                 width: "50vw", height: "80vh", border: "#673FD7 10px inset",
                                 borderRadius: "5%"
@@ -300,10 +272,26 @@ const Groups = () => {
                 </div>
             </div>
 
-            <div className="sumbit-buttons">
-                    <button className="submit-search" onClick={handleSumbit}>Sort with My Information</button>
-                    <button className="submit-search" onClick={handleSumbit}>Sort with Filter</button>
-                </div>
+            <div className="sumbit-buttons" style={{top:"83vh", left:"3.66vw", gap:"2vh", position: "fixed", display:"flex", flexDirection:"column"}}>
+                <Button variant="outlined" sx={theme} style={{
+                    width:"100%", height:"5.5vh", width: "22.5vw"}}
+                    onClick={async () => {
+                        const result = await auth();
+                        if (result) {
+                            console.log("doing stuff")
+                        } else {
+                            navigate("/signin")
+                        }
+                    }}>
+                    Fill with My Information
+                </Button>
+                <Button variant="outlined" sx={theme} style={{
+                    width:"100%", height:"5.5vh", width: "22.5vw"}}
+                    onClick={handleSumbit}>
+                    Sort with Filter
+                </Button>
+            </div>
+
             <span className="display-groups-label">Groups</span>
             
             <div className="group-area">
