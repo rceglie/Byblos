@@ -43,14 +43,13 @@ const Navbar = () => {
 
   const mouseout = () => {
     document.getElementById("logout-btn").style.display="none";
-    document.getElementById("avatar").style.display="block";
-    document.getElementById("name").style.display="block";
+    document.getElementById("name").hidden = false;
+    //document.getElementById("avatar").style.display="block";
   }
 
   const mouseover = () => {
     document.getElementById("logout-btn").style.display="block";
-    document.getElementById("avatar").style.display="none";
-    document.getElementById("name").style.display="none";
+    document.getElementById("name").hidden = true;
   }
 
   return (
@@ -65,15 +64,7 @@ const Navbar = () => {
         <button className="button-37" onClick={() => navigate("/myinfo")}>My Information</button>
         {user ? (
           <div className="userstuff" onMouseOver={mouseover} onMouseOut={mouseout}>
-            <Avatar sx={{bgcolor:"purple"}}>
-              {
-                (user.displayName.indexOf(' ') >= 0) ?
-                  (user.displayName.charAt(0) + user.displayName.charAt(user.displayName.indexOf(' ')+1)).toUpperCase()
-                  :
-                  (user.displayName.charAt(0) + user.displayName.charAt(1)).toUpperCase()
-              }
-            </Avatar>
-            <p id="name" display="block">{user.displayName}</p>
+            <p id="name" display="block">Logged in as: {user.displayName}</p>
             <button className="button-37" hidden onClick={logout} id="logout-btn">Logout</button>
           </div>
         ) : (

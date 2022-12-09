@@ -29,14 +29,13 @@ const Post = ({post, setCurrentId}) => {
                     <div>
                         <Typography variant="h6">LFM Post</Typography>
                         <Typography variant="body2">Fight: {post.fight}</Typography>
-                        <Typography variant="body2">Times: WIP</Typography>
+                        <Typography variant="body2">Times: {post.times}</Typography>
                         <Typography variant="body2">Prog:  {post.prog}</Typography>
                         <Typography variant="body2">Roles: {post.roles}</Typography>
-                        <Typography variant="body2">Comp:  WIP</Typography>
                         <Typography variant="body2">ilvl:  {post.ilvl}</Typography>
                         <Typography variant="body2">Exp:   {post.exp}</Typography>
                         <Typography variant="body2">Summary:   {post.sum}</Typography>
-                        <Typography variant="body2">Desc:  {post.desc}</Typography>
+                        <Typography variant="body2">Description:  {post.desc}</Typography>
                         <Typography variant="body2">Posted by: {post.name}</Typography>
                         <Typography variant="body2">Created {moment(post.createdAt).fromNow()}</Typography>
                     </div>

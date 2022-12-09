@@ -30,50 +30,37 @@ const Groups = () => {
 
     useEffect(() => {
         console.log("------ Use Effect ------");
-        console.log("fight:", filter.fight)
-        console.log("roles:", filter.roles)
+        console.log("times:", filter.times.toString())
         console.log("object:", filter);
         console.log("Groups:");
         console.log(groups);
         console.log("------ End Effect ------");
     });
 
-    const handleSumbit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { data } = await api.fetchGroups(filter);
         setGroups(data.data);
     };
 
-    const handleRoleCallback = (childData) => {
-        setFilter((prevState) => ({ ...prevState, roles: childData }));
-    };
+    const handleInfoSubmit = async (e) => {
+        e.preventDefault();
+        let result = await auth();
+        if (result){
+            // Get user information
+            const { data } = await api.fetchInfo(JSON.parse(localStorage.getItem("user"))["_id"])
+            console.log(data);
 
-    const handleTimeCallback = (childData) => {
-        setFilter((prevState) => ({ ...prevState, times: childData }));
-    };
+            // Set filter to user information
+            setFilter(data);
 
-    const handleCollapse = (e) => {
-        var content = e.target.nextElementSibling;
-        closeMenus(content.className)
-        e.target.classList.toggle("active")
-        if (content.style.display == "block") {
-            content.style.display = "none";
+            // Call handleSubmit
+
+
         } else {
-            content.style.display = "block";
+            navigate("/signin")
         }
-    }
-
-    const closeMenus = (avoid) => {
-        const collection = document.getElementsByClassName("collapsible")
-        for (let i = 0; i < collection.length; i++){
-            try {
-                if (collection[i].nextElementSibling.className != avoid){
-                    collection[i].classList.remove("active");
-                    collection[i].nextElementSibling.style.display = "none";
-                }
-            } catch (e) {}
-        }
-    }
+    };
 
     const renderCustomTimeCell = (time, selected, innerRef) => (
         <div style={{ textAlign: 'center'}} ref={innerRef}>
@@ -81,11 +68,6 @@ const Groups = () => {
             </div>
         </div>
       )
-
-    const renderCustomTimeLabel = (time, selected, innerRef) => (
-        <div style={{ textAlign: 'center', color:'black'}} ref={innerRef}>{time.getHours()}
-        </div>
-    )
 
     const theme = {
         color: "white",
@@ -117,6 +99,7 @@ const Groups = () => {
       }
 
       const images = importAll(require.context('../../images/JobIcons', false, /\.(png|jpe?g|svg)$/));
+
 
     return (
         <div className="groups-wrapper">
@@ -274,27 +257,20 @@ const Groups = () => {
 
             <div className="sumbit-buttons" style={{top:"83vh", left:"3.66vw", gap:"2vh", position: "fixed", display:"flex", flexDirection:"column"}}>
                 <Button variant="outlined" sx={theme} style={{
-                    width:"100%", height:"5.5vh", width: "22.5vw"}}
-                    onClick={async () => {
-                        const result = await auth();
-                        if (result) {
-                            console.log("doing stuff")
-                        } else {
-                            navigate("/signin")
-                        }
-                    }}>
+                    height:"5.5vh", width: "22vw", right: ".25vw"}}
+                    onClick={handleInfoSubmit}>
                     Fill with My Information
                 </Button>
                 <Button variant="outlined" sx={theme} style={{
-                    width:"100%", height:"5.5vh", width: "22.5vw"}}
-                    onClick={handleSumbit}>
+                    right:".25vw", height:"5.5vh", width: "22vw"}}
+                    onClick={handleSubmit}>
                     Sort with Filter
                 </Button>
             </div>
 
-            <span className="display-groups-label">Groups</span>
+            <span className="display-groups-label">Groups {groups?.length > 0 ? "(Found "+groups.length+" groups)" : ""}</span>
             
-            <div className="group-area">
+            <div className="group-area" style={{overflowY:"scroll"}}>
                 {groups?.map((post, index) => (
                     <Post key={index} post={post} />
                 ))}
