@@ -24,7 +24,7 @@ const MyInfo = () => {
       const result = await auth();
       if (result){
         let userId = JSON.parse(localStorage.getItem("user"))._id
-        const data = await api.fetchInfo(userId);
+        const data = await api.fetchUser(userId);
         const groupdata = await api.getUserGroups({id: userId})
         console.log(groupdata.data)
         setDiscord(data.data.discord)
@@ -51,7 +51,7 @@ const MyInfo = () => {
         pack.id = JSON.parse(localStorage.getItem("user"))._id
         console.log(pack)
         const ret = await api.setInfo(pack);
-        const data = await api.fetchInfo(JSON.parse(localStorage.getItem('user'))._id);
+        const data = await api.fetchUser(JSON.parse(localStorage.getItem('user'))._id);
         setInfo(data.data)
         setOriginalInfo(data.data)
       } else {

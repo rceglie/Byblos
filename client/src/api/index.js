@@ -23,7 +23,7 @@ API.interceptors.request.use((req) => {
   export const deletePost = (id) => API.delete(`/posts/${id}`);
 
   export const fetchGroups = (filter) => API.post('/posts/getgroups', filter);
-  export const fetchInfo = (id) => API.get(`/users/getInfo/${id}`);
+  export const fetchUser = (id) => API.get(`/users/getInfo/${id}`);
   export const setInfo = (info) => API.post(`/users/setInfo`, info);
   export const getPlayers = (filter) => API.post("/posts/getplayers", filter);
   export const setDiscord = (body) => API.post("/users/setDiscord", body);

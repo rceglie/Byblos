@@ -58,7 +58,7 @@ export const filterPosts = (posts, filter) => {
         // make sure every time in post.time is in filter.time
         for (let i = 0; i < post.times.length; i++){
             let date = new Date(post.times[i])
-            date.setHours(date.getHours()-5);
+            //date.setHours(date.getHours()-5);
             date = date.toISOString();
             if (!filter.times.includes(date)){
                 console.log("filter" , filter.times, "does not include", date)

@@ -18,7 +18,7 @@ export const createData = async (req, res) => {
    
     await PostMessage.deleteMany({});
 
-    for (let j = 0; j < 5; j++){
+    for (let j = 0; j < 10; j++){
 
         let data = {};
 
@@ -71,7 +71,7 @@ export const createData = async (req, res) => {
 
         data.ilvl = Math.floor(Math.random() * (630 - 0) + 0);
         data.exp = ["First Ultimate","Some Ultimate Experience","Triple Legend","ANY"][Math.floor(Math.random() * 4)];
-        data.sum = "Group summary"
+        data.sum = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
         data.desc = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
 
         try{

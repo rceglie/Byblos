@@ -20,10 +20,18 @@ export const createPost = async (req, res) => {
     
     try {
         const post = req.body;
+        console.log(post.times)
+
+        for (let i = 0; i < post.times.length; i++){
+            let date = new Date(post.times[i])
+            date.setHours(date.getHours()-5);
+            post.times[i] = date.toISOString();
+        }
+
+        console.log(post.times)
 
         const userId = req.body.creator;
         const groups = await PostMessage.findOne({creator: userId})
-        console.log("trying to make new group found", groups)
         if (groups == null){
             const newPost = new PostMessage({...post, creator: post.creator, createdAt: new Date().toISOString()});
             await newPost.save()
@@ -103,19 +111,6 @@ export const getUserGroups = async (req, res) => {
         const posts = await PostMessage.findOne({creator:userId})
         console.log("  FOUND:", posts)
         res.status(200).json(posts);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-
-export const test = async (req, res) => {
-    for (let i = 0 ; i < 10; i++){
-        let fight = ""
-        let times = ""
-    }
-    console.log("Getting user groups")
-    try {
-        res.status(200).json("Hello");
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

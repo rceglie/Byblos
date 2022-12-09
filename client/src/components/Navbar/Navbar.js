@@ -23,7 +23,6 @@ const Navbar = () => {
       if (result){
         setUser(JSON.parse(localStorage.getItem('user')))
         const col = Math.floor(Math.random()*16777215).toString(16);
-        document.getElementById("avatar").style.background = "#" + col;
       } else {
         setUser(null);
       }

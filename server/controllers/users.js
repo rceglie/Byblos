@@ -130,6 +130,7 @@ export const getInfo = async (req, res) => {
         let result = {...data[0].info}
         result.active = data[0].active;
         result.discord = data[0].discord;
+        result.name = data[0].name
         res.status(200).send(result)
     } catch (e) {
         res.status(500).send({message: "Internal Server Error"})

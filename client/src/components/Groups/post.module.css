@@ -1,0 +1,62 @@
+.postwrapper {
+    border: white 3px solid;
+    min-height: 15vh;
+    width: 85%;
+    display: flex;
+    flex-direction : row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.leftcontent {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    height: 100%;
+}
+
+.summary {
+    width: 50%;
+}
+
+.seemore {
+    width: 5vw;
+    height: 5vh;
+}
+
+.extendedpostwrapper {
+    color: black;
+}
+
+.extendedcontent {
+    display: flex;
+    flex-direction: row;
+    gap: 5vw;
+    justify-content: space-between;
+    padding: 5vh 5vw 1vh 5vw; 
+}
+
+.extendedleft{
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.timesinfo {
+    font-size: 1.25em;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.timesegments {
+    display: flex;
+    flex-direction: column;
+}
+
+.extendedright{
+    align-items: center;
+    text-align: left;
+    width:30%;
+}
